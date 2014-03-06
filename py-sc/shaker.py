@@ -90,13 +90,10 @@ def ssh_cmd(cmds,var):
       s.sendline(cmd)
       if mode !=1:
         web_console_cmd(cmd)
-      while True:      
-        s.prompt()
-        message_rt = s.before
-        if len(message_rt) < 5:
-          print "************************"+':'.join(x.encode('hex') for x in message_rt)
-        if message_rt > 4:
-          break;
+      s.prompt()
+      message_rt = s.before
+            
+     
       
       web_console_rt(message_rt)
      
@@ -122,6 +119,7 @@ def ssh_cmd(cmds,var):
 def main(argv):
   env_file = ''
   shell_file = ''
+  console_arguments =[]
   # mode
   # 1 : debug
   # 2 : execute
@@ -129,9 +127,9 @@ def main(argv):
   mode = 0 
   global WEB_CONSOLE
   try:
-    opts,args = getopt.getopt(argv,'hdxwe:s:',['env_file=','shell_file='])
+    opts,args = getopt.getopt(argv,'hdxwe:s:',['env_file=','shell_file=','argv='])
   except getopt.GetoptError:
-    print 'shaker.py -[d|x|w] -e <file_env> -s <file_shell>'
+    print 'shaker.py -[d|x|w] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>'
     sys.exit(2)
   for opt,arg in opts:
     if opt =='-h':
@@ -147,6 +145,8 @@ def main(argv):
       mode =2
     elif opt =='-w' :
       WEB_CONSOLE = True
+    elif opt == '--argv':
+      console_arguments = arg.split()
   if mode ==1:
     print '\t\t[Shaker Debug]\n'
   # parsing env.yaml
@@ -155,10 +155,11 @@ def main(argv):
       print '\t\t[debug][env yaml]\n'
     tmp = Template(filename=env_file)
     
-    data =[]
-    data.append('IRCWWP001')
     
-    str_yaml = tmp.render(args_env=data)
+   # data.append('IRCWWP001')
+    print 'console arg'
+    print console_arguments
+    str_yaml = tmp.render(argv=console_arguments)
     if mode ==1:
       print '[debug][content of env]:'
       print  str_yaml
