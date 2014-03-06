@@ -68,7 +68,7 @@ html
                   div.console(id="console-content", style="width:100%;height:500px;overflow-y:scroll")
                 div.modal-footer
                   button(type="button", class="btn btn-default", data-dismiss="modal") Close
-                  button(type="button", class="btn btn-primary") Save logs
+                  button(onclick="clear_console();",type="button", class="btn btn-primary") Clear
        style.
             .console {
               font-family:Courier;
@@ -88,4 +88,8 @@ html
           function render_plain_text(txt)
           {
             return txt.replace(/\n/g, "<br />");
+          }
+          function clear_console()
+          {
+            $("#console-content").html('');
           }

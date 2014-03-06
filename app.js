@@ -132,12 +132,7 @@ app.post('/add_script', function(req,res){
         console.log(e);
     }
     });
-
-
-
- 
-    
-    res.redirect('/show_script');
+    res.redirect('/edit_script/'+req.body.name_script);
 });
 //************************************************************
 //******************************** MODULE CONF FILE **********

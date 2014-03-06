@@ -48,7 +48,7 @@ block CONTENT
         $('#console').modal('show')
         $.post("/run_shaker/"+$('#name_script').val(),{argv: arguments },function(data){
            
-          alert("finish");       
+          $('#console-content').append("finish");       
         });
         
       }
