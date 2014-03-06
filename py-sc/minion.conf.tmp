@@ -2,5 +2,4 @@
 master : 192.168.0.222
 grains:
   roles:
-    - tomcat
-    - blas4chall
+    - wordpress
