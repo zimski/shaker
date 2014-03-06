@@ -1,0 +1,53 @@
+extends layout
+
+
+block CONTENT
+          h1.page-header Dashboard
+
+          div.row.placeholders
+            div.col-xs-6.col-sm-3.placeholder
+              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
+              h4 Label
+              span.text-muted Something else
+          h2.sub-header List of virual machines
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th Hostname
+                  th Ip
+                  th Domain
+                  th Gateway
+                  th DNS
+                  th roles
+                  th status
+                  th command
+              tbody
+              each hs in data
+                tr
+                  td #
+                  td= hs.hostname
+                  td= hs.ip
+                  td= hs.domain
+                  td= hs.gateway
+                  td= hs.dns
+                  td= hs.roles
+                  td OK
+                  td
+                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Salt it !
+
+
+
+
+         
+          script.
+              var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });
+         

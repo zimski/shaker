@@ -1,0 +1,35 @@
+extends layout
+
+
+block CONTENT
+  h1.page-header Configure a new VM / Container
+  form(role="form",action='/add_vm',method='POST')
+    
+    div.form-group
+      label(for="ip") IP Address
+      input(name='ip', type="ip", class="form-control" ,id="ip", placeholder="Enter IP")
+    div.form-group
+      label(for="ip") Root password
+      input(name='pass',type="dns", class="form-control" ,id="ip", placeholder="Enter password for root access ,")
+    div.form-group
+      label(for="ip") Host name
+      input(name='hostname',type="ip", class="form-control" ,id="ip", placeholder="Hostname")
+    div.form-group
+      label(for="ip") Domaine
+      input(name='domain',type="ip", class="form-control" ,id="ip", placeholder="Enter domaine name")
+    div.form-group
+      label(for="ip") Gateway
+      input(name='gateway',type="ip", class="form-control" ,id="ip", placeholder="Enter IP of the Gateway")
+    div.form-group
+      label(for="ip") DNS server
+      input(name='dns',type="dns", class="form-control" ,id="ip", placeholder="Enter ip of dns server ,")
+
+    div.form-group
+      label(for="ip") Roles
+      input(name='roles',type="ip", class="form-control" ,id="ip", placeholder="Enter roles separated by ,")
+    div.form-group
+      label(for="ip") Type VM or CT
+      select.form-control    
+        option Virtual machine
+        option Container
+    button(type="submit" ,class="btn btn-success") Enregistrer

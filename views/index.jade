@@ -1,0 +1,15 @@
+html
+  head
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/signin.css')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/socket.io/socket.io.js')
+  body
+    div.container
+      form.form-signin(role='form')
+        h2.form-signin-heading ~[Shaker]~
+        input.form-control(placeholder='Login')
+        input.form-control(placeholder='Password')
+        button.btn.btn-lg.btn-primary.btn-block(type='submit', style='margin-top:10px') Connect

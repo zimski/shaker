@@ -1,0 +1,86 @@
+html
+  head
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/dashboard.css')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/socket.io/socket.io.js')
+  body
+    div( class="navbar navbar-inverse navbar-fixed-top", role="navigation")
+      div.container-fluid
+        div.navbar-header
+          button(type="button", class="navbar-toggle" ,data-toggle="collapse" ,data-target=".navbar-collapse")
+            span.sr-only Toggle  navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') ~[Shaker]~
+        div.navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Dashboard
+            li
+              a(href='#') Option
+            li
+              a(href='#') Salt
+            li
+              a(href='#') Help
+          form.navbar-form.navbar-right
+            input(type="text", class="form-control", placeholder="Search...")
+    div.container-fluid
+      div.row
+        div.col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li.active
+              a(href="/dashboard") Overview
+            li
+              a(href="/add_vm") Assign new role
+            li
+              a(href="#") SaltMaster
+            li
+              a(href="#") Export
+          ul.nav.nav-sidebar
+            li
+              a(style=" font-weight:bold;") ~[ Module Script Shaker ]~
+            li
+              a(href="/add_script") Create new script
+            li
+              a(href="/show_script") Show script
+          ul.nav.nav-sidebar
+            li
+              a(style=" font-weight:bold;") ~[ Module file configuration ]~
+            li
+              a(href="/add_conf_file") Add file
+            li
+              a(href="/show_config_file") show files
+
+
+      div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+        block CONTENT
+        div.modal.fade(id="console")
+            div.modal-dialog
+              div.modal-content(style="width:800px")
+                div.modal-header
+                  button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+                  h4(class="modal-title") Console
+                div.modal-body()
+                  div.console(id="console-content", style="width:100%;height:500px;overflow-y:scroll")
+                div.modal-footer
+                  button(type="button", class="btn btn-default", data-dismiss="modal") Close
+                  button(type="button", class="btn btn-primary") Save logs
+       style.
+            .console {
+              font-family:Courier;
+             color: #CCCCCC;
+              background: #000000;
+              border: 3px double #CCCCCC;
+              padding: 10px;
+            }
+            .console-cmd {
+              color : red;
+              font-weight:bold;
+             }
+            .console-cmd.msg {
+              color : green;
+            }

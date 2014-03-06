@@ -1,0 +1,32 @@
+extends layout
+
+
+block CONTENT
+  h1 Configuration file
+  form(role="form",action='/add_conf_file',method='POST')
+    div.form-group
+      label(for="name_script") Name of script
+      input(name='conf_name', type="text", class="form-control" ,id="ip", placeholder="Enter script name" , value="#{conf_name}")
+    div.row(style="height:550px")
+      div.col-md-6(style="height:500px")
+        h3 Configuration file Template
+        textarea(name="conf_content",style="width:100%;height:500px")= conf_content
+      div.col-md-6(style="height:500px")
+        h3 Variable ENV
+        select.form-control(id='env_select')
+            option select env script
+            each gg in list_env
+              option= gg 
+        textarea(id="env_var",style="width:100%;height:467px")
+    div.clearfix
+    div.row
+      div.col-md-6
+        button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save Template
+      div.col-md-6
+        button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Update Env
+  script.
+    $('#env_select').change(function(){
+      $.post("/module-cof-file-get-var/"+$('#env_select').val(),function(data){
+        $("#env_var").val(data);
+      });
+    });

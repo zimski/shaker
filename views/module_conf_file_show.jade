@@ -1,0 +1,31 @@
+extends layout
+
+
+block CONTENT
+          h1.page-header Dashboard
+
+          div.row.placeholders
+            div.col-xs-6.col-sm-3.placeholder
+              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
+              h4 Label
+              span.text-muted Something else
+          h2.sub-header List of Configuration template file
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th template name
+                  th edit
+                  th run
+              tbody
+              each hs in data
+                tr
+                  td #
+                  td= hs
+                  td
+                    a(href="/edit_conf_file/#{hs}")
+                      button.btn.btn-success() Edit !
+                  td
+                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Salt it !
+
