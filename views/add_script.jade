@@ -6,7 +6,7 @@ block CONTENT
   form(role="form",action='/add_script',method='POST')
     div.form-group
       label(for="name_script") Name of script
-      input(name='name_script', type="text", class="form-control" ,id="ip", placeholder="Enter script name" , value="#{name}")
+      input(id="name_script",name='name_script', type="text", class="form-control" , placeholder="Enter script name" , value="#{name}")
     div.row
       div.col-md-6
         h3 Variable env
@@ -18,11 +18,45 @@ block CONTENT
       div(class="panel-heading") RUN
       div.panel-body
         div.input-group
-          input( type="text" ,class="form-control",placeholder="puts arguments")
+          input( id="run_args",type="text" ,class="form-control",placeholder="puts arguments")
           span(class="input-group-btn")
-            button(class="btn btn-default", type="button") Go!
-    div.row
-      div.col-md-6
-        button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-warning") check
-      div.col-md-6
-        button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save
+            button(onclick="run_script();",class="btn btn-default", type="button") Go!
+    
+    div.panel.panel-warning(style="margin-top:20px")
+      div(class="panel-heading") Check
+      div.panel-body
+        div.input-group
+          input( id="check_args",type="text" ,class="form-control",placeholder="puts arguments")
+          span(class="input-group-btn")
+            button(onclick="chech_script();",class="btn btn-default", type="button") Go!
+   
+    button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save
+    script.
+      function chech_script()
+      {
+        var arguments = $("#check_args").val();
+        $('#console').modal('show')
+        $.post("/check_shaker/"+$('#name_script').val(),{argv: arguments },function(data){
+           
+          $('#console-content').append(render_plain_text(data));       
+        });
+        
+      }
+      function run_script()
+      {
+        var arguments = $("#run_args").val();
+        $('#console').modal('show')
+        $.post("/run_shaker/"+$('#name_script').val(),{argv: arguments },function(data){
+           
+          alert("finish");       
+        });
+        
+      }
+      var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });

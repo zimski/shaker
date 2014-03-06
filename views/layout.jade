@@ -84,3 +84,8 @@ html
             .console-cmd.msg {
               color : green;
             }
+      script.
+          function render_plain_text(txt)
+          {
+            return txt.replace(/\n/g, "<br />");
+          }

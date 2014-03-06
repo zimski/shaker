@@ -124,6 +124,7 @@ def main(argv):
   # 1 : debug
   # 2 : execute
   global mode
+  #print argv
   mode = 0 
   global WEB_CONSOLE
   try:
@@ -180,7 +181,7 @@ def main(argv):
     print sc_content
     print '[debug][end content of shell]\n'
   list_cmd = sc_content.split('\r\n')
-  print list_cmd
+  #print list_cmd
   # run command SSH
   ssh_cmd(list_cmd,data_var_env)
 

@@ -6,6 +6,8 @@ var express = require('express')
   , sys = require('sys')
   , redis = require('redis')
   , io = require('socket.io');
+var exec = require('child_process').exec;
+var spawn = require("child_process").spawn;
 var sanitizer = require('sanitizer');
 var app = express();var sanitizer = require('sanitizer');
 var client_redis = redis.createClient();
@@ -202,6 +204,42 @@ app.post('/module-cof-file-get-var/:nameS', function(req,res){
 //************************************************************
 //************************************************************
 
+
+//************************************************************
+//          CHECK / RUN Shaker
+//************************************************************
+
+app.post('/check_shaker/:sc',function(req,res){
+  var path_sc =__dirname+"/scripts/"+req.params.sc+"/";
+  var cmd = "python "+__dirname+"/py-sc/shaker.py -d -e "+path_sc+"env.yaml -s "+path_sc+"shell.sh --argv=\""+req.body.argv+"\"";
+  child = exec(cmd, function (error, stdout, stderr) {
+    var out = stdout.replace(/ /g,"&nbsp;");
+    var err = stderr.replace(/ /g,"&nbsp;")
+    res.send('<span class="console-cmd">[#] Start checking .. </span><br>'+out+err);
+  });  
+});
+
+app.post('/run_shaker/:sc',function(req,res){
+ 
+  var path_sc =__dirname+"/scripts/"+req.params.sc+"/";
+  var cmd = __dirname+"/py-sc/shaker.py -x -w -e "+path_sc+"env.yaml -s "+path_sc+"shell.sh --argv="+req.body.argv;
+  //console.log(cmd.split(' '));  
+  var child = spawn("python",cmd.split(' '));
+  child.stdout.on("data", function (data) {
+    console.log("spawnSTDOUT:"+ data)
+  });
+
+  child.stderr.on("data", function (data) {
+    console.log("spawnSTDERR:"+ data)
+  });
+  child.on("close",function(code){
+    res.send("exit code: "+code);
+   }); 
+});
+//************************************************************
+
+
+
 app.post('/add_vm', function(req,res){
   client_redis.HMSET(req.body.hostname,
     'ip',req.body.ip,
@@ -235,7 +273,9 @@ io.sockets.on('connection', function (socket) {
     console.log('client connecté');
 
     socket.on('console-emit', function (data) {
-    socket.broadcast.emit('console-emit',sanitizer.escape(data));
+     var out = sanitizer.escape(data)
+     
+    socket.broadcast.emit('console-emit',out.replace(/ /g,"&nbsp;"));
   });
      socket.on('console-emit-cmd', function (data) {
     socket.broadcast.emit('console-emit',data);
