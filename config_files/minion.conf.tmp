@@ -1,5 +1,3 @@
-##### Primary configuration settings #####
-##########################################
 
 # Per default the minion will automatically include all config files
 # from minion.d/*.conf (minion.d is a directory in the same directory
@@ -8,7 +6,7 @@
 
 # Set the location of the salt master server, if the master server cannot be
 # resolved, then the minion will fail to start.
-master : ${data['master']}
+master : 192.168.0.222
 
 # If multiple masters are specified in the 'master' setting, the default behavior
 # is to always try to connect to them in the order they are listed. If random_master is
@@ -58,9 +56,7 @@ user: root
 # the 'roles' grain having two values that can be matched against:
 grains:
   roles:
-% for i in data['roles']:
-     - ${i}
-% endfor
+     - test-role
 #    - memcache
 #  deployment: datacenter4
 #  cabinet: 13
@@ -249,8 +245,6 @@ grains:
 #  - /etc/salt/extra_config
 #  - /etc/roles/webserver
 
-#####   Minion module management     #####
-##########################################
 # Disable specific modules. This allows the admin to limit the level of
 # access the master has to the minion
 #disable_modules: [cmd,test]
@@ -284,8 +278,6 @@ grains:
 
 
 
-#####    State Management Settings    #####
-###########################################
 # The state management system executes all of the state templates on the minion
 # to enable more granular control of system state management. The type of
 # template and serialization used for state management needs to be configured
@@ -339,8 +331,6 @@ grains:
 # top file to execute if startup_states is 'top'
 #top_file: ''
 
-#####     File Directory Settings    #####
-##########################################
 # The Salt Minion can redirect all file server operations to a local directory,
 # this allows for the same state tree that is on the master to be used if
 # copied completely onto the minion. This is a literal copy of the settings on
@@ -392,8 +382,6 @@ grains:
 #  base:
 #    - /srv/pillar
 
-######        Security settings       #####
-###########################################
 # Enable "open mode", this mode still maintains encryption, but turns off
 # authentication, this is only intended for highly secure environments or for
 # the situation where your keys end up in a bad state. If you run in open mode
@@ -422,14 +410,10 @@ grains:
 # salt master.
 #master_finger: ''
 
-######         Thread settings        #####
-###########################################
 # Disable multiprocessing support, by default when a minion receives a
 # publication a new process is spawned and the command is executed therein.
 #multiprocessing: True
 
-#####         Logging settings       #####
-##########################################
 # The location of the minion log file
 # The minion log can be sent to a regular file, local path name, or network
 # location. Remote logging works best when configured to use rsyslogd(8) (e.g.:
@@ -471,8 +455,6 @@ grains:
 #
 #log_granular_levels: {}
 
-######      Module configuration      #####
-###########################################
 # Salt allows for modules to be passed arbitrary configuration data, any data
 # passed here in valid yaml format will be passed on to the salt minion modules
 # for use. It is STRONGLY recommended that a naming convention be used in which
@@ -492,8 +474,6 @@ grains:
 #test.baz: {spam: sausage, cheese: bread}
 
 
-######      Update settings          ######
-###########################################
 # Using the features in Esky, a salt minion can both run as a frozen app and
 # be updated on the fly. These options control how the update process
 # (saltutil.update()) behaves.
@@ -505,8 +485,6 @@ grains:
 #update_restart_services: []
 
 
-######      Keepalive settings        ######
-############################################
 # ZeroMQ now includes support for configuring SO_KEEPALIVE if supported by
 # the OS. If connections between the minion and the master pass through
 # a state tracking device such as a firewall or VPN gateway, there is
@@ -533,7 +511,5 @@ grains:
 #tcp_keepalive_intvl: -1
 
 
-######      Windows Software settings ######
-############################################
 # Location of the repository cache file on the master
 #win_repo_cachefile: 'salt://win/repo/winrepo.p'

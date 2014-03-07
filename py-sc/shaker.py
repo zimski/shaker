@@ -107,10 +107,10 @@ def ssh_cmd(cmds,var):
      
    
     web_console_info("Script complete")
-  except pxssh.ExceptionPxssh as e:
-    print("pxssh failed on login.")
+  except Exception as e:
+    print("SSH error.")
     print(e)
-    web_console_info('[!!!] ERROR:'+str(e))
+    web_console_info('[!!!] SSH ERROR:'+str(e))
 
 #---------------------------------
 #                 MAIN
@@ -130,11 +130,17 @@ def main(argv):
   try:
     opts,args = getopt.getopt(argv,'hdxwe:s:',['env_file=','shell_file=','argv='])
   except getopt.GetoptError:
-    print 'shaker.py -[d|x|w] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>'
+    print '\t usage: shaker.py -[d|x|w] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>'
     sys.exit(2)
   for opt,arg in opts:
     if opt =='-h':
-      print 'shaker.py -[d|x] -e <file_env> -s <file_shell>'
+      print '\nusage : shaker.py -[d|x] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>\n'
+      print '\t-d\t\tMode Debug, check templating result'
+      print '\t-w\t\tSend notification to webGUI'
+      print '\t-x\t\tRun script'
+      print '\t-e <file>\tSet file env variables'
+      print '\t-s <file>\tSet script file'
+      print '\t--argv=<args>\tSet arguments\n'
       sys.exit(2)
     elif opt in ('-e','--env_file'):
       env_file = arg

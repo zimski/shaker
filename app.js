@@ -248,6 +248,7 @@ app.post('/add_vm', function(req,res){
        if(err)    
         console.log('erreur'+err);
       });
+      client_redis.lrem('hosts',1,req.body.hostname);
       client_redis.rpush('hosts',req.body.hostname,function(err){
        if(err) 
         console.log('erreur'+err);

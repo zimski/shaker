@@ -35,7 +35,7 @@ block CONTENT
                   td= hs.roles
                   td OK
                   td
-                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Salt it !
+                    button.btn.btn-danger(onclick="run_script('#{hs.hostname}')",data-toggle="modal" data-target="#console",style='height:30px') Salt it !
 
 
 
@@ -50,4 +50,14 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
+              function run_script(arg)
+              {
+                var arguments = arg;
+                $('#console').modal('show')
+                $.post("/run_shaker/script_file",{argv: arguments },function(data){
+                   
+                  $('#console-content').append("finish");       
+                });
+                
+              }
          
