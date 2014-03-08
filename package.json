@@ -1,0 +1,35 @@
+{
+  "name": "Shaker",
+  "version": "0.0.0",
+  "description": "Shell with python/mako layer + Shaker GUI cms",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "jade": "~1.2.0",
+    "mime": "~1.2.11",
+    "redis": "~0.10.1",
+    "sanitizer": "~0.1.1",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zimski/shaker.git"
+  },
+  "keywords": [
+    "python",
+    "bash",
+    "template",
+    "mako",
+    "automatisation"
+  ],
+  "author": "CHADDA Chakib (zimski)",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/zimski/shaker/issues"
+  },
+  "homepage": "https://github.com/zimski/shaker"
+}

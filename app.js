@@ -36,6 +36,9 @@ app.get('/dashboard', function(req,res){
   client_redis.LRANGE('hosts',0,-1,function(err,data_l){
        console.log(data_l);
        var list_machine=[];
+       if(data_l.length==0)
+       	res.render('dashboard',{'data':list_machine});
+       else
        data_l.forEach(function(item){
         client_redis.hgetall(item,function(err,data)
         {
