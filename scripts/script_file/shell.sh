@@ -2,6 +2,7 @@ apt-get update
 apt-get install curl
 echo "${env['global_var']['hostname']}" > /etc/hostname
 /etc/init.d/hostname start
+hostname ${env['global_var']['hostname']}
 curl -L http://bootstrap.saltstack.org | sh
 hostname
 hostname -f

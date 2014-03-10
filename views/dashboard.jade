@@ -17,7 +17,7 @@ block CONTENT
                   th #
                   th Hostname
                   th Ip
-                  th Domain
+                  th MAC
                   th Gateway
                   th DNS
                   th roles
@@ -25,17 +25,18 @@ block CONTENT
                   th command
               tbody
               each hs in data
-                tr
+                tr(id="tr-#{hs.hostname}")
                   td #
                   td= hs.hostname
                   td= hs.ip
-                  td= hs.domain
+                  td= hs.mac
                   td= hs.gateway
                   td= hs.dns
                   td= hs.roles
                   td OK
                   td
-                    button.btn.btn-danger(onclick="run_script('#{hs.hostname}')",data-toggle="modal" data-target="#console",style='height:30px') Salt it !
+                    button.btn.btn-danger(onclick="run_script('#{hs.hostname}')",data-toggle="modal" data-target="#console",style='height:30px') Shake it!
+                    button.btn.btn-default(onclick="delete_vm('#{hs.hostname}')",style='height:30px; margin-left:5px') Remove
 
 
 
@@ -54,10 +55,21 @@ block CONTENT
               {
                 var arguments = arg;
                 $('#console').modal('show')
-                $.post("/run_shaker/script_file",{argv: arguments },function(data){
+                $.post("/run_shaker/initialise_vm_from_0",{argv: arguments },function(data){
                    
                   $('#console-content').append("finish");       
                 });
                 
               }
+              function delete_vm(hostname)
+              {
+                $.post("/delete_vm",{host: hostname},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    
+                    $('#tr-'+hostname).hide();}
+                });
+              }
+              
          

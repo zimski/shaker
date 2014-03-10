@@ -74,7 +74,32 @@ app.get('/add_vm', function(req,res){
   
   res.render('add_vm',{});
 });
+app.post('/delete_vm', function(req,res){
+  client_redis.lrem('hosts',1,req.body.host);
+  client_redis.del(req.body.host);
+  res.send("ok");
+});
+app.post('/add_vm', function(req,res){
+  client_redis.HMSET(req.body.hostname,
+    'ip',req.body.ip,
+    'mac', req.body.mac,
+    'domain',req.body.domain,
+    'gateway',req.body.gateway,
+    'dns',req.body.dns,
+    'roles',req.body.roles,
+    'pass',req.body.pass,
 
+    function(err){
+       if(err)    
+        console.log('erreur'+err);
+      });
+      client_redis.lrem('hosts',1,req.body.hostname);
+      client_redis.rpush('hosts',req.body.hostname,function(err){
+       if(err) 
+        console.log('erreur'+err);
+      });
+      res.redirect('/dashboard');
+    });
 //*****************************************************
 app.get('/add_script', function(req,res){
   
@@ -238,26 +263,7 @@ app.post('/run_shaker/:sc',function(req,res){
 
 
 
-app.post('/add_vm', function(req,res){
-  client_redis.HMSET(req.body.hostname,
-    'ip',req.body.ip,
-    'domain',req.body.domain,
-    'gateway',req.body.gateway,
-    'dns',req.body.dns,
-    'roles',req.body.roles,
-    'pass',req.body.pass,
 
-    function(err){
-       if(err)    
-        console.log('erreur'+err);
-      });
-      client_redis.lrem('hosts',1,req.body.hostname);
-      client_redis.rpush('hosts',req.body.hostname,function(err){
-       if(err) 
-        console.log('erreur'+err);
-      });
-      res.redirect('/dashboard');
-    });
 var op= http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
