@@ -10,14 +10,16 @@ block CONTENT
     div.row(style="height:550px")
       div.col-md-6(style="height:500px")
         h3 Configuration file Template
-        textarea(name="conf_content",style="width:100%;height:500px")= conf_content
+        textarea(name="conf_content")= conf_content
+        div(id="conf_content", style="width:100%;height:500px")= conf_content
       div.col-md-6(style="height:500px")
         h3 Variable ENV
         select.form-control(id='env_select')
             option select env script
             each gg in list_env
               option= gg 
-        textarea(id="env_var",style="width:100%;height:467px")
+        textarea(name="env_var" ,id="env_var")
+        div(id="env_var_edit", style="width:100%;height:467px")= conf_content
     div.clearfix
     div.row
       div.col-md-6
@@ -25,8 +27,19 @@ block CONTENT
       div.col-md-6
         button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Update Env
   script.
+    var editor_conf = ace.edit("conf_content");
+    var editor_env = ace.edit("env_var_edit");
+    editor_env.getSession().setMode("ace/mode/python");
+    editor_conf.getSession().setMode("ace/mode/python");
+    var textarea_conf = $('textarea[name="conf_content"]').hide();
+    var textarea_env_var = $('textarea[name="env_var"]').hide();
+    editor_conf.getSession().on('change', function(){
+        textarea_conf.val(editor_conf.getSession().getValue());
+      });
+
     $('#env_select').change(function(){
       $.post("/module-cof-file-get-var/"+$('#env_select').val(),function(data){
         $("#env_var").val(data);
+        editor_env.getSession().setValue(data);
       });
     });
