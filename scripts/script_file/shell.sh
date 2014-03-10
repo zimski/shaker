@@ -1,8 +1,8 @@
 apt-get update
 apt-get install curl
-curl -L http://bootstrap.saltstack.org | sh
 echo "${env['global_var']['hostname']}" > /etc/hostname
-/etc/init.d/hostname.sh
+/etc/init.d/hostname start
+curl -L http://bootstrap.saltstack.org | sh
 hostname
 hostname -f
 $$ send_file.send file_conf_salt_minion 

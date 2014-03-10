@@ -16,16 +16,16 @@ block CONTENT
                 tr
                   th #
                   th template name
-                  th edit
-                  th run
+                  th 
+                  th Option
               tbody
               each hs in data
                 tr
                   td #
                   td= hs
                   td
-                    a(href="/edit_conf_file/#{hs}")
-                      button.btn.btn-success() Edit !
                   td
-                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Salt it !
+                    a(href="/edit_conf_file/#{hs}")
+                      button.btn.btn-success(style='height:30px') Edit !
+                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Delete
 
