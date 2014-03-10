@@ -77,7 +77,6 @@ def ssh_cmd(cmds,var):
       s.login(hostname, username, password)
     
     for cmd in cmds:
-      
       # looking for the cmd balise .... must be in the begining of the line
       
       if cmd.find('$$')==0 :

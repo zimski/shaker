@@ -15,17 +15,17 @@ subnet 192.168.0.0 netmask 255.255.255.0 {
    hardware ethernet 8a:1b:6c:d1:6e:76;
    fixed-address 192.168.0.242;
   }
-  host nouveau_bb_automatic {
-   hardware ethernet 8a:1b:6c:d1:6e:77;
-   fixed-address 192.168.0.243;
-  }
-  host bebe_auto_start {
-   hardware ethernet 8a:1b:6c:d1:6e:78;
-   fixed-address 192.168.0.144;
-  }
   host bebe-auto-start {
    hardware ethernet 8a:1b:6c:d1:6e:79;
    fixed-address 192.168.0.145;
+  }
+  host new-machine-dcm4chee {
+   hardware ethernet 8a:1b:6c:d1:6e:80;
+   fixed-address 192.168.0.146;
+  }
+  host koami {
+   hardware ethernet 8a:1b:6c:d1:6e:81;
+   fixed-address 192.168.0.147;
   }
 #  option routers rtr-239-0-1.example.org, rtr-239-0-2.example.org;
 }

@@ -56,7 +56,7 @@ user: root
 # the 'roles' grain having two values that can be matched against:
 grains:
   roles:
-     - coucou
+     - dcm4chee
 #    - memcache
 #  deployment: datacenter4
 #  cabinet: 13
