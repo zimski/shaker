@@ -1,0 +1,81 @@
+extends layout
+
+
+block CONTENT
+  h1 Create a New Module
+  form(role="form",action='/cms_add_module',method='POST')
+    div.form-group
+      label(for="name_script") Name of module
+      input(id="name_script",name='name_script', type="text", class="form-control" , placeholder="Enter script name" , value="#{name}")
+    div.row
+      div.col-md-6
+        h3 Forms
+        div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th Name
+                  th key
+                  th
+              tbody
+                tr
+                  th
+                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name field")
+                  th
+                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name field")
+                  th
+                    a()
+                      span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
+                    a()
+                      span(class="glyphicon glyphicon-remove-sign",style="margin-top:8px;margin-left: 5px")
+                    
+      div.col-md-6
+        h3 View
+        div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th Name of field to show
+                  th
+               
+              tbody
+                tr
+                  th
+                    input(name='name_field_show[]', type="text", class="form-control" , placeholder="Enter name field")
+                  th
+                    a()
+                      span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
+                    a()
+                      span(class="glyphicon glyphicon-remove-sign",style="margin-top:8px;margin-left: 5px")
+        h4 Button list
+        div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th Color
+                  th Button name
+                  th Script
+                  th Argv
+                  th
+              tbody
+                tr
+                  th
+                    select.form-control
+                      option Red
+                      option Green
+                      option Blue
+                      option Orange
+                  th
+                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name script")
+                  th
+                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name script")
+                  th
+                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter argv")
+                  th
+                    a()
+                      span(class="glyphicon glyphicon-plus-sign",style="")
+                    a()
+                      span(class="glyphicon glyphicon-remove-sign",style="margin-top:8px")
+
+               
+          
