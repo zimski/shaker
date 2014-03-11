@@ -36,8 +36,10 @@ block CONTENT
     button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save
     script.
       var editor_shell = ace.edit("script_bash");
-      editor_shell.getSession().setMode("ace/mode/python");
+      editor_shell.setTheme("ace/theme/monokai");
+      editor_shell.getSession().setMode("ace/mode/sh");
       var editor_env = ace.edit("var_env");
+      editor_env.setTheme("ace/theme/monokai");
       editor_env.getSession().setMode("ace/mode/python");
       var textarea_shell = $('textarea[name="script_bash"]').hide();
       var textarea_env =$('textarea[name="var_env"]').hide();

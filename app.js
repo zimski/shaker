@@ -148,8 +148,8 @@ app.post('/add_script', function(req,res){
   fs.mkdir(path_sc,function(e){
     if(!e || (e && e.code === 'EEXIST')){
         //do something with contents
-        fs.writeFile(path_sc+'/env.yaml',req.body.var_env);
-        fs.writeFile(path_sc+'/shell.sh',req.body.script_bash);
+        fs.writeFile(path_sc+'/env.yaml',req.body.var_env.replace(/^\s*\n/gm,""));
+        fs.writeFile(path_sc+'/shell.sh',req.body.script_bash.replace(/^\s*\n/gm,""));
         client_redis.lrem('shell_list',1,req.body.name_script);
         client_redis.rpush('shell_list',req.body.name_script,function(err){
         if(err) 
