@@ -9,47 +9,39 @@ block CONTENT
       input(id="name_script",name='name_script', type="text", class="form-control" , placeholder="Enter script name" , value="#{name}")
     div.row
       div.col-md-6
-        h3 Forms
+        h3 Form / show table 
         div.table-responsive
-            table.table.table-striped
+            table.table.table-striped(id="tab_form")
               thead
                 tr
+                  th Index
+                  th Show?    
                   th Name
                   th key
                   th
               tbody
                 tr
                   th
-                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name field")
+                    select.form-control(name='index[]')
+                        option(value='no') No
+                        option(value='yes') Yes
+                  th  
+                    select.form-control(name='show[]')
+                        option(value='no') No
+                        option(value='yes') Yes
+
                   th
                     input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name field")
                   th
-                    a()
+                    input(name='key_field[]', type="text", class="form-control" , placeholder="Enter name field")
+                  th
+                    a(onclick="add_row('tab_form')")
                       span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
-                    a()
-                      span(class="glyphicon glyphicon-remove-sign",style="margin-top:8px;margin-left: 5px")
-                    
+             
       div.col-md-6
-        h3 View
+        h3 Button Command
         div.table-responsive
-            table.table.table-striped
-              thead
-                tr
-                  th Name of field to show
-                  th
-               
-              tbody
-                tr
-                  th
-                    input(name='name_field_show[]', type="text", class="form-control" , placeholder="Enter name field")
-                  th
-                    a()
-                      span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
-                    a()
-                      span(class="glyphicon glyphicon-remove-sign",style="margin-top:8px;margin-left: 5px")
-        h4 Button list
-        div.table-responsive
-            table.table.table-striped
+            table.table.table-striped(id="tab_cmd")
               thead
                 tr
                   th Color
@@ -60,22 +52,28 @@ block CONTENT
               tbody
                 tr
                   th
-                    select.form-control
+                    select.form-control(name='color_button[]')
                       option Red
                       option Green
                       option Blue
                       option Orange
                   th
-                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name script")
+                    input(name='name_button[]', type="text", class="form-control" , placeholder="Enter name script")
                   th
-                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name script")
+                    input(name='name_button_script[]', type="text", class="form-control" , placeholder="Enter name script")
                   th
-                    input(name='name_field[]', type="text", class="form-control" , placeholder="Enter argv")
+                    input(name='name_button_argv[]', type="text", class="form-control" , placeholder="Enter argv")
                   th
-                    a()
+                    a(onclick='add_row("tab_cmd")')
                       span(class="glyphicon glyphicon-plus-sign",style="")
-                    a()
-                      span(class="glyphicon glyphicon-remove-sign",style="margin-top:8px")
-
-               
-          
+        
+    button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save
+       
+        script.
+            
+            function add_row(id_tab)
+            {
+                var row ;
+                row = $('#'+id_tab+'  tr:last').clone();
+                $('#'+id_tab+' tr:last').after(row);
+            }

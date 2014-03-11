@@ -1,0 +1,29 @@
+<%
+  import redis
+  w_list =[]
+  r = redis.StrictRedis()
+  #M:Nom_module:form
+  # data['name'] c'est le nom du module !!
+  list_form = r.lrange('M:'+data['name']+':form',0,-1)
+  for item in list_form:
+    row_tmp = item.split(':')
+    row['name'] = row_tmp[0]
+    row['key'] = row_tmp[1]
+    w_list.append(row)
+
+  
+%>
+extends layout
+
+
+block CONTENT
+  h1.page-header Configure a new VM / Container
+  form(role="form",action="/module/${data['name']}",method='POST')
+% for item in w_list :    
+    div.form-group
+      label(for="${item['name']}") ${item['name']}
+      input(name="${item['key']}", type="text", class="form-control" ,id="${item['name']}", placeholder="")
+% endfor    
+
+   
+    button(type="submit" ,class="btn btn-success") Save

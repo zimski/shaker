@@ -1,0 +1,93 @@
+<%
+  import redis
+  w_list_key =[]
+  w_list_name =[]
+  w_list_button =[]
+  r = redis.StrictRedis()
+  #M:Nom_module:form
+  # data['name'] c'est le nom du module !!
+  list_view = r.lrange('M:'+data['name']+':form',0,-1)
+  list_button = r.lrange('M:'+data['name']+':button',0,-1)
+  for item in list_view:
+    row_tmp = item.split(':')
+    if(row_tmp[1]='true'):
+        w_list_key.append(row_tmp[2])
+        w_list_name.append(row_tmp[3])
+  for item in list_button:
+    row_tmp = item.split(':')
+    row['color'] = row_tmp[0]
+    row['name'] = row_tmp[1]
+    row['script'] = row_tmp[2]
+    row['variable'] = row_tmp[3]
+    w_list_button.append(row)
+
+  
+%>
+
+extends layout
+
+
+block CONTENT
+          h1.page-header Dashboard
+
+          div.row.placeholders
+            div.col-xs-6.col-sm-3.placeholder
+              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
+              h4 Label
+              span.text-muted Something else
+          h2.sub-header List of virual machines
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                % for name in w_list_name :  
+                  th ${name}
+                % endfor  
+              tbody
+              each hs in data
+                tr(id="tr-#{hs.hostname}")
+                  td #
+                 % for key in w_list_key :    
+                  td= hs.${key}
+                 % endfor   
+                  td
+                  % for butt in w_list_key : 
+                    button.btn.btn-${butt['color']}(onclick="run_script('${butt['variable']}','#{hs.${butt['variable']}}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
+                  % endfor  
+
+
+
+
+         
+          script.
+              var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });
+              function run_script(scr,arg)
+              {
+                var arguments = arg;
+                $('#console').modal('show')
+                $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                   
+                  $('#console-content').append("finish");       
+                });
+                
+              }
+              function delete_row(arg)
+              {# faut preciser la clef dans le generateur
+                $.post("/module/${data['name']/delete}",{who: arg},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    
+                    $('#tr-'+arg).hide();}
+                });
+              }
+              
+         
