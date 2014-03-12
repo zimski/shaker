@@ -148,8 +148,8 @@ app.post('/add_script', function(req,res){
     fs.mkdir(path_sc,function(e){
         if(!e || (e && e.code === 'EEXIST')){
             //do something with contents
-            fs.writeFile(path_sc+'/env.yaml',req.body.var_env.replace(/^\s*\n/gm,""));
-            fs.writeFile(path_sc+'/shell.sh',req.body.script_bash.replace(/^\s*\n/gm,""));
+            fs.writeFile(path_sc+'/env.yaml',req.body.var_env);
+            fs.writeFile(path_sc+'/shell.sh',req.body.script_bash);
             client_redis.lrem('shell_list',1,req.body.name_script);
             client_redis.rpush('shell_list',req.body.name_script,function(err){
                 if(err) 
@@ -301,9 +301,21 @@ app.get("/cms/edit_module/:module",function(req,res){
     });
 });
 app.post("/cms/add_module",function(req,res){
+    var name_module = req.body.name_module;
+    // create folder for the module
+    var path_sc = __dirname+"/cms/"+req.body.name_module ;
+    fs.mkdir(path_sc,function(e){
+        if(!e || (e && e.code === 'EEXIST')){
+            //do something with contents
+            console.log("folder created");
+        } else {
+            //debug
+            console.log(e);
+        }
+    });
+
     // add form
     console.log("post cms ");
-    var name_module = req.body.name_module;
     var names = req.body.name_field;
     var keys = req.body.key_field;
     var index = req.body.index;

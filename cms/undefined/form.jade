@@ -1,0 +1,19 @@
+
+extends layout
+ 
+
+block CONTENT
+  h1.page-header Configure a new VM / Container
+  form(role="form",action="/module/post/undefined}",method='POST')
+    div.form-group
+      label(for="ip") ip
+      input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
+    div.form-group
+      label(for="mac") mac
+      input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
+    div.form-group
+      label(for="hoho") hoho
+      input(name="hoho", type="text", class="form-control" ,id="hoho", placeholder="")
+
+   
+    button(type="submit" ,class="btn btn-success") Save

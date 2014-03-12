@@ -1,32 +1,4 @@
-<%
-  import redis
-  w_list_key =[]
-  w_list_name =[]
-  w_list_button =[]
-  r = redis.StrictRedis()
-  #M:Nom_module:form
-  # data['name'] c'est le nom du module !!
- 
-  list_button = r.hgetall('M:'+data['name']+':Button')
-  
-  list_view = r.hgetall('M:'+data['name']+':Forms')
-  for item in sorted(list_view):
-    row_tmp = list_view[item].split(':')
-    if row_tmp[1]=='yes' :
-        w_list_key.append(row_tmp[2])
-        w_list_name.append(row_tmp[3])
-   
-  for item in sorted(list_button):
-    row_tmp = list_button[item].split(':')
-    row = {}
-    row['color'] = row_tmp[0]
-    row['name'] = row_tmp[1]
-    row['script'] = row_tmp[2]
-    row['variable'] = row_tmp[3]
-    w_list_button.append(row)
 
-  
-%>
 
 extends layout
 
@@ -45,20 +17,20 @@ block CONTENT
               thead
                 tr
                   th #
-                % for name in w_list_name :  
-                  th ${name}
-                % endfor  
+                  th ip
+                  th mac
+                  th hoho
               tbody
               each hs in data
                 tr(id="tr-#{hs.hostname}")
                   td #
-                 % for key in w_list_key :    
-                  td= hs.${key}
-                 % endfor   
+                  td= hs.ip
+                  td= hs.mac
+                  td= hs.hoho
                   td
-                  % for butt in w_list_button : 
-                    button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable']}}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
-                  % endfor  
+                    button.btn.btn-Blue(onclick="run_script('startOO','#{hs.refresh2}')",data-toggle="modal" data-target="#console",style='height:30px') start
+                    button.btn.btn-Red(onclick="run_script('refreshOO','#{hs.}')",data-toggle="modal" data-target="#console",style='height:30px') refresh
+                    button.btn.btn-Red(onclick="run_script('refreshOO','#{hs.}')",data-toggle="modal" data-target="#console",style='height:30px') refresh
 
 
 

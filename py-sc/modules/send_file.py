@@ -36,7 +36,7 @@ def send(ssh,data):
     #os.remove(tmp_namefile)
     print " file send ...OK"
   except Exception as e:
-    print "ERROR :"+e
+    print "ERROR :"+str(e)
 
 def test(ssh,data):
   print render_file(data)
