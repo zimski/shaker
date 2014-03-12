@@ -21,7 +21,7 @@ block CONTENT
                   th
               tbody
               each row in forms 
-                tr
+                tr(id="tr-from-#{row[2]}")
                   th
                     select.form-control(name='index[]')  
                         option(value='no') No
@@ -40,10 +40,12 @@ block CONTENT
                   th
                     input(name='name_field[]', type="text", class="form-control" , placeholder="Enter name field",value="#{row[2]}")
                   th
-                    input(name='key_field[]', type="text", class="form-control" , placeholder="Enter name field",value="#{row[2]}")
+                    input(name='key_field[]', type="text", class="form-control" , placeholder="Enter name field",value="#{row[3]}")
                   th
                     a(onclick="add_row('tab_form')")
                       span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
+                    a(onclick="delete_row('tr-from-#{row[2]}')")
+                      span(class="glyphicon glyphicon-trash",style="margin-top:8px;")
              
       div.col-md-6
         h3 Button Command
@@ -58,7 +60,7 @@ block CONTENT
                   th
               tbody
                each row in buttons
-                tr
+                tr(id="tr-bt-#{row[1]}")
                   th
                     select.form-control(name='button_color[]')
                       option(selected) #{row[0]}  
@@ -69,13 +71,15 @@ block CONTENT
                   th
                     input(name='button_name[]', type="text", class="form-control" , placeholder="Enter name of button",value="#{row[1]}")
                   th
-                    input(name='button_script[]', type="text", class="form-control" , placeholder="Enter name script",value="#{row[1]}")
+                    input(name='button_script[]', type="text", class="form-control" , placeholder="Enter name script",value="#{row[2]}")
                   th
-                    input(name='button_argv[]', type="text", class="form-control" , placeholder="Enter argv",value="#{row[1]}")
+                    input(name='button_argv[]', type="text", class="form-control" , placeholder="Enter argv",value="$#{row[3]}")
                   th
                     a(onclick='add_row("tab_cmd")')
                       span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px")
-        
+                    a(onclick="delete_row('tr-bt-#{row[1]}')")
+                      span(class="glyphicon glyphicon-trash",style="margin-top:8px;")
+
     button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save
        
         script.
@@ -85,4 +89,8 @@ block CONTENT
                 var row ;
                 row = $('#'+id_tab+'  tr:last').clone();
                 $('#'+id_tab+' tr:last').after(row);
+            }
+            function delete_row(id)
+            {
+                $('#'+id).remove();
             }

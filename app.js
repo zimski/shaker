@@ -308,6 +308,9 @@ app.post("/cms/add_module",function(req,res){
     var keys = req.body.key_field;
     var index = req.body.index;
     var show = req.body.show;
+    
+    client_redis.del('M:'+name_module+':Forms');
+    client_redis.del('M:'+name_module+':Button');
     for(i=0;i< names.length;i++){
         var hash =index[i]+':'+show[i]+':'+names[i]+':'+keys[i];
         client_redis.hset('M:'+name_module+':Forms',i,hash,function (err){
@@ -322,7 +325,7 @@ app.post("/cms/add_module",function(req,res){
     var button_script = req.body.button_script;
     var button_argv = req.body.button_argv;
     for(i=0;i<button_color.length;i++){
-        var hash = button_color[i]+':'+button_name[i]+':'+button_script[i]+':'+button_argv[i]; 
+        var hash = button_color[i]+':'+button_name[i]+':'+button_script[i]+':'+button_argv[i].replace('$',''); 
         client_redis.hset('M:'+name_module+':Button',i,hash,function (err){
             if(err)
             console.log(err);
