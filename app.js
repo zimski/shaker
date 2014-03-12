@@ -268,22 +268,67 @@ app.post('/run_shaker/:sc',function(req,res){
 app.get("/cms",function(req,res){
     res.render('cms',{});
 });
-app.post("/cms_add_module",function(req,res){
+app.get("/cms/edit_module/:module",function(req,res){
+    var module_name = req.params.module;
+    var forms=[];
+    var button=[];
+    var i = 0;
+    client_redis.hgetall('M:'+module_name+':Forms',function(err,data){
+        for(var j in data){
+            forms.push(data[j].split(':'));
+        }
+        console.log(data);
+        i=i+1;
+        if(i==2){
+            console.log(forms);
+            console.log(button);
+            res.render('cms',{name: module_name,forms : forms, buttons : button});
+        }
+
+    });
+    client_redis.hgetall('M:'+module_name+':Button',function(err,data){
+        for(var j in data){
+            button.push(data[j].split(':'));
+        }
+        console.log(data);
+        i=i+1;
+        if(i==2){
+            console.log(forms);
+            console.log(button);
+            res.render('cms',{name: module_name,forms : forms, buttons : button});
+        }
+
+    });
+});
+app.post("/cms/add_module",function(req,res){
     // add form
     console.log("post cms ");
+    var name_module = req.body.name_module;
     var names = req.body.name_field;
     var keys = req.body.key_field;
     var index = req.body.index;
     var show = req.body.show;
     for(i=0;i< names.length;i++){
-        if(!index[i])
-            index[i]='off';
-        if(!show[i])
-            show[i]='off';
-        console.log('forms:'+index[i]+':'+show[i]+':'+names[i]+':'+keys[i]);
+        var hash =index[i]+':'+show[i]+':'+names[i]+':'+keys[i];
+        client_redis.hset('M:'+name_module+':Forms',i,hash,function (err){
+            if(err)
+            console.log(err);
+        });
+
     }
     // add button 
-    res.send("o");
+    var button_color = req.body.button_color;
+    var button_name = req.body.button_name;
+    var button_script = req.body.button_script;
+    var button_argv = req.body.button_argv;
+    for(i=0;i<button_color.length;i++){
+        var hash = button_color[i]+':'+button_name[i]+':'+button_script[i]+':'+button_argv[i]; 
+        client_redis.hset('M:'+name_module+':Button',i,hash,function (err){
+            if(err)
+            console.log(err);
+        });
+    }
+    res.redirect('/cms/edit_module/'+name_module);
 });
 app.get("/module/:name/:method",function(req,res){
     if(res.params.method == "form")
