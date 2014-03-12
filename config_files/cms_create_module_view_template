@@ -28,7 +28,7 @@
   
 %>
 
-extends layout
+extends ../layout
 
 
 block CONTENT

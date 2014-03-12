@@ -303,7 +303,7 @@ app.get("/cms/edit_module/:module",function(req,res){
 app.post("/cms/add_module",function(req,res){
     var name_module = req.body.name_module;
     // create folder for the module
-    var path_sc = __dirname+"/cms/"+req.body.name_module ;
+    var path_sc = __dirname+"/views/"+req.body.name_module ;
     fs.mkdir(path_sc,function(e){
         if(!e || (e && e.code === 'EEXIST')){
             //do something with contents
@@ -346,8 +346,29 @@ app.post("/cms/add_module",function(req,res){
     res.redirect('/cms/edit_module/'+name_module);
 });
 app.get("/module/:name/:method",function(req,res){
-    if(res.params.method == "form")
-    res.render(req.params.name+"/form")
+    if(req.params.method == "form")
+        res.render(req.params.name+"/form")
+    else
+    {
+        client_redis.LRANGE('modules:'+req.params.name,0,-1,function(err,data_l){
+        console.log(data_l);
+        var list_machine=[];
+        if(data_l.length==0)
+        res.render(req.params.name+'/view',{'data':list_machine});
+        else
+        data_l.forEach(function(item){
+            client_redis.hgetall(item,function(err,data)
+                {
+                    data['hostname']=item;
+                    list_machine.push(data);
+                    console.log(data);
+                    //console.log("list "+list_machine.length+" vs data "+length(data));
+                    if(list_machine.length == data_l.length)
+                res.render(req.params.name+'/view',{'data':list_machine});
+                }); 
+        });
+    });
+    }
 
 });
 

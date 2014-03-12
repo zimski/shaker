@@ -27,5 +27,9 @@ subnet 192.168.0.0 netmask 255.255.255.0 {
    hardware ethernet 8a:1b:6c:d1:6e:81;
    fixed-address 192.168.0.147;
   }
+  host denis {
+   hardware ethernet 8a:1b:6c:d1:6e:82;
+   fixed-address 192.168.0.148;
+  }
 #  option routers rtr-239-0-1.example.org, rtr-239-0-2.example.org;
 }

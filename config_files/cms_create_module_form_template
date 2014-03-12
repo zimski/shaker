@@ -12,7 +12,7 @@ for item in sorted(list_form):
     row['key'] = row_tmp[3]
     w_list.append(row)
 %>
-extends layout
+extends ../layout
  
 
 block CONTENT
