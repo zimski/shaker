@@ -1,4 +1,11 @@
-
+<%
+  import redis
+  module_list =[]
+  r = redis.StrictRedis()
+  
+  module_list = r.lrange('Shaker:module:list',0,-1)
+ 
+%>
 html
   head
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
@@ -34,10 +41,10 @@ html
       div.row
         div.col-sm-3.col-md-2.sidebar
           ul.nav.nav-sidebar
-            li(id="menu- undefined")
-              a(href="/module/undefined/view") undefined
-            li(id="menu- Manage_vm")
-              a(href="/module/Manage_vm/view") Manage_vm
+            % for module in module_list:
+            li(id="menu- ${module}")
+              a(href="/module/${module}/view") ${module}
+            % endfor
           ul.nav.nav-sidebar
             li
               a(style=" font-weight:bold;") ~[ Module Script Shaker ]~

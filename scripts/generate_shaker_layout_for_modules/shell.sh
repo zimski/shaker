@@ -1,0 +1,1 @@
+$$ send_file.send jade_layout_view

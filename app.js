@@ -259,6 +259,23 @@ app.post('/run_shaker/:sc',function(req,res){
         res.send("exit code: "+code);
     }); 
 });
+function run_shaker(script,argv)
+{
+    var path_sc =__dirname+"/scripts/"+script+"/";
+    var cmd = __dirname+"/py-sc/shaker.py -x -w -e "+path_sc+"env.yaml -s "+path_sc+"shell.sh --argv="+argv;
+    //console.log(cmd.split(' '));  
+    var child = spawn("python",cmd.split(' '));
+    child.stdout.on("data", function (data) {
+        console.log("spawnSTDOUT:"+ data)
+    });
+
+    child.stderr.on("data", function (data) {
+        console.log("spawnSTDERR:"+ data)
+    });
+    child.on("close",function(code){
+        console.log("exit code: "+code);
+    }); 
+}
 //************************************************************
 
 //************************************************************
@@ -343,14 +360,25 @@ app.post("/cms/add_module",function(req,res){
             console.log(err);
         });
     }
-    res.redirect('/cms/edit_module/'+name_module);
+    // Shaker add module in list
+    client_redis.lrem("Shaker:module:list",1,name_module);
+    client_redis.rpush("Shaker:module:list",name_module,function(err){
+        if(err)
+            console.log(err);
+        else
+        {
+            run_shaker("generate_shaker_layout_for_modules","");
+            run_shaker("generate_module_view_and_form",name_module);
+            res.redirect('/cms/edit_module/'+name_module);
+        }
+    });
 });
 app.get("/module/:name/:method",function(req,res){
     if(req.params.method == "form")
         res.render(req.params.name+"/form")
     else
     {
-        client_redis.LRANGE('modules:'+req.params.name,0,-1,function(err,data_l){
+        client_redis.LRANGE('DB:'+req.params.name+':list',0,-1,function(err,data_l){
         console.log(data_l);
         var list_machine=[];
         if(data_l.length==0)
@@ -359,7 +387,7 @@ app.get("/module/:name/:method",function(req,res){
         data_l.forEach(function(item){
             client_redis.hgetall(item,function(err,data)
                 {
-                    data['hostname']=item;
+                    data['key']=item;
                     list_machine.push(data);
                     console.log(data);
                     //console.log("list "+list_machine.length+" vs data "+length(data));
@@ -371,7 +399,33 @@ app.get("/module/:name/:method",function(req,res){
     }
 
 });
+app.post("/module/:mod/post",function(req,res){
+    var module_name = req.params.mod;
+    var forms=[];
+    var index;
+    var i = 0;
+    client_redis.hgetall('M:'+module_name+':Forms',function(err,data){
+        for(var j in data){
+            var tmp = data[j].split(':');
+            if(tmp[0]=='yes')
+                index = j;
+            forms.push(tmp);
+        }
+        for(var j in forms){
+            client_redis.HSET('DB:'+module_name+':'+req.body[forms[index][3]],forms[j][3],req.body[forms[j][3]],function(err){
+            if(err)
+                console.log(err);
+            });
+        }
+        client_redis.lrem('DB:'+module_name+':list',1,'DB:'+module_name+':'+req.body[forms[index][3]]);
+        client_redis.rpush('DB:'+module_name+':list','DB:'+module_name+':'+req.body[forms[index][3]],function(err){
+            if(err) 
+                console.log('erreur'+err);
 
+            res.redirect('/dashboard');});
+
+    });
+});
 
 //---------------------------------------------------------------------
 var op= http.createServer(app).listen(app.get('port'), function(){

@@ -3,8 +3,8 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header Configure a new VM / Container
-  form(role="form",action="/module/post/undefined}",method='POST')
+  h1.page-header undefined Formumlaire
+  form(role="form",action="/module/undefined/post",method='POST')
     div.form-group
       label(for="ip") ip
       input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
@@ -12,8 +12,17 @@ block CONTENT
       label(for="mac") mac
       input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
     div.form-group
-      label(for="hoho") hoho
-      input(name="hoho", type="text", class="form-control" ,id="hoho", placeholder="")
+      label(for="hostname") hostname
+      input(name="host", type="text", class="form-control" ,id="host", placeholder="")
+    div.form-group
+      label(for="Role") Role
+      input(name="role", type="text", class="form-control" ,id="role", placeholder="")
+    div.form-group
+      label(for="Gateway") Gateway
+      input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
+    div.form-group
+      label(for="Dns") Dns
+      input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
 
    
     button(type="submit" ,class="btn btn-success") Save

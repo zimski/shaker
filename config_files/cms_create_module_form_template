@@ -16,12 +16,20 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header Configure a new VM / Container
-  form(role="form",action="/module/post/${data['name']}}",method='POST')
+  h1.page-header ${data['name']}
+            a(href="/cms/edit_module/${data['name']}")
+                span(class="glyphicon glyphicon-cog pull-right")
+  ul(class="nav nav-tabs nav-justified")
+            li.active
+                a(href="/module/${data['name']}/form") New record
+            li
+                a(href="/module/${data['name']}/view") List
+
+  form(role="form",action="/module/${data['name']}/post",method='POST')
 %  for item in w_list :    
     div.form-group
       label(for="${item['name']}") ${item['name']}
-      input(name="${item['key']}", type="text", class="form-control" ,id="${item['name']}", placeholder="")
+      input(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
 % endfor    
 
    

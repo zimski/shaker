@@ -32,14 +32,17 @@ extends ../layout
 
 
 block CONTENT
-          h1.page-header Dashboard
+          h1.page-header ${data['name']}
+            a(href="/cms/edit_module/${data['name']}")
+                span(class="glyphicon glyphicon-cog pull-right")
+          ul(class="nav nav-tabs nav-justified")
+            li
+                a(href="/module/${data['name']}/form") New record
+            li.active
+                a(href="/module/${data['name']}/view") List
 
-          div.row.placeholders
-            div.col-xs-6.col-sm-3.placeholder
-              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
-              h4 Label
-              span.text-muted Something else
-          h2.sub-header List of virual machines
+          
+          h2.sub-header List
           div.table-responsive
             table.table.table-striped
               thead
@@ -56,8 +59,12 @@ block CONTENT
                   td= hs.${key}
                  % endfor   
                   td
-                  % for butt in w_list_button : 
-                    button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable']}}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
+                  % for butt in w_list_button :
+                      % if len(butt['variable'])!=0 and butt['variable'][0]=='#':
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
+                      % else:
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
+                      % endif                      
                   % endfor  
 
 
@@ -73,7 +80,7 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
-              function run_script(scr,arg)
+              function run_script(src,arg)
               {
                 var arguments = arg;
                 $('#console').modal('show')

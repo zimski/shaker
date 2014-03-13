@@ -4,14 +4,14 @@ extends ../layout
 
 
 block CONTENT
-          h1.page-header Dashboard
+          h1.page-header undefined Dashboard
 
           div.row.placeholders
             div.col-xs-6.col-sm-3.placeholder
               img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
               h4 Label
               span.text-muted Something else
-          h2.sub-header List of virual machines
+          h2.sub-header List
           div.table-responsive
             table.table.table-striped
               thead
@@ -19,18 +19,24 @@ block CONTENT
                   th #
                   th ip
                   th mac
-                  th hoho
+                  th host
+                  th role
+                  th gateway
+                  th dns
               tbody
               each hs in data
                 tr(id="tr-#{hs.hostname}")
                   td #
                   td= hs.ip
                   td= hs.mac
-                  td= hs.hoho
+                  td= hs.hostname
+                  td= hs.Role
+                  td= hs.Gateway
+                  td= hs.Dns
                   td
-                    button.btn.btn-Blue(onclick="run_script('startOO','#{hs.refresh2}')",data-toggle="modal" data-target="#console",style='height:30px') start
-                    button.btn.btn-Red(onclick="run_script('refreshOO','#{hs.}')",data-toggle="modal" data-target="#console",style='height:30px') refresh
-                    button.btn.btn-Red(onclick="run_script('refreshOO','#{hs.}')",data-toggle="modal" data-target="#console",style='height:30px') refresh
+                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px') Start
+                        button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px') refresh
+                        button.btn.btn-Red(onclick="run_script('stop_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px') Stop
 
 
 
@@ -45,7 +51,7 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
-              function run_script(scr,arg)
+              function run_script(src,arg)
               {
                 var arguments = arg;
                 $('#console').modal('show')
