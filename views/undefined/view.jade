@@ -4,13 +4,16 @@ extends ../layout
 
 
 block CONTENT
-          h1.page-header undefined Dashboard
+          h1.page-header undefined
+            a(href="/cms/edit_module/undefined")
+                span(class="glyphicon glyphicon-cog pull-right")
+          ul(class="nav nav-tabs nav-justified")
+            li
+                a(href="/module/undefined/form") New record
+            li.active
+                a(href="/module/undefined/view") List
 
-          div.row.placeholders
-            div.col-xs-6.col-sm-3.placeholder
-              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
-              h4 Label
-              span.text-muted Something else
+          
           h2.sub-header List
           div.table-responsive
             table.table.table-striped
@@ -19,24 +22,25 @@ block CONTENT
                   th #
                   th ip
                   th mac
-                  th host
-                  th role
-                  th gateway
-                  th dns
+                  th hostname
+                  th Role
+                  th Gateway
+                  th Dns
               tbody
               each hs in data
-                tr(id="tr-#{hs.hostname}")
+                tr(id="tr-#{hs.ip}")
                   td #
                   td= hs.ip
                   td= hs.mac
-                  td= hs.hostname
-                  td= hs.Role
-                  td= hs.Gateway
-                  td= hs.Dns
+                  td= hs.host
+                  td= hs.role
+                  td= hs.gateway
+                  td= hs.dns
                   td
-                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px') Start
-                        button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px') refresh
-                        button.btn.btn-Red(onclick="run_script('stop_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px') Stop
+                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh
+                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
 
 
 
@@ -60,6 +64,17 @@ block CONTENT
                   $('#console-content').append("finish");       
                 });
                 
+              }
+              function delete_row(idd)
+              {
+                $.post("/module/undefined/del",{key: idd},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    var sst = '#tr-'+idd.replace(/\./g,'\\.');  
+                    //alert(sst);
+                    $(sst).hide();}
+                });
               }
               
               

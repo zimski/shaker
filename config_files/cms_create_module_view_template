@@ -3,6 +3,7 @@
   w_list_key =[]
   w_list_name =[]
   w_list_button =[]
+  tr_index =''
   r = redis.StrictRedis()
   #M:Nom_module:form
   # data['name'] c'est le nom du module !!
@@ -13,8 +14,10 @@
   for item in sorted(list_view):
     row_tmp = list_view[item].split(':')
     if row_tmp[1]=='yes' :
-        w_list_key.append(row_tmp[2])
-        w_list_name.append(row_tmp[3])
+        w_list_key.append(row_tmp[3])
+        w_list_name.append(row_tmp[2])
+    if row_tmp[0]=='yes' : # index
+        tr_index = row_tmp[3]
    
   for item in sorted(list_button):
     row_tmp = list_button[item].split(':')
@@ -53,7 +56,7 @@ block CONTENT
                 % endfor  
               tbody
               each hs in data
-                tr(id="tr-#{hs.hostname}")
+                tr(id="tr-#{hs.${tr_index}}")
                   td #
                  % for key in w_list_key :    
                   td= hs.${key}
@@ -61,11 +64,12 @@ block CONTENT
                   td
                   % for butt in w_list_button :
                       % if len(butt['variable'])!=0 and butt['variable'][0]=='#':
-                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') ${butt['name']}
                       % else:
-                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}')",data-toggle="modal" data-target="#console",style='height:30px') ${butt['name']}
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') ${butt['name']}
                       % endif                      
-                  % endfor  
+                  % endfor
+                        button.btn.btn-default(onclick="delete_row('#{hs.${tr_index}}')",style='height:30px; margin-left:5px') Remove
 
 
 
@@ -89,6 +93,17 @@ block CONTENT
                   $('#console-content').append("finish");       
                 });
                 
+              }
+              function delete_row(idd)
+              {
+                $.post("/module/${data['name']}/del",{key: idd},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    var sst = '#tr-'+idd.replace(/\./g,'\\.');  
+                    //alert(sst);
+                    $(sst).hide();}
+                });
               }
               
               

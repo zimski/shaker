@@ -64,7 +64,7 @@ block CONTENT
       function run_script()
       {
         var arguments = $("#run_args").val();
-        $('#console').modal('show')
+        $('#console').modal('show');
         $.post("/run_shaker/"+$('#name_script').val(),{argv: arguments },function(data){
            
           $('#console-content').append("finish");       

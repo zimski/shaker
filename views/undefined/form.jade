@@ -3,7 +3,15 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header undefined Formumlaire
+  h1.page-header undefined
+            a(href="/cms/edit_module/undefined")
+                span(class="glyphicon glyphicon-cog pull-right")
+  ul(class="nav nav-tabs nav-justified")
+            li.active
+                a(href="/module/undefined/form") New record
+            li
+                a(href="/module/undefined/view") List
+
   form(role="form",action="/module/undefined/post",method='POST')
     div.form-group
       label(for="ip") ip

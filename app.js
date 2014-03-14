@@ -283,7 +283,15 @@ function run_shaker(script,argv)
 //************************************************************
 
 app.get("/cms",function(req,res){
-    res.render('cms',{});
+    var f=[];
+    f[0]='';
+    f[1]='';
+    f[2]='';
+    f[3]='';
+    f[4]='';
+    var d=[];
+    d.push(f);
+    res.render('cms',{name: '',forms : d, buttons :d});
 });
 app.get("/cms/edit_module/:module",function(req,res){
     var module_name = req.params.module;
@@ -337,7 +345,7 @@ app.post("/cms/add_module",function(req,res){
     var keys = req.body.key_field;
     var index = req.body.index;
     var show = req.body.show;
-    
+
     client_redis.del('M:'+name_module+':Forms');
     client_redis.del('M:'+name_module+':Button');
     for(i=0;i< names.length;i++){
@@ -364,21 +372,21 @@ app.post("/cms/add_module",function(req,res){
     client_redis.lrem("Shaker:module:list",1,name_module);
     client_redis.rpush("Shaker:module:list",name_module,function(err){
         if(err)
-            console.log(err);
+        console.log(err);
         else
-        {
-            run_shaker("generate_shaker_layout_for_modules","");
-            run_shaker("generate_module_view_and_form",name_module);
-            res.redirect('/cms/edit_module/'+name_module);
-        }
+    {
+        run_shaker("generate_shaker_layout_for_modules","");
+        run_shaker("generate_module_view_and_form",name_module);
+        res.redirect('/cms/edit_module/'+name_module);
+    }
     });
 });
 app.get("/module/:name/:method",function(req,res){
     if(req.params.method == "form")
-        res.render(req.params.name+"/form")
+    res.render(req.params.name+"/form")
     else
-    {
-        client_redis.LRANGE('DB:'+req.params.name+':list',0,-1,function(err,data_l){
+{
+    client_redis.LRANGE('DB:'+req.params.name+':list',0,-1,function(err,data_l){
         console.log(data_l);
         var list_machine=[];
         if(data_l.length==0)
@@ -396,7 +404,7 @@ app.get("/module/:name/:method",function(req,res){
                 }); 
         });
     });
-    }
+}
 
 });
 app.post("/module/:mod/post",function(req,res){
@@ -408,23 +416,31 @@ app.post("/module/:mod/post",function(req,res){
         for(var j in data){
             var tmp = data[j].split(':');
             if(tmp[0]=='yes')
-                index = j;
-            forms.push(tmp);
+        index = j;
+    forms.push(tmp);
         }
         for(var j in forms){
             client_redis.HSET('DB:'+module_name+':'+req.body[forms[index][3]],forms[j][3],req.body[forms[j][3]],function(err){
-            if(err)
+                if(err)
                 console.log(err);
             });
         }
         client_redis.lrem('DB:'+module_name+':list',1,'DB:'+module_name+':'+req.body[forms[index][3]]);
         client_redis.rpush('DB:'+module_name+':list','DB:'+module_name+':'+req.body[forms[index][3]],function(err){
             if(err) 
-                console.log('erreur'+err);
+            console.log('erreur'+err);
 
-            res.redirect('/dashboard');});
+        res.redirect('/module/'+module_name+'/view');});
 
     });
+});
+app.post("/module/:mod/del",function(req,res){
+    var name = req.params.mod;
+    var key = req.body.key;
+    client_redis.lrem('DB:'+name+':list',1,'DB:'+name+':'+key);
+    client_redis.del('DB:'+name+':'+key);
+    res.send("ok");
+
 });
 
 //---------------------------------------------------------------------
