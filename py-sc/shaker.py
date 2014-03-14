@@ -40,7 +40,13 @@ def web_console_info(data):
     socketIO.emit('console-emit-cmd','<span class="console-cmd msg">[#]'+str(data)+'</span>\n')
   else:
     print '[#]'+str(data)
-
+def web_console(mode,data):
+    if mode ==1:
+        web_console_cmd(data)
+    if mode ==2:
+        web_console_rt(data)
+    if mode ==3:
+        web_console_info(data)
 # cmd to run a custom command (call to python module)
 def run_cmd(ssh,data,cmd):
   global mode
@@ -55,7 +61,7 @@ def run_cmd(ssh,data,cmd):
   arguments =tmp1_[2]
   
   # run the commande
-  cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"],web_console_info)'
+  cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"],web_console)'
   if mode != 1:
     web_console_info("[$$] call module : "+cmd_to_run)
     web_console_info("[$$] ...")

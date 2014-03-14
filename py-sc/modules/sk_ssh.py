@@ -12,7 +12,7 @@
 import pexpect
 def expect(ssh,data,sk):
     # send cmd
-    sk('module ssh:'+data['cmd'])
+    sk(1,'module ssh:'+data['cmd'])
     ssh.sendline(data['cmd'])
     expect_list = []
     expect_list.append(ssh.PROMPT)
@@ -22,11 +22,12 @@ def expect(ssh,data,sk):
     exit_rt = len(expect_list)-2
     while True:
         i= ssh.expect(expect_list,timeout=10)
-        sk(ssh.before + "valeur i :"+str(i))
+        sk(2,ssh.before)
         if i == 0:
             print "PrompT"
             return 0
         else:
+            sk(2,ssh.before)
             ssh.sendline(data['expect'][expect_list[i]])
-            sk(ssh.before)
+            sk(3,'I answer: '+data['expect'][expect_list[i]])
             print " get [" + expect_list[i] + "] => send [ "+ data['expect'][expect_list[i]]+" ] "
