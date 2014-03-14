@@ -19,7 +19,7 @@ def render_file(data):
   tmp_file= Template(filename=data['template']['file_name'])
   return tmp_file.render(data=data['template'])
 
-def send(ssh,data):
+def send(ssh,data,sk):
   tmp_namefile = data['template']['file_name']+'.tmp'
   tmp_file = open(tmp_namefile,"w")
   tmp_file.write(render_file(data))

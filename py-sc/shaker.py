@@ -55,7 +55,7 @@ def run_cmd(ssh,data,cmd):
   arguments =tmp1_[2]
   
   # run the commande
-  cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"])'
+  cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"],web_console_info)'
   if mode != 1:
     web_console_info("[$$] call module : "+cmd_to_run)
     web_console_info("[$$] ...")
@@ -97,13 +97,7 @@ def ssh_cmd(cmds,var):
       web_console_rt(message_rt)
      
       
-      if message_rt.find("[Y/n]?") != -1 or message_rt.find("[O/n]?") !=-1 :
-        web_console_info("[!] i confirm Yes")
-        s.sendline("Y")
-        s.prompt()
-        web_console_rt(s.before)
-     
-     
+           
    
     web_console_info("Script complete")
   except Exception as e:
