@@ -15,17 +15,18 @@ def expect(ssh,data,sk):
     sk(1,'module ssh:'+data['cmd'])
     ssh.sendline(data['cmd'])
     expect_list = []
-    expect_list.append(ssh.PROMPT)
     for (exp,cmd) in data['expect'].iteritems():
         expect_list.append(exp)
     expect_list.append(pexpect.TIMEOUT)
+    expect_list.append(ssh.PROMPT)
     exit_rt = len(expect_list)-2
     while True:
         i= ssh.expect(expect_list,timeout=10)
         sk(2,ssh.before)
-        if i == 0:
-            print "PrompT"
+        if i >= exit_rt:
+            print "PrompT or timeOut"
             return 0
+       
         else:
             sk(2,ssh.before)
             ssh.sendline(data['expect'][expect_list[i]])
