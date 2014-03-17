@@ -3,22 +3,40 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header undefined
-            a(href="/cms/edit_module/undefined")
+  h1.page-header Manage_vm
+            a(href="/cms/edit_module/Manage_vm")
                 span(class="glyphicon glyphicon-cog pull-right")
   ul(class="nav nav-tabs nav-justified")
             li.active
-                a(href="/module/undefined/form") New record
+                a(href="/module/Manage_vm/form") New record
             li
-                a(href="/module/undefined/view") List
+                a(href="/module/Manage_vm/view") List
 
-  form(role="form",action="/module/undefined/post",method='POST')
+  form(role="form",action="/module/Manage_vm/post",method='POST')
     div.form-group
       label(for="ip") ip
       input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
     div.form-group
       label(for="mac") mac
       input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
+    div.form-group
+      label(for="hostname") hostname
+      input(name="host", type="text", class="form-control" ,id="host", placeholder="")
+    div.form-group
+      label(for="Role") Role
+      input(name="role", type="text", class="form-control" ,id="role", placeholder="")
+    div.form-group
+      label(for="Gateway") Gateway
+      input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
+    div.form-group
+      label(for="Dns") Dns
+      input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
+    div.form-group
+      label(for="Root password") Root password
+      input(name="pass", type="text", class="form-control" ,id="pass", placeholder="")
+    div.form-group
+      label(for="VMID") VMID
+      input(name="vmid", type="text", class="form-control" ,id="vmid", placeholder="")
 
    
     button(type="submit" ,class="btn btn-success") Save

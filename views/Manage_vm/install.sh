@@ -1,11 +1,12 @@
-redis-cli HSET M:Manage_vm:Forms yes:yes:ip:ip
-redis-cli HSET M:Manage_vm:Forms no:yes:mac:mac
-redis-cli HSET M:Manage_vm:Forms no:yes:hostname:host
-redis-cli HSET M:Manage_vm:Forms no:yes:Role:role
-redis-cli HSET M:Manage_vm:Forms no:yes:Gateway:gateway
-redis-cli HSET M:Manage_vm:Forms no:yes:Dns:dns
-redis-cli HSET M:Manage_vm:Forms no:no:Root password:pass
-redis-cli HSET M:Manage_vm:Button Blue:Start:Manage_vm_start_vm:#ip
-redis-cli HSET M:Manage_vm:Button Red:refresh:refreshOO:
-redis-cli HSET M:Manage_vm:Button Red:Stop:Down:#ip
+redis-cli HSET M:Manage_vm:Forms 0 "yes:yes:ip:ip"
+redis-cli HSET M:Manage_vm:Forms 1 "no:yes:mac:mac"
+redis-cli HSET M:Manage_vm:Forms 2 "no:yes:hostname:host"
+redis-cli HSET M:Manage_vm:Forms 3 "no:yes:Role:role"
+redis-cli HSET M:Manage_vm:Forms 4 "no:yes:Gateway:gateway"
+redis-cli HSET M:Manage_vm:Forms 5 "no:yes:Dns:dns"
+redis-cli HSET M:Manage_vm:Forms 6 "no:no:Root password:pass"
+redis-cli HSET M:Manage_vm:Forms 7 "no:yes:VMID:vmid"
+redis-cli HSET M:Manage_vm:Button 0 "Blue:Start:Manage_vm_start_vm:#ip"
+redis-cli HSET M:Manage_vm:Button 1 "Red:refresh:refreshOO:"
+redis-cli HSET M:Manage_vm:Button 2 "Red:Stop:Down:#ip"
 redis-cli RPUSH Shaker:module:list Manage_vm

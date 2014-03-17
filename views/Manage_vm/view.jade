@@ -26,6 +26,7 @@ block CONTENT
                   th Role
                   th Gateway
                   th Dns
+                  th VMID
               tbody
               each hs in data
                 tr(id="tr-#{hs.ip}")
@@ -36,6 +37,7 @@ block CONTENT
                   td= hs.role
                   td= hs.gateway
                   td= hs.dns
+                  td= hs.vmid
                   td
                         button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
                         button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh
