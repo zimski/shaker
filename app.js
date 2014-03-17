@@ -325,9 +325,16 @@ app.get("/cms/edit_module/:module",function(req,res){
 
     });
 });
+
+function CMS_create_redis_file(name_module,cmd){
+    var path_sc = __dirname+"/views/"+name_module+"/install.sh" ;
+    fs.appendFile(path_sc,'redis-cli '+cmd+'\n');
+
+}
 app.post("/cms/add_module",function(req,res){
     var name_module = req.body.name_module;
     // create folder for the module
+    fs.unlink(__dirname+"/views/"+name_module+"/install.sh");
     var path_sc = __dirname+"/views/"+req.body.name_module ;
     fs.mkdir(path_sc,function(e){
         if(!e || (e && e.code === 'EEXIST')){
@@ -350,6 +357,7 @@ app.post("/cms/add_module",function(req,res){
     client_redis.del('M:'+name_module+':Button');
     for(i=0;i< names.length;i++){
         var hash =index[i]+':'+show[i]+':'+names[i]+':'+keys[i];
+        CMS_create_redis_file(name_module,'HSET M:'+name_module+':Forms '+i+' "'+hash+'"');
         client_redis.hset('M:'+name_module+':Forms',i,hash,function (err){
             if(err)
             console.log(err);
@@ -363,6 +371,7 @@ app.post("/cms/add_module",function(req,res){
     var button_argv = req.body.button_argv;
     for(i=0;i<button_color.length;i++){
         var hash = button_color[i]+':'+button_name[i]+':'+button_script[i]+':'+button_argv[i].replace('$',''); 
+        CMS_create_redis_file(name_module,'HSET M:'+name_module+':Button '+i+' "'+hash+'"');
         client_redis.hset('M:'+name_module+':Button',i,hash,function (err){
             if(err)
             console.log(err);
@@ -370,6 +379,8 @@ app.post("/cms/add_module",function(req,res){
     }
     // Shaker add module in list
     client_redis.lrem("Shaker:module:list",1,name_module);
+    CMS_create_redis_file(name_module,'RPUSH Shaker:module:list '+name_module);
+
     client_redis.rpush("Shaker:module:list",name_module,function(err){
         if(err)
         console.log(err);

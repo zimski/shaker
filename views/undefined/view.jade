@@ -22,20 +22,12 @@ block CONTENT
                   th #
                   th ip
                   th mac
-                  th hostname
-                  th Role
-                  th Gateway
-                  th Dns
               tbody
               each hs in data
                 tr(id="tr-#{hs.ip}")
                   td #
                   td= hs.ip
                   td= hs.mac
-                  td= hs.host
-                  td= hs.role
-                  td= hs.gateway
-                  td= hs.dns
                   td
                         button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
                         button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh
