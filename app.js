@@ -28,8 +28,12 @@ app.use(express.cookieSession({store: '/',
     key: 'cookie.sid' }));
 app.use(express.static(path.join(__dirname, 'public')));
 });
-
+app.get('/logout',function(req,res){
+    req.session.authentificated = false;
+    res.redirect('/');
+})
 app.post('/login',function(req,res){
+    
     var md5 = crypto.createHash('md5');
 
     console.log("password "+req.body.password);
@@ -53,6 +57,8 @@ app.post('/login',function(req,res){
     });
 });
 app.get('/', function(req,res){
+if(req.session.authentificated)
+    res.redirect('/home');
 
     res.render('index',{});
 });

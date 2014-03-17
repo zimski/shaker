@@ -17,7 +17,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='#') ~[Shaker]~
+          a.navbar-brand(href='/home') Shaker {/}
         div.navbar-collapse.collapse
           ul.nav.navbar-nav.navbar-right
             li
@@ -27,21 +27,21 @@ html
             li
               a(href='javascript:$("#console").modal("show");') Console
             li
-              a(href='#') Help
+              a(href='/logout') Logout
           form.navbar-form.navbar-right
             input(type="text", class="form-control", placeholder="Search...")
     div.container-fluid
       div.row
         div.col-sm-3.col-md-2.sidebar
           ul.nav.nav-sidebar
-            li(id="menu- Manage_DHCP")
-              a(href="/module/Manage_DHCP/view") Manage_DHCP
             li(id="menu- undefined")
               a(href="/module/undefined/view") undefined
             li(id="menu- undefined")
               a(href="/module/undefined/view") undefined
             li(id="menu- Manage_vm")
               a(href="/module/Manage_vm/view") Manage_vm
+            li(id="menu- Manage_DHCP")
+              a(href="/module/Manage_DHCP/view") Manage_DHCP
           ul.nav.nav-sidebar
             li
               a(style=" font-weight:bold;") ~[ Module Script Shaker ]~
