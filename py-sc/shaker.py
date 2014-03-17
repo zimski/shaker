@@ -9,6 +9,10 @@ socketIO = SocketIO('localhost', 3002)
 # import custom module
 from modules import *
 
+nsGlobal.init()
+
+
+
 @contextlib.contextmanager
 def stdoutIO(stdout=None):
     old = sys.stdout
