@@ -1,0 +1,36 @@
+
+extends ../layout
+ 
+
+block CONTENT
+  h1.page-header CRON_JOB
+            a(href="/cms/edit_module/CRON_JOB")
+                span(class="glyphicon glyphicon-cog pull-right")
+  ul(class="nav nav-tabs nav-justified")
+            li.active
+                a(href="/module/CRON_JOB/form") New record
+            li
+                a(href="/module/CRON_JOB/view") List
+
+  form(role="form",action="/module/CRON_JOB/post",method='POST')
+    div.form-group
+      label(for="ID") ID
+      input(name="id", type="text", class="form-control" ,id="id", placeholder="")
+    div.form-group
+      label(for="CRON-EXPR") CRON-EXPR
+      input(name="cron", type="text", class="form-control" ,id="cron", placeholder="")
+    div.form-group
+      label(for="Script name") Script name
+      input(name="script", type="text", class="form-control" ,id="script", placeholder="")
+    div.form-group
+      label(for="Params") Params
+      input(name="argv", type="text", class="form-control" ,id="argv", placeholder="")
+    div.form-group
+      label(for="Status") Status
+      input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+    div.form-group
+      label(for="Description") Description
+      input(name="desc", type="text", class="form-control" ,id="desc", placeholder="")
+
+   
+    button(type="submit" ,class="btn btn-success") Save

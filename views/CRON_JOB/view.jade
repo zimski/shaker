@@ -1,0 +1,80 @@
+
+
+extends ../layout
+
+
+block CONTENT
+          h1.page-header CRON_JOB
+            a(href="/cms/edit_module/CRON_JOB")
+                span(class="glyphicon glyphicon-cog pull-right")
+          ul(class="nav nav-tabs nav-justified")
+            li
+                a(href="/module/CRON_JOB/form") New record
+            li.active
+                a(href="/module/CRON_JOB/view") List
+
+          
+          h2.sub-header List
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th ID
+                  th CRON-EXPR
+                  th Script name
+                  th Params
+                  th Status
+                  th Description
+              tbody
+              each hs in data
+                tr(id="tr-#{hs.id}")
+                  td #
+                  td= hs.id
+                  td= hs.cron
+                  td= hs.script
+                  td= hs.argv
+                  td= hs.status
+                  td= hs.desc
+                  td
+                        button.btn.btn-Red(onclick="run_script('CRON_JOB_start','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Green(onclick="run_script('CRON_JOB_stop','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
+                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
+
+
+
+
+         
+          script.
+              var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });
+              function run_script(src,arg)
+              {
+                var arguments = arg;
+                $('#console').modal('show')
+                $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                   
+                  $('#console-content').append("finish");       
+                });
+                
+              }
+              function delete_row(idd)
+              {
+                $.post("/module/CRON_JOB/del",{key: idd},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    var sst = '#tr-'+idd.replace(/\./g,'\\.');  
+                    //alert(sst);
+                    $(sst).hide();}
+                });
+              }
+              
+              
+         

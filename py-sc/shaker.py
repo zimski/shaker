@@ -84,26 +84,33 @@ def ssh_cmd(cmds,var):
     password = var['script']['password']
     if mode !=1:
       s.login(hostname, username, password)
-    
+    inside_block = False
+
     for cmd in cmds:
       # looking for the cmd balise .... must be in the begining of the line
       
       if cmd.find('$$')==0 :
         run_cmd(s,var,cmd)
         continue
-      
+      if cmd.find('$<')==0:
+        inside_block = True
+        continue
+      if cmd.find('$>')==0:
+        inside_block = False
+        s.prompt()
+        message_rt = s.before
+        web_console_rt(message_rt)
+        continue 
       if mode ==1:
         continue
       
       s.sendline(cmd)
       if mode !=1:
         web_console_cmd(cmd)
-      s.prompt()
-      message_rt = s.before
-            
-     
-      
-      web_console_rt(message_rt)
+      if inside_block == False:  
+        s.prompt()
+        message_rt = s.before
+        web_console_rt(message_rt)
      
       
            
