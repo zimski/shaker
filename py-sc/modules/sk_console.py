@@ -10,6 +10,16 @@ def set(ssh,data,sk):
         ssh.sendline(cmd)
         ssh.prompt()
         sk(3,'SET '+key+' : '+str(var))
+def set_from_ns(ssh,data,sk):
+    for key in data:
+        if isinstance(nsGlobal.console[key],(int,long)):
+            cmd = key+'='+str(nsGlobal.console[key])
+        else:
+            cmd = key+'="'+nsGlobal.console[key]+'"'
+        ssh.sendline(cmd)
+        ssh.prompt()
+        sk(3,'SET '+key+' : '+str(nsGlobal.console[key]))
+
 
 def get(ssh,var,sk):
     for k in var:

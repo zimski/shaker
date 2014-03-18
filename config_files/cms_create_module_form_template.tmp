@@ -3,22 +3,34 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header Manage_DHCP
-            a(href="/cms/edit_module/Manage_DHCP")
+  h1.page-header CRON_JOB
+            a(href="/cms/edit_module/CRON_JOB")
                 span(class="glyphicon glyphicon-cog pull-right")
   ul(class="nav nav-tabs nav-justified")
             li.active
-                a(href="/module/Manage_DHCP/form") New record
+                a(href="/module/CRON_JOB/form") New record
             li
-                a(href="/module/Manage_DHCP/view") List
+                a(href="/module/CRON_JOB/view") List
 
-  form(role="form",action="/module/Manage_DHCP/post",method='POST')
+  form(role="form",action="/module/CRON_JOB/post",method='POST')
     div.form-group
-      label(for="IP") IP
-      input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
+      label(for="ID") ID
+      input(name="id", type="text", class="form-control" ,id="id", placeholder="")
     div.form-group
-      label(for="MAC") MAC
-      input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
+      label(for="CRON-EXPR") CRON-EXPR
+      input(name="cron", type="text", class="form-control" ,id="cron", placeholder="")
+    div.form-group
+      label(for="Script name") Script name
+      input(name="script", type="text", class="form-control" ,id="script", placeholder="")
+    div.form-group
+      label(for="Params") Params
+      input(name="argv", type="text", class="form-control" ,id="argv", placeholder="")
+    div.form-group
+      label(for="Status") Status
+      input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+    div.form-group
+      label(for="Description") Description
+      input(name="desc", type="text", class="form-control" ,id="desc", placeholder="")
 
    
     button(type="submit" ,class="btn btn-success") Save

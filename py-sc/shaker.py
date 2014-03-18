@@ -168,7 +168,10 @@ def main(argv):
    # data.append('IRCWWP001')
     print 'console arg'
     print console_arguments
-    str_yaml = tmp.render(argv=console_arguments)
+    try:
+        str_yaml = tmp.render(argv=console_arguments)
+    except Exception as e:
+        print "Yaml Parse env error "+str(e)
     if mode ==1:
       print '[debug][content of env]:'
       print  str_yaml
@@ -183,7 +186,10 @@ def main(argv):
     print '\n\n'
     print '\t\t[debug][~ shell ~]\n'
   tmp_sc = Template(filename=shell_file)
-  sc_content = tmp_sc.render(env=data_var_env)
+  try:
+    sc_content = tmp_sc.render(env=data_var_env)
+  except Exception as e:
+    print 'Yaml parse shell error '+str(e)
   if mode ==1:
     print '[debug][content of shell]\n'
     print sc_content
