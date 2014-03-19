@@ -16,23 +16,26 @@ block CONTENT
         h3 Script BASH
         textarea(name="script_bash",style="")= script_bash
         div(id="script_bash", style="width:100%;height:500px")= script_bash
+    div.row
           
-    div.panel.panel-success(style="margin-top:20px")
-      div(class="panel-heading") RUN
-      div.panel-body
-        div.input-group
-          input( id="run_args",type="text" ,class="form-control",placeholder="puts arguments")
-          span(class="input-group-btn")
-            button(onclick="run_script();",class="btn btn-default", type="button") Go!
+      div.col-md-6
+        div.panel.panel-success(style="margin-top:20px")
+          div(class="panel-heading") RUN
+          div.panel-body
+              div.input-group
+                input( id="run_args",type="text" ,class="form-control",placeholder="puts arguments")
+                span(class="input-group-btn")
+                  button(onclick="run_script();",class="btn btn-default", type="button") Go!
     
-    div.panel.panel-warning(style="margin-top:20px")
-      div(class="panel-heading") Check
-      div.panel-body
-        div.input-group
-          input( id="check_args",type="text" ,class="form-control",placeholder="puts arguments")
-          span(class="input-group-btn")
-            button(onclick="chech_script();",class="btn btn-default", type="button") Go!
-   
+      div.col-md-6
+        div.panel.panel-warning(style="margin-top:20px")
+          div(class="panel-heading") Check
+          div.panel-body
+              div.input-group
+                input( id="check_args",type="text" ,class="form-control",placeholder="puts arguments")
+                span(class="input-group-btn")
+                  button(onclick="chech_script();",class="btn btn-default", type="button") Go!
+    
     button(type="submit" ,style="margin-top: 20px",class="btn btn-lg btn-block btn-success") Save
     script.
       var editor_shell = ace.edit("script_bash");
