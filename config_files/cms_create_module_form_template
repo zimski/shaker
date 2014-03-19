@@ -1,16 +1,28 @@
 <%
 import redis
 w_list =[]
+select_list =[]
 r = redis.StrictRedis()
 #M:Nom_module:form
 # data['name'] c'est le nom du module !!
 list_form = r.hgetall('M:'+data['name']+':Forms')
+list_select = r.hgetall('M:'+data['name']+':Select')
+
 for item in sorted(list_form):
     row_tmp = list_form[item].split(':')
     row ={}    
     row['name'] = row_tmp[2]
     row['key'] = row_tmp[3]
     w_list.append(row)
+
+for item in sorted(list_select):
+    row_tmp = list_select[item].split(':')
+    row ={}    
+    row['name'] = row_tmp[1]
+    row['key'] = row_tmp[2]
+    row['options'] = row_tmp[3].split(',')
+    select_list.append(row)    
+
 %>
 extends ../layout
  
@@ -33,7 +45,22 @@ block CONTENT
         input(name="${item['key']}",value="#{data['${item['key']}']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
       else
         input(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
-% endfor    
+% endfor 
 
+%  for item in select_list :    
+    div.form-group
+      label(for="${item['name']}") ${item['name']}
+      if(data['${item['key']}'] != undefined)
+        select(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+            option(value="#{data['${item['key']}']}") #{data['${item['key']}']}
+            %for ss in item['options']:
+            option(value='${ss}') ${ss}
+            %endfor
+      else
+        select(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+            %for ss in item['options']:
+            option(value='${ss}') ${ss}
+            %endfor
+% endfor 
    
     button(type="submit" ,class="btn btn-success") Save

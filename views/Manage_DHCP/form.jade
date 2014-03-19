@@ -26,5 +26,16 @@ block CONTENT
       else
         input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
 
+    div.form-group
+      label(for="Area") Area
+      if(data['area'] != undefined)
+        select(name="area", type="text", class="form-control" ,id="area", placeholder="")
+            option(value="#{data['area']}") #{data['area']}
+            option(value='ircad') ircad
+            option(value='ihu') ihu
+      else
+        select(name="area", type="text", class="form-control" ,id="area", placeholder="")
+            option(value='ircad') ircad
+            option(value='ihu') ihu
    
     button(type="submit" ,class="btn btn-success") Save

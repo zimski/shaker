@@ -355,14 +355,23 @@ f[3]='';
 f[4]='';
 var d=[];
 d.push(f);
-res.render('cms',{name: '',forms : d, buttons :d});
+res.render('cms',{name: '',forms : d, buttons :d,selects:d});
 });
 app.get("/cms/edit_module/:module",function(req,res){
     if(!req.session.authentificated)
     res.redirect('/');
+var f=[];
+f[0]='';
+f[1]='';
+f[2]='';
+f[3]='';
+f[4]='';
+var d=[];
+d.push(f);
 
 var module_name = req.params.module;
 var forms=[];
+var select=[];
 var button=[];
 var i = 0;
 client_redis.hgetall('M:'+module_name+':Forms',function(err,data){
@@ -371,23 +380,38 @@ client_redis.hgetall('M:'+module_name+':Forms',function(err,data){
     }
     console.log(data);
     i=i+1;
-    if(i==2){
+    if(i==3){
         console.log(forms);
         console.log(button);
-        res.render('cms',{name: module_name,forms : forms, buttons : button});
+        res.render('cms',{name: module_name,forms : forms, buttons : button,selects : select});
     }
 
 });
+client_redis.hgetall('M:'+module_name+':Select',function(err,data){
+    for(var j in data){
+        select.push(data[j].split(':'));
+    }
+    select.push(f);
+    console.log(data);
+    i=i+1;
+    if(i==3){
+        console.log(forms);
+        console.log(button);
+        res.render('cms',{name: module_name,forms : forms, buttons : button,selects : select});
+    }
+
+});
+
 client_redis.hgetall('M:'+module_name+':Button',function(err,data){
     for(var j in data){
         button.push(data[j].split(':'));
     }
     console.log(data);
     i=i+1;
-    if(i==2){
+    if(i==3){
         console.log(forms);
         console.log(button);
-        res.render('cms',{name: module_name,forms : forms, buttons : button});
+        res.render('cms',{name: module_name,forms : forms, buttons : button,selects : select});
     }
 
 });
@@ -423,8 +447,10 @@ var keys = req.body.key_field;
 var index = req.body.index;
 var show = req.body.show;
 
-client_redis.del('M:'+name_module+':Forms');
 client_redis.del('M:'+name_module+':Button');
+client_redis.del('M:'+name_module+':Forms');
+client_redis.del('M:'+name_module+':Select');
+
 for(i=0;i< names.length;i++){
     var hash =index[i]+':'+show[i]+':'+names[i]+':'+keys[i];
     CMS_create_redis_file(name_module,'HSET M:'+name_module+':Forms '+i+' "'+hash+'"');
@@ -434,6 +460,23 @@ for(i=0;i< names.length;i++){
     });
 
 }
+// add selects
+var select_names = req.body.select_name_field;
+var select_keys = req.body.select_key_field;
+var select_content = req.body.select_content_field;
+var select_show = req.body.select_show;
+
+for(i=0;i< select_names.length;i++){
+    var hash =select_show[i]+':'+select_names[i]+':'+select_keys[i]+':'+select_content[i];
+    CMS_create_redis_file(name_module,'HSET M:'+name_module+':Select '+i+' "'+hash+'"');
+    client_redis.hset('M:'+name_module+':Select',i,hash,function (err){
+        if(err)
+        console.log(err);
+    });
+
+}
+
+
 // add button 
 var button_color = req.body.button_color;
 var button_name = req.body.button_name;
@@ -512,14 +555,15 @@ app.post("/module/:mod/post",function(req,res){
 
 var module_name = req.params.mod;
 var forms=[];
+var select =[];
 var index;
 var i = 0;
 client_redis.hgetall('M:'+module_name+':Forms',function(err,data){
     for(var j in data){
         var tmp = data[j].split(':');
         if(tmp[0]=='yes')
-    index = j;
-forms.push(tmp);
+            index = j;
+        forms.push(tmp);
     }
     for(var j in forms){
         client_redis.HSET('DB:'+module_name+':'+req.body[forms[index][3]],forms[j][3],req.body[forms[j][3]],function(err){
@@ -527,6 +571,20 @@ forms.push(tmp);
             console.log(err);
         });
     }
+    // store data from SelectBoxes
+    client_redis.HGETALL('M:'+module_name+':Select',function(err,data){
+     for(var j in data){
+        var tmp = data[j].split(':');
+        select.push(tmp);
+    }
+     for(var j in select){
+        client_redis.HSET('DB:'+module_name+':'+req.body[forms[index][3]],select[j][2],req.body[select[j][2]],function(err){
+            if(err)
+            console.log(err);
+        });
+     }
+   
+    });
     client_redis.lrem('DB:'+module_name+':list',1,'DB:'+module_name+':'+req.body[forms[index][3]]);
     client_redis.rpush('DB:'+module_name+':list','DB:'+module_name+':'+req.body[forms[index][3]],function(err){
         if(err) 

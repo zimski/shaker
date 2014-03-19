@@ -11,6 +11,8 @@
   list_button = r.hgetall('M:'+data['name']+':Button')
   
   list_view = r.hgetall('M:'+data['name']+':Forms')
+  list_select = r.hgetall('M:'+data['name']+':Select')
+  
   for item in sorted(list_view):
     row_tmp = list_view[item].split(':')
     if row_tmp[1]=='yes' :
@@ -18,7 +20,14 @@
         w_list_name.append(row_tmp[2])
     if row_tmp[0]=='yes' : # index
         tr_index = row_tmp[3]
-   
+
+  for item in sorted(list_select):
+    row_tmp = list_select[item].split(':')
+    if row_tmp[0]=='yes' :
+        w_list_key.append(row_tmp[2])
+        w_list_name.append(row_tmp[1])
+    
+
   for item in sorted(list_button):
     row_tmp = list_button[item].split(':')
     row = {}

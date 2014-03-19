@@ -55,12 +55,28 @@ block CONTENT
         input(name="status",value="#{data['status']}", type="text", class="form-control" ,id="status", placeholder="")
       else
         input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+
+    div.form-group
+      label(for="switchport mode") switchport mode
+      if(data['switchport_mode'] != undefined)
+        select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
+            option(value="#{data['switchport_mode']}") #{data['switchport_mode']}
+            option(value='trunk') trunk
+            option(value='access') access
+      else
+        select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
+            option(value='trunk') trunk
+            option(value='access') access
     div.form-group
       label(for="Active") Active
       if(data['active'] != undefined)
-        input(name="active",value="#{data['active']}", type="text", class="form-control" ,id="active", placeholder="")
+        select(name="active", type="text", class="form-control" ,id="active", placeholder="")
+            option(value="#{data['active']}") #{data['active']}
+            option(value='on') on
+            option(value='off') off
       else
-        input(name="active", type="text", class="form-control" ,id="active", placeholder="")
-
+        select(name="active", type="text", class="form-control" ,id="active", placeholder="")
+            option(value='on') on
+            option(value='off') off
    
     button(type="submit" ,class="btn btn-success") Save

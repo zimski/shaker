@@ -22,12 +22,14 @@ block CONTENT
                   th #
                   th IP
                   th MAC
+                  th Area
               tbody
               each hs in data
                 tr(id="tr-#{hs.ip}")
                   td #
                   td= hs.ip
                   td= hs.mac
+                  td= hs.area
                   td
                         button.btn.btn-Red(onclick="run_script('undefined','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Set
                         button.btn.btn-Green(onclick="run_script('undefined','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Remove

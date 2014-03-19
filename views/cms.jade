@@ -46,7 +46,38 @@ block CONTENT
                       span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
                     a(onclick="delete_row('tr-from-#{row[2]}')")
                       span(class="glyphicon glyphicon-trash",style="margin-top:8px;")
-             
+        h3 Form / SelectBox 
+        div.table-responsive
+            table.table.table-striped(id="tab_select")
+              thead
+                tr
+                  th Show?    
+                  th Name
+                  th key
+                  th content
+                  th
+              tbody
+              each row in selects     
+                tr(id="tr-select-#{row[2]}")
+                  th  
+                    select.form-control(name='select_show[]')
+                        option(value='no') No
+                        if (row[0]=='yes')
+                         option(value='yes' selected) Yes
+                        else
+                         option(value='yes' ) Yes
+                  th
+                    input(name='select_name_field[]', type="text", class="form-control" , placeholder="Enter name field",value="#{row[1]}")
+                  th
+                    input(name='select_key_field[]', type="text", class="form-control" , placeholder="Enter name field",value="#{row[2]}")
+                  th
+                    input(name='select_content_field[]', type="text", class="form-control" , placeholder="Enter name field",value="#{row[3]}")
+                  th
+                    a(onclick="add_row('tab_select')")
+                      span(class="glyphicon glyphicon-plus-sign",style="margin-top:8px;")
+                    a(onclick="delete_row('tr-select-#{row[2]}')")
+                      span(class="glyphicon glyphicon-trash",style="margin-top:8px;")
+ 
       div.col-md-6
         h3 Button Command
         div.table-responsive

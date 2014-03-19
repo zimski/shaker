@@ -26,6 +26,7 @@ block CONTENT
                   th Interface
                   th Vlans
                   th Status
+                  th switchport mode
                   th Active
               tbody
               each hs in data
@@ -37,6 +38,7 @@ block CONTENT
                   td= hs.interface
                   td= hs.vlans
                   td= hs.status
+                  td= hs.switchport_mode
                   td= hs.active
                   td
                         button.btn.btn-Red(onclick="run_script('Network_Device_pull','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Pull
