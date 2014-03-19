@@ -1,0 +1,1 @@
+$$ netDevice.pull CONF

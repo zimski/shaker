@@ -462,12 +462,27 @@ client_redis.rpush("Shaker:module:list",name_module,function(err){
 }
 });
 });
+app.get("/module/:name/edit/:key",function(req,res){
+    var module_name = req.params.name;
+    var key = req.params.key;
+
+    client_redis.hgetall('DB:'+module_name+":"+key,function(err,data){
+    if(err){
+        console.log(err)
+        res.render(module_name+'/view');
+    }
+    else{
+        res.render(module_name+'/form',{data:data});
+    }
+    });
+
+});
 app.get("/module/:name/:method",function(req,res){
     if(!req.session.authentificated)
     res.redirect('/');
 
 if(req.params.method == "form")
-    res.render(req.params.name+"/form")
+    res.render(req.params.name+"/form",{data:{}})
 else
 {
     client_redis.LRANGE('DB:'+req.params.name+':list',0,-1,function(err,data_l){

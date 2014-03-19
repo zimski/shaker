@@ -15,10 +15,16 @@ block CONTENT
   form(role="form",action="/module/Manage_DHCP/post",method='POST')
     div.form-group
       label(for="IP") IP
-      input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
+      if(data['ip'] != undefined)
+        input(name="ip",value="#{data['ip']}", type="text", class="form-control" ,id="ip", placeholder="")
+      else
+        input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
     div.form-group
       label(for="MAC") MAC
-      input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
+      if(data['mac'] != undefined)
+        input(name="mac",value="#{data['mac']}", type="text", class="form-control" ,id="mac", placeholder="")
+      else
+        input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
 
    
     button(type="submit" ,class="btn btn-success") Save

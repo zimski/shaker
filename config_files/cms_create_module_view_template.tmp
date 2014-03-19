@@ -4,14 +4,14 @@ extends ../layout
 
 
 block CONTENT
-          h1.page-header CRON_JOB
-            a(href="/cms/edit_module/CRON_JOB")
+          h1.page-header Manage_vm
+            a(href="/cms/edit_module/Manage_vm")
                 span(class="glyphicon glyphicon-cog pull-right")
           ul(class="nav nav-tabs nav-justified")
             li
-                a(href="/module/CRON_JOB/form") New record
+                a(href="/module/Manage_vm/form") New record
             li.active
-                a(href="/module/CRON_JOB/view") List
+                a(href="/module/Manage_vm/view") List
 
           
           h2.sub-header List
@@ -20,26 +20,34 @@ block CONTENT
               thead
                 tr
                   th #
-                  th ID
-                  th CRON-EXPR
-                  th Script name
-                  th Params
-                  th Status
-                  th Description
+                  th ip
+                  th mac
+                  th hostname
+                  th Role
+                  th Gateway
+                  th Dns
+                  th VMID
+                  th Type HyperViseur
+                  th HyperViseur ID
               tbody
               each hs in data
-                tr(id="tr-#{hs.id}")
+                tr(id="tr-#{hs.ip}")
                   td #
-                  td= hs.id
-                  td= hs.cron
-                  td= hs.script
-                  td= hs.argv
-                  td= hs.status
-                  td= hs.desc
+                  td= hs.ip
+                  td= hs.mac
+                  td= hs.host
+                  td= hs.role
+                  td= hs.gateway
+                  td= hs.dns
+                  td= hs.vmid
+                  td= hs.hv_type
+                  td= hs.hv_id
                   td
-                        button.btn.btn-Red(onclick="run_script('CRON_JOB_start','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Green(onclick="run_script('CRON_JOB_stop','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
-                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh
+                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
+                        a.btn.btn-default(href="/module/Manage_vm/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
 
 
 
@@ -66,7 +74,7 @@ block CONTENT
               }
               function delete_row(idd)
               {
-                $.post("/module/CRON_JOB/del",{key: idd},function(data)
+                $.post("/module/Manage_vm/del",{key: idd},function(data)
                 {
                   if(data=="ok")
                   {

@@ -3,34 +3,76 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header CRON_JOB
-            a(href="/cms/edit_module/CRON_JOB")
+  h1.page-header Manage_vm
+            a(href="/cms/edit_module/Manage_vm")
                 span(class="glyphicon glyphicon-cog pull-right")
   ul(class="nav nav-tabs nav-justified")
             li.active
-                a(href="/module/CRON_JOB/form") New record
+                a(href="/module/Manage_vm/form") New record
             li
-                a(href="/module/CRON_JOB/view") List
+                a(href="/module/Manage_vm/view") List
 
-  form(role="form",action="/module/CRON_JOB/post",method='POST')
+  form(role="form",action="/module/Manage_vm/post",method='POST')
     div.form-group
-      label(for="ID") ID
-      input(name="id", type="text", class="form-control" ,id="id", placeholder="")
+      label(for="ip") ip
+      if(data['ip'] != undefined)
+        input(name="ip",value="#{data['ip']}", type="text", class="form-control" ,id="ip", placeholder="")
+      else
+        input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
     div.form-group
-      label(for="CRON-EXPR") CRON-EXPR
-      input(name="cron", type="text", class="form-control" ,id="cron", placeholder="")
+      label(for="mac") mac
+      if(data['mac'] != undefined)
+        input(name="mac",value="#{data['mac']}", type="text", class="form-control" ,id="mac", placeholder="")
+      else
+        input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
     div.form-group
-      label(for="Script name") Script name
-      input(name="script", type="text", class="form-control" ,id="script", placeholder="")
+      label(for="hostname") hostname
+      if(data['host'] != undefined)
+        input(name="host",value="#{data['host']}", type="text", class="form-control" ,id="host", placeholder="")
+      else
+        input(name="host", type="text", class="form-control" ,id="host", placeholder="")
     div.form-group
-      label(for="Params") Params
-      input(name="argv", type="text", class="form-control" ,id="argv", placeholder="")
+      label(for="Role") Role
+      if(data['role'] != undefined)
+        input(name="role",value="#{data['role']}", type="text", class="form-control" ,id="role", placeholder="")
+      else
+        input(name="role", type="text", class="form-control" ,id="role", placeholder="")
     div.form-group
-      label(for="Status") Status
-      input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+      label(for="Gateway") Gateway
+      if(data['gateway'] != undefined)
+        input(name="gateway",value="#{data['gateway']}", type="text", class="form-control" ,id="gateway", placeholder="")
+      else
+        input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
     div.form-group
-      label(for="Description") Description
-      input(name="desc", type="text", class="form-control" ,id="desc", placeholder="")
+      label(for="Dns") Dns
+      if(data['dns'] != undefined)
+        input(name="dns",value="#{data['dns']}", type="text", class="form-control" ,id="dns", placeholder="")
+      else
+        input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
+    div.form-group
+      label(for="Root password") Root password
+      if(data['pass'] != undefined)
+        input(name="pass",value="#{data['pass']}", type="text", class="form-control" ,id="pass", placeholder="")
+      else
+        input(name="pass", type="text", class="form-control" ,id="pass", placeholder="")
+    div.form-group
+      label(for="VMID") VMID
+      if(data['vmid'] != undefined)
+        input(name="vmid",value="#{data['vmid']}", type="text", class="form-control" ,id="vmid", placeholder="")
+      else
+        input(name="vmid", type="text", class="form-control" ,id="vmid", placeholder="")
+    div.form-group
+      label(for="Type HyperViseur") Type HyperViseur
+      if(data['hv_type'] != undefined)
+        input(name="hv_type",value="#{data['hv_type']}", type="text", class="form-control" ,id="hv_type", placeholder="")
+      else
+        input(name="hv_type", type="text", class="form-control" ,id="hv_type", placeholder="")
+    div.form-group
+      label(for="HyperViseur ID") HyperViseur ID
+      if(data['hv_id'] != undefined)
+        input(name="hv_id",value="#{data['hv_id']}", type="text", class="form-control" ,id="hv_id", placeholder="")
+      else
+        input(name="hv_id", type="text", class="form-control" ,id="hv_id", placeholder="")
 
    
     button(type="submit" ,class="btn btn-success") Save

@@ -179,6 +179,9 @@ def main(argv):
         str_yaml = tmp.render(argv=console_arguments)
     except Exception as e:
         print "Yaml Parse env error "+str(e)
+        if str(e).find("list index out of range")>=0:
+            print "[shaker] please insert arguments, your yaml need arguments to be set arg[]"
+        sys.exit(2)
     if mode ==1:
       print '[debug][content of env]:'
       print  str_yaml

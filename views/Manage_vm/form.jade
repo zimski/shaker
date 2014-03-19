@@ -15,28 +15,64 @@ block CONTENT
   form(role="form",action="/module/Manage_vm/post",method='POST')
     div.form-group
       label(for="ip") ip
-      input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
+      if(data['ip'] != undefined)
+        input(name="ip",value="#{data['ip']}", type="text", class="form-control" ,id="ip", placeholder="")
+      else
+        input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
     div.form-group
       label(for="mac") mac
-      input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
+      if(data['mac'] != undefined)
+        input(name="mac",value="#{data['mac']}", type="text", class="form-control" ,id="mac", placeholder="")
+      else
+        input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
     div.form-group
       label(for="hostname") hostname
-      input(name="host", type="text", class="form-control" ,id="host", placeholder="")
+      if(data['host'] != undefined)
+        input(name="host",value="#{data['host']}", type="text", class="form-control" ,id="host", placeholder="")
+      else
+        input(name="host", type="text", class="form-control" ,id="host", placeholder="")
     div.form-group
       label(for="Role") Role
-      input(name="role", type="text", class="form-control" ,id="role", placeholder="")
+      if(data['role'] != undefined)
+        input(name="role",value="#{data['role']}", type="text", class="form-control" ,id="role", placeholder="")
+      else
+        input(name="role", type="text", class="form-control" ,id="role", placeholder="")
     div.form-group
       label(for="Gateway") Gateway
-      input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
+      if(data['gateway'] != undefined)
+        input(name="gateway",value="#{data['gateway']}", type="text", class="form-control" ,id="gateway", placeholder="")
+      else
+        input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
     div.form-group
       label(for="Dns") Dns
-      input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
+      if(data['dns'] != undefined)
+        input(name="dns",value="#{data['dns']}", type="text", class="form-control" ,id="dns", placeholder="")
+      else
+        input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
     div.form-group
       label(for="Root password") Root password
-      input(name="pass", type="text", class="form-control" ,id="pass", placeholder="")
+      if(data['pass'] != undefined)
+        input(name="pass",value="#{data['pass']}", type="text", class="form-control" ,id="pass", placeholder="")
+      else
+        input(name="pass", type="text", class="form-control" ,id="pass", placeholder="")
     div.form-group
       label(for="VMID") VMID
-      input(name="vmid", type="text", class="form-control" ,id="vmid", placeholder="")
+      if(data['vmid'] != undefined)
+        input(name="vmid",value="#{data['vmid']}", type="text", class="form-control" ,id="vmid", placeholder="")
+      else
+        input(name="vmid", type="text", class="form-control" ,id="vmid", placeholder="")
+    div.form-group
+      label(for="Type HyperViseur") Type HyperViseur
+      if(data['hv_type'] != undefined)
+        input(name="hv_type",value="#{data['hv_type']}", type="text", class="form-control" ,id="hv_type", placeholder="")
+      else
+        input(name="hv_type", type="text", class="form-control" ,id="hv_type", placeholder="")
+    div.form-group
+      label(for="HyperViseur ID") HyperViseur ID
+      if(data['hv_id'] != undefined)
+        input(name="hv_id",value="#{data['hv_id']}", type="text", class="form-control" ,id="hv_id", placeholder="")
+      else
+        input(name="hv_id", type="text", class="form-control" ,id="hv_id", placeholder="")
 
    
     button(type="submit" ,class="btn btn-success") Save

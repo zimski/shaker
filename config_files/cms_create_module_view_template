@@ -69,6 +69,7 @@ block CONTENT
                         button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') ${butt['name']}
                       % endif                      
                   % endfor
+                        a.btn.btn-default(href="/module/${data['name']}/edit/#{hs.${tr_index}}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.${tr_index}}')",style='height:30px; margin-left:5px') Remove
 
 

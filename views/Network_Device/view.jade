@@ -4,14 +4,14 @@ extends ../layout
 
 
 block CONTENT
-          h1.page-header Manage_DHCP
-            a(href="/cms/edit_module/Manage_DHCP")
+          h1.page-header Network_Device
+            a(href="/cms/edit_module/Network_Device")
                 span(class="glyphicon glyphicon-cog pull-right")
           ul(class="nav nav-tabs nav-justified")
             li
-                a(href="/module/Manage_DHCP/form") New record
+                a(href="/module/Network_Device/form") New record
             li.active
-                a(href="/module/Manage_DHCP/view") List
+                a(href="/module/Network_Device/view") List
 
           
           h2.sub-header List
@@ -20,19 +20,28 @@ block CONTENT
               thead
                 tr
                   th #
-                  th IP
-                  th MAC
+                  th id
+                  th Device hostname/ip
+                  th Login
+                  th Interface
+                  th Vlans
+                  th Status
+                  th Active
               tbody
               each hs in data
-                tr(id="tr-#{hs.ip}")
+                tr(id="tr-#{hs.id}")
                   td #
-                  td= hs.ip
-                  td= hs.mac
+                  td= hs.id
+                  td= hs.hostname
+                  td= hs.login
+                  td= hs.interface
+                  td= hs.vlans
+                  td= hs.status
+                  td= hs.active
                   td
-                        button.btn.btn-Red(onclick="run_script('undefined','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Set
-                        button.btn.btn-Green(onclick="run_script('undefined','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Remove
-                        a.btn.btn-default(href="/module/Manage_DHCP/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Red(onclick="run_script('Network_Device_pull','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Pull
+                        a.btn.btn-default(href="/module/Network_Device/edit/#{hs.id}",style='height:30px; margin-left:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
 
 
 
@@ -59,7 +68,7 @@ block CONTENT
               }
               function delete_row(idd)
               {
-                $.post("/module/Manage_DHCP/del",{key: idd},function(data)
+                $.post("/module/Network_Device/del",{key: idd},function(data)
                 {
                   if(data=="ok")
                   {

@@ -29,7 +29,10 @@ block CONTENT
 %  for item in w_list :    
     div.form-group
       label(for="${item['name']}") ${item['name']}
-      input(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+      if(data['${item['key']}'] != undefined)
+        input(name="${item['key']}",value="#{data['${item['key']}']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+      else
+        input(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
 % endfor    
 
    

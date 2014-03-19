@@ -1,0 +1,10 @@
+redis-cli HSET M:Network_Device:Forms 0 "yes:yes:id:id"
+redis-cli HSET M:Network_Device:Forms 1 "no:yes:Device hostname/ip:hostname"
+redis-cli HSET M:Network_Device:Forms 2 "no:yes:Login:login"
+redis-cli HSET M:Network_Device:Forms 3 "no:no:Password:password"
+redis-cli HSET M:Network_Device:Forms 4 "no:yes:Interface:interface"
+redis-cli HSET M:Network_Device:Forms 5 "no:yes:Vlans:vlans"
+redis-cli HSET M:Network_Device:Forms 6 "no:yes:Status:status"
+redis-cli HSET M:Network_Device:Forms 7 "no:yes:Active:active"
+redis-cli HSET M:Network_Device:Button 0 "Red:Pull:Network_Device_pull:#id"
+redis-cli RPUSH Shaker:module:list Network_Device
