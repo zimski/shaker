@@ -36,31 +36,32 @@ block CONTENT
                 a(href="/module/${data['name']}/form") New record
             li
                 a(href="/module/${data['name']}/view") List
-
-  form(role="form",action="/module/${data['name']}/post",method='POST')
-%  for item in w_list :    
-    div.form-group
-      label(for="${item['name']}") ${item['name']}
-      if(data['${item['key']}'] != undefined)
-        input(name="${item['key']}",value="#{data['${item['key']}']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
-      else
-        input(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
-% endfor 
-
-%  for item in select_list :    
-    div.form-group
-      label(for="${item['name']}") ${item['name']}
-      if(data['${item['key']}'] != undefined)
-        select(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
-            option(value="#{data['${item['key']}']}") #{data['${item['key']}']}
-            %for ss in item['options']:
-            option(value='${ss}') ${ss}
-            %endfor
-      else
-        select(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
-            %for ss in item['options']:
-            option(value='${ss}') ${ss}
-            %endfor
-% endfor 
-   
-    button(type="submit" ,class="btn btn-success") Save
+  div.row
+    div.col-md-6
+      form(role="form",action="/module/${data['name']}/post",method='POST')
+    %  for item in w_list :    
+        div.form-group
+          label(for="${item['name']}") ${item['name']}
+          if(data['${item['key']}'] != undefined)
+            input(name="${item['key']}",value="#{data['${item['key']}']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+          else
+            input(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+    % endfor 
+    
+    %  for item in select_list :    
+        div.form-group
+          label(for="${item['name']}") ${item['name']}
+          if(data['${item['key']}'] != undefined)
+            select(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+                option(value="#{data['${item['key']}']}") #{data['${item['key']}']}
+                %for ss in item['options']:
+                option(value='${ss}') ${ss}
+                %endfor
+          else
+            select(name="${item['key']}", type="text", class="form-control" ,id="${item['key']}", placeholder="")
+                %for ss in item['options']:
+                option(value='${ss}') ${ss}
+                %endfor
+    % endfor 
+       
+        button(type="submit" ,class="btn btn-success") Save

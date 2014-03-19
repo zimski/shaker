@@ -27,8 +27,8 @@ block CONTENT
                   th Gateway
                   th Dns
                   th VMID
-                  th Type HyperViseur
                   th HyperViseur ID
+                  th Type HyperViseur
               tbody
               each hs in data
                 tr(id="tr-#{hs.ip}")
@@ -40,8 +40,8 @@ block CONTENT
                   td= hs.gateway
                   td= hs.dns
                   td= hs.vmid
-                  td= hs.hv_type
                   td= hs.hv_id
+                  td= hs.hv_type
                   td
                         button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
                         button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh

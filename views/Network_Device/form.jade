@@ -11,72 +11,73 @@ block CONTENT
                 a(href="/module/Network_Device/form") New record
             li
                 a(href="/module/Network_Device/view") List
-
-  form(role="form",action="/module/Network_Device/post",method='POST')
-    div.form-group
-      label(for="id") id
-      if(data['id'] != undefined)
-        input(name="id",value="#{data['id']}", type="text", class="form-control" ,id="id", placeholder="")
-      else
-        input(name="id", type="text", class="form-control" ,id="id", placeholder="")
-    div.form-group
-      label(for="Device hostname/ip") Device hostname/ip
-      if(data['hostname'] != undefined)
-        input(name="hostname",value="#{data['hostname']}", type="text", class="form-control" ,id="hostname", placeholder="")
-      else
-        input(name="hostname", type="text", class="form-control" ,id="hostname", placeholder="")
-    div.form-group
-      label(for="Login") Login
-      if(data['login'] != undefined)
-        input(name="login",value="#{data['login']}", type="text", class="form-control" ,id="login", placeholder="")
-      else
-        input(name="login", type="text", class="form-control" ,id="login", placeholder="")
-    div.form-group
-      label(for="Password") Password
-      if(data['password'] != undefined)
-        input(name="password",value="#{data['password']}", type="text", class="form-control" ,id="password", placeholder="")
-      else
-        input(name="password", type="text", class="form-control" ,id="password", placeholder="")
-    div.form-group
-      label(for="Interface") Interface
-      if(data['interface'] != undefined)
-        input(name="interface",value="#{data['interface']}", type="text", class="form-control" ,id="interface", placeholder="")
-      else
-        input(name="interface", type="text", class="form-control" ,id="interface", placeholder="")
-    div.form-group
-      label(for="Vlans") Vlans
-      if(data['vlans'] != undefined)
-        input(name="vlans",value="#{data['vlans']}", type="text", class="form-control" ,id="vlans", placeholder="")
-      else
-        input(name="vlans", type="text", class="form-control" ,id="vlans", placeholder="")
-    div.form-group
-      label(for="Status") Status
-      if(data['status'] != undefined)
-        input(name="status",value="#{data['status']}", type="text", class="form-control" ,id="status", placeholder="")
-      else
-        input(name="status", type="text", class="form-control" ,id="status", placeholder="")
-
-    div.form-group
-      label(for="switchport mode") switchport mode
-      if(data['switchport_mode'] != undefined)
-        select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
-            option(value="#{data['switchport_mode']}") #{data['switchport_mode']}
-            option(value='trunk') trunk
-            option(value='access') access
-      else
-        select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
-            option(value='trunk') trunk
-            option(value='access') access
-    div.form-group
-      label(for="Active") Active
-      if(data['active'] != undefined)
-        select(name="active", type="text", class="form-control" ,id="active", placeholder="")
-            option(value="#{data['active']}") #{data['active']}
-            option(value='on') on
-            option(value='off') off
-      else
-        select(name="active", type="text", class="form-control" ,id="active", placeholder="")
-            option(value='on') on
-            option(value='off') off
-   
-    button(type="submit" ,class="btn btn-success") Save
+  div.row
+    div.col-md-6
+      form(role="form",action="/module/Network_Device/post",method='POST')
+        div.form-group
+          label(for="id") id
+          if(data['id'] != undefined)
+            input(name="id",value="#{data['id']}", type="text", class="form-control" ,id="id", placeholder="")
+          else
+            input(name="id", type="text", class="form-control" ,id="id", placeholder="")
+        div.form-group
+          label(for="Device hostname/ip") Device hostname/ip
+          if(data['hostname'] != undefined)
+            input(name="hostname",value="#{data['hostname']}", type="text", class="form-control" ,id="hostname", placeholder="")
+          else
+            input(name="hostname", type="text", class="form-control" ,id="hostname", placeholder="")
+        div.form-group
+          label(for="Login") Login
+          if(data['login'] != undefined)
+            input(name="login",value="#{data['login']}", type="text", class="form-control" ,id="login", placeholder="")
+          else
+            input(name="login", type="text", class="form-control" ,id="login", placeholder="")
+        div.form-group
+          label(for="Password") Password
+          if(data['password'] != undefined)
+            input(name="password",value="#{data['password']}", type="text", class="form-control" ,id="password", placeholder="")
+          else
+            input(name="password", type="text", class="form-control" ,id="password", placeholder="")
+        div.form-group
+          label(for="Interface") Interface
+          if(data['interface'] != undefined)
+            input(name="interface",value="#{data['interface']}", type="text", class="form-control" ,id="interface", placeholder="")
+          else
+            input(name="interface", type="text", class="form-control" ,id="interface", placeholder="")
+        div.form-group
+          label(for="Vlans") Vlans
+          if(data['vlans'] != undefined)
+            input(name="vlans",value="#{data['vlans']}", type="text", class="form-control" ,id="vlans", placeholder="")
+          else
+            input(name="vlans", type="text", class="form-control" ,id="vlans", placeholder="")
+        div.form-group
+          label(for="Status") Status
+          if(data['status'] != undefined)
+            input(name="status",value="#{data['status']}", type="text", class="form-control" ,id="status", placeholder="")
+          else
+            input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+    
+        div.form-group
+          label(for="switchport mode") switchport mode
+          if(data['switchport_mode'] != undefined)
+            select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
+                option(value="#{data['switchport_mode']}") #{data['switchport_mode']}
+                option(value='trunk') trunk
+                option(value='access') access
+          else
+            select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
+                option(value='trunk') trunk
+                option(value='access') access
+        div.form-group
+          label(for="Active") Active
+          if(data['active'] != undefined)
+            select(name="active", type="text", class="form-control" ,id="active", placeholder="")
+                option(value="#{data['active']}") #{data['active']}
+                option(value='on') on
+                option(value='off') off
+          else
+            select(name="active", type="text", class="form-control" ,id="active", placeholder="")
+                option(value='on') on
+                option(value='off') off
+       
+        button(type="submit" ,class="btn btn-success") Save
