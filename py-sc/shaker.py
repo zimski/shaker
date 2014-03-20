@@ -1,4 +1,5 @@
 import yaml
+import os
 from mako.template import Template
 from socketIO_client import SocketIO
 import redis,sys,getopt,pxssh,getpass,StringIO,contextlib
@@ -165,6 +166,11 @@ def main(argv):
       console_arguments = arg.split()
   if mode ==1:
     print '\t\t[Shaker Debug]\n'
+  # Parsing shaker config
+  #LOCAL_PATH=os.path.realpath(__folder__)
+  LOCAL_PATH = os.path.dirname(os.path.realpath(__file__))
+  conf_file = open(LOCAL_PATH+'/shaker.conf','r')
+  SHAKER_CONF = yaml.load(conf_file)
   # parsing env.yaml
   if env_file != '':
     if mode ==1:
@@ -176,7 +182,7 @@ def main(argv):
     print 'console arg'
     print console_arguments
     try:
-        str_yaml = tmp.render(argv=console_arguments)
+        str_yaml = tmp.render(argv=console_arguments,shaker=SHAKER_CONF)
     except Exception as e:
         print "Yaml Parse env error "+str(e)
         if str(e).find("list index out of range")>=0:
