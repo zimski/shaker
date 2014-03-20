@@ -2,14 +2,10 @@ extends layout
 
 
 block CONTENT
-          h1.page-header Dashboard
+          h2.sub-header Configuration template file
+          a(onclick="scan_tpl_folder();")
+              span.badge(id="update_tpl_list") Click to scan script folder
 
-          div.row.placeholders
-            div.col-xs-6.col-sm-3.placeholder
-              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
-              h4 Label
-              span.text-muted Something else
-          h2.sub-header List of Configuration template file
           div.table-responsive
             table.table.table-striped
               thead
@@ -27,5 +23,14 @@ block CONTENT
                   td
                     a(href="/edit_conf_file/#{hs}")
                       button.btn.btn-success(style='height:30px') Edit !
-                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Delete
+                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='margin-left:10px;height:30px') Delete
+            script.
+                function scan_tpl_folder()
+                {
+                    $('#update_tpl_list').text('Updating ...');
+                    $.get('/update_tpl_list',function(data){
+                        window.location.reload();
+
+                        });
+                }
 

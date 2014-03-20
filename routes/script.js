@@ -82,4 +82,25 @@ module.exports = function(app,client_redis,__dirname){
     });
     res.redirect('/edit_script/'+req.body.name_script);
     });
+    app.get('/update_script_list',function(req,res){
+        fs.readdir(__dirname+'/scripts/',function(err,files){
+            var len = files.length
+            client_redis.del('shell_list');
+            files.forEach(function(file){
+                len -=1;
+                var fileC = __dirname+'/scripts/'+file;
+                if (fs.lstatSync(fileC).isDirectory())
+                {
+                    console.log('script found : '+file);
+                    client_redis.lrem('shell_list',1,file);
+                    client_redis.rpush('shell_list',file,function(err){
+                        if(err) 
+                            console.log('erreur'+err);
+                    });
+                }
+                if(len <=0)
+                    res.send('ok');
+            });
+        });
+    });
 }

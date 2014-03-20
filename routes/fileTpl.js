@@ -72,5 +72,26 @@ module.exports = function(app,client_redis,__dirname){
         res.send(env_content);
     });
     });
+    app.get('/update_tpl_list',function(req,res){
+        fs.readdir(__dirname+'/config_files/',function(err,files){
+            var len = files.length
+            client_redis.del('conf_list');
+            files.forEach(function(file){
+                len -=1;
+                var fileC = __dirname+'/config_files/'+file;
+                if (fs.lstatSync(fileC).isFile())
+                {
+                    console.log('script found : '+file);
+                    //client_redis.lrem('conf_list',1,file);
+                    client_redis.rpush('conf_list',file,function(err){
+                        if(err) 
+                            console.log('erreur'+err);
+                    });
+                }
+                if(len <=0)
+                    res.send('ok');
+            });
+        });
+    });
 
 }

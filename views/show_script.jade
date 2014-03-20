@@ -2,15 +2,10 @@ extends layout
 
 
 block CONTENT
-          h1.page-header Dashboard
-
-          div.row.placeholders
-            div.col-xs-6.col-sm-3.placeholder
-              img(data-src="holder.js/200x200/auto/sky" ,class="img-responsive", alt="Generic placeholder thumbnail")
-              h4 Label
-              span.text-muted Something else
-          h2.sub-header List of virual machines
-          div.table-responsive
+    h2.sub-header Shaker Scripts
+    a(onclick="scan_script_folder();")
+        span.badge(id="update_script_list") Click to scan script folder
+    div.table-responsive
             table.table.table-striped
               thead
                 tr
@@ -27,7 +22,15 @@ block CONTENT
                   td
                     a(href="/edit_script/#{hs}")
                       button.btn.btn-success(style="height:30px") Edit
-                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='height:30px') Delete
+                    button.btn.btn-danger(data-toggle="modal" data-target="#console",style='margin-left:10px;height:30px') Delete
 
+    script.
+        function scan_script_folder()
+        {
+            $('#update_script_list').text('Updating ...');
+            $.get('/update_script_list',function(data){
+                window.location.reload();
 
+                });
+        }
 
