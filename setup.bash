@@ -6,6 +6,9 @@ apt-get install nodejs
 echo "# Install Python"
 apt-get install python
 apt-get install python-pip
+pip install redis
+pip install paramiko
+pip install scp
 pip install yaml
 pip install Mako
 pip install socketIO-client
