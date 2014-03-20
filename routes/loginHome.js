@@ -1,3 +1,4 @@
+var shaker = require('../lib/shaker.js')
 var crypto = require('crypto')
 module.exports = function(app,client_redis,__dirname){
     app.get('/logout',function(req,res){
@@ -38,5 +39,9 @@ module.exports = function(app,client_redis,__dirname){
         if(!req.session.authentificated)
         res.redirect('/');
     res.render('home',{});
+    });
+    app.get('/update_module_list',function(req,res){
+        shaker.run_shaker("generate_shaker_layout_for_modules","");
+        res.send('ok');
     });
 }

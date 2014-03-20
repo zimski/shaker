@@ -75,9 +75,9 @@ module.exports = function(app,client_redis,__dirname){
     });
     });
 
-    function CMS_create_redis_file(name_module,cmd){
+    function CMS_create_setup_file(name_module,cmd){
         var path_sc = __dirname+"/views/"+name_module+"/install.sh" ;
-        fs.appendFile(path_sc,'redis-cli '+cmd+'\n');
+        fs.appendFile(path_sc,cmd+'\n');
 
     }
     app.post("/cms/add_module",function(req,res){
@@ -111,7 +111,7 @@ module.exports = function(app,client_redis,__dirname){
 
     for(i=0;i< names.length;i++){
         var hash =index[i]+':'+show[i]+':'+names[i]+':'+keys[i];
-        CMS_create_redis_file(name_module,'HSET M:'+name_module+':Forms '+i+' "'+hash+'"');
+        CMS_create_setup_file(name_module,'redis-cli HSET M:'+name_module+':Forms '+i+' "'+hash+'"');
         client_redis.hset('M:'+name_module+':Forms',i,hash,function (err){
             if(err)
             console.log(err);
@@ -126,7 +126,7 @@ module.exports = function(app,client_redis,__dirname){
 
     for(i=0;i< select_names.length;i++){
         var hash =select_show[i]+':'+select_names[i]+':'+select_keys[i]+':'+select_content[i];
-        CMS_create_redis_file(name_module,'HSET M:'+name_module+':Select '+i+' "'+hash+'"');
+        CMS_create_setup_file(name_module,'redis-cli HSET M:'+name_module+':Select '+i+' "'+hash+'"');
         client_redis.hset('M:'+name_module+':Select',i,hash,function (err){
             if(err)
             console.log(err);
@@ -142,7 +142,7 @@ module.exports = function(app,client_redis,__dirname){
     var button_argv = req.body.button_argv;
     for(i=0;i<button_color.length;i++){
         var hash = button_color[i]+':'+button_name[i]+':'+button_script[i]+':'+button_argv[i].replace('$',''); 
-        CMS_create_redis_file(name_module,'HSET M:'+name_module+':Button '+i+' "'+hash+'"');
+        CMS_create_setup_file(name_module,'redis-cli HSET M:'+name_module+':Button '+i+' "'+hash+'"');
         client_redis.hset('M:'+name_module+':Button',i,hash,function (err){
             if(err)
             console.log(err);
@@ -150,7 +150,7 @@ module.exports = function(app,client_redis,__dirname){
     }
     // Shaker add module in list
     client_redis.lrem("Shaker:module:list",1,name_module);
-    CMS_create_redis_file(name_module,'RPUSH Shaker:module:list '+name_module);
+    CMS_create_setup_file(name_module,'redis-cli RPUSH Shaker:module:list '+name_module);
 
     client_redis.rpush("Shaker:module:list",name_module,function(err){
         if(err)
@@ -158,6 +158,7 @@ module.exports = function(app,client_redis,__dirname){
         else
     {
         shaker.run_shaker("generate_shaker_layout_for_modules","");
+        //CMS_create_setup_file(name_module,'python ../../')
         shaker.run_shaker("generate_module_view_and_form",name_module);
         res.redirect('/cms/edit_module/'+name_module);
     }

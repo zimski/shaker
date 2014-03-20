@@ -34,32 +34,38 @@ html
       div.row
         div.col-sm-3.col-md-2.sidebar
           ul.nav.nav-sidebar
-            li(id="menu- CRON_JOB")
+            li
+              a(onclick="update_module_list();")
+                span.badge(id="update_list") Click to refresh list
+            li
+              a(style=" font-weight:bold;") 
+                span.label.label-success Shaker module\'s list
+            li(id="menu-CRON_JOB")
               a(href="/module/CRON_JOB/view") CRON_JOB
-            li(id="menu- Network_Device")
+            li(id="menu-Network_Device")
               a(href="/module/Network_Device/view") Network_Device
-            li(id="menu- Manage_DHCP")
+            li(id="menu-Manage_DHCP")
               a(href="/module/Manage_DHCP/view") Manage_DHCP
-            li(id="menu- Manage_vm")
+            li(id="menu-Manage_vm")
               a(href="/module/Manage_vm/view") Manage_vm
-            li(id="menu- undefined")
-              a(href="/module/undefined/view") undefined
-            li(id="menu- undefined")
+            li(id="menu-undefined")
               a(href="/module/undefined/view") undefined
           ul.nav.nav-sidebar
             li
-              a(style=" font-weight:bold;") ~[ Module Script Shaker ]~
+              a(style=" font-weight:bold;") 
+                span.label.label-primary Shaker Script
             li
-              a(href="/add_script") Create new script
+              a(href="/add_script") Add script
             li
-              a(href="/show_script") Show script
+              a(href="/show_script") List scripts
           ul.nav.nav-sidebar
             li
-              a(style=" font-weight:bold;") ~[ Module file configuration ]~
+              a(style=" font-weight:bold;")
+                span.label.label-info Shaker Template file
             li
               a(href="/add_conf_file") Add file
             li
-              a(href="/show_config_file") show files
+              a(href="/show_config_file") List files
 
 
       div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
@@ -98,4 +104,11 @@ html
           function clear_console()
           {
             $("#console-content").html('');
+          }
+          function update_module_list()
+          {
+            $.get('/update_module_list',function(data){
+                $('#update_list').text('Updating ...');
+                setTimeout(function(){window.location.reload();},2000);
+                });
           }
