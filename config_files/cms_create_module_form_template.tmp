@@ -3,17 +3,17 @@ extends ../layout
  
 
 block CONTENT
-  h1.page-header Manage_vm
-            a(href="/cms/edit_module/Manage_vm")
+  h1.page-header undefined
+            a(href="/cms/edit_module/undefined")
                 span(class="glyphicon glyphicon-cog pull-right")
   ul(class="nav nav-tabs nav-justified")
             li.active
-                a(href="/module/Manage_vm/form") New record
+                a(href="/module/undefined/form") New record
             li
-                a(href="/module/Manage_vm/view") List
+                a(href="/module/undefined/view") List
   div.row
     div.col-md-6
-      form(role="form",action="/module/Manage_vm/post",method='POST')
+      form(role="form",action="/module/undefined/post",method='POST')
         div.form-group
           label(for="ip") ip
           if(data['ip'] != undefined)
@@ -26,59 +26,19 @@ block CONTENT
             input(name="mac",value="#{data['mac']}", type="text", class="form-control" ,id="mac", placeholder="")
           else
             input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
-        div.form-group
-          label(for="hostname") hostname
-          if(data['host'] != undefined)
-            input(name="host",value="#{data['host']}", type="text", class="form-control" ,id="host", placeholder="")
-          else
-            input(name="host", type="text", class="form-control" ,id="host", placeholder="")
-        div.form-group
-          label(for="Role") Role
-          if(data['role'] != undefined)
-            input(name="role",value="#{data['role']}", type="text", class="form-control" ,id="role", placeholder="")
-          else
-            input(name="role", type="text", class="form-control" ,id="role", placeholder="")
-        div.form-group
-          label(for="Gateway") Gateway
-          if(data['gateway'] != undefined)
-            input(name="gateway",value="#{data['gateway']}", type="text", class="form-control" ,id="gateway", placeholder="")
-          else
-            input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
-        div.form-group
-          label(for="Dns") Dns
-          if(data['dns'] != undefined)
-            input(name="dns",value="#{data['dns']}", type="text", class="form-control" ,id="dns", placeholder="")
-          else
-            input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
-        div.form-group
-          label(for="Root password") Root password
-          if(data['pass'] != undefined)
-            input(name="pass",value="#{data['pass']}", type="text", class="form-control" ,id="pass", placeholder="")
-          else
-            input(name="pass", type="text", class="form-control" ,id="pass", placeholder="")
-        div.form-group
-          label(for="VMID") VMID
-          if(data['vmid'] != undefined)
-            input(name="vmid",value="#{data['vmid']}", type="text", class="form-control" ,id="vmid", placeholder="")
-          else
-            input(name="vmid", type="text", class="form-control" ,id="vmid", placeholder="")
-        div.form-group
-          label(for="HyperViseur ID") HyperViseur ID
-          if(data['hv_id'] != undefined)
-            input(name="hv_id",value="#{data['hv_id']}", type="text", class="form-control" ,id="hv_id", placeholder="")
-          else
-            input(name="hv_id", type="text", class="form-control" ,id="hv_id", placeholder="")
     
         div.form-group
-          label(for="Type HyperViseur") Type HyperViseur
-          if(data['hv_type'] != undefined)
-            select(name="hv_type", type="text", class="form-control" ,id="hv_type", placeholder="")
-                option(value="#{data['hv_type']}") #{data['hv_type']}
-                option(value='Proxmox') Proxmox
-                option(value='ESXI') ESXI
+          label(for="gogg") gogg
+          if(data['kiki'] != undefined)
+            select(name="kiki", type="text", class="form-control" ,id="kiki", placeholder="")
+                option(value="#{data['kiki']}") #{data['kiki']}
+                option(value='kaka') kaka
+                option(value='fofof') fofof
+                option(value='dfdfd') dfdfd
           else
-            select(name="hv_type", type="text", class="form-control" ,id="hv_type", placeholder="")
-                option(value='Proxmox') Proxmox
-                option(value='ESXI') ESXI
+            select(name="kiki", type="text", class="form-control" ,id="kiki", placeholder="")
+                option(value='kaka') kaka
+                option(value='fofof') fofof
+                option(value='dfdfd') dfdfd
        
         button(type="submit" ,class="btn btn-success") Save
