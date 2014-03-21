@@ -33,7 +33,7 @@ def send(ssh,data,sk):
     
     scp = SCPClient(ssh_client.get_transport())
     scp.put(tmp_namefile,data['template']['dest_path'])
-    #os.remove(tmp_namefile)
+    os.remove(tmp_namefile)
     print " file send ...OK"
   except Exception as e:
     print "ERROR :"+str(e)
