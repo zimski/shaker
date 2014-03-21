@@ -24,8 +24,8 @@ https://github.com/creationix/nvm
 
 ```
 curl https://raw.github.com/creationix/nvm/v0.3.0/install.sh | sh
-nvm install 0.10
 (( reopen the terminal ))
+nvm install 0.10
 node app
 
 ```
