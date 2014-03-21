@@ -12,14 +12,24 @@ The strangth point of shaker is his ability to make your own modules with your o
 
 ## Install Shaker
 
-Ã¨Ãbash
+```bash
 git clone https://github.com/zimski/shaker.git
 cd shaker && sudo bash setup.bash
 ```
 
 ## Configuration
+
 Go to shaker/py-sc/shaker.conf and edit with a valid account, this account will be used to ssh your localhost (if it's needed)
+You can create a dedicated user for shaker, in this case you will able to control shaker permissions
+
 change also the "pwd" with the curent shaker folder in your machine
+
+```yaml
+localhost:
+    user : shaker
+    password: shakerpass@
+pwd : /home/shaker
+```
 
 ## Start Shaker
 
