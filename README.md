@@ -12,7 +12,7 @@ The strangth point of shaker is his ability to make your own modules with your o
 
 ## Install Shaker
 
-Ã¨Ãbash
+```bash
 git clone https://github.com/zimski/shaker.git
 cd shaker && sudo bash setup.bash
 ```
