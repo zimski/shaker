@@ -37,7 +37,9 @@ pwd : /home/shaker
 ```bash
 node app.js
 ```
-
+You can access to Shaker at this address : http://localhost:3002/
+user : admin
+password :  admin
 
 ## Example of Shaker Script
 We have two files, the env file, where we fetch our variables, we can use Python code to fetch and Mako to template the file
