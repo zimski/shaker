@@ -32,7 +32,7 @@ node app
 ## Configuration
 
 Go to shaker/py-sc/shaker.conf and edit with a valid account, this account will be used to ssh your localhost (if it's needed)
-You can create a dedicated user for shaker, in this case you will able to control shaker permissions
+You can create a dedicated user for shaker, in this case you will be able to control shaker permissions
 
 change also the "pwd" with the curent shaker folder in your machine
 
