@@ -16,12 +16,23 @@ The strangth point of shaker is his ability to make your own modules with your o
 ```bash
 git clone https://github.com/zimski/shaker.git
 cd shaker && sudo bash setup.bash
-```
+``` 
+please check if the version of node installed >= v0.10.XX
+if not, install NVM and get v0.10
 
+https://github.com/creationix/nvm
+
+```
+curl https://raw.github.com/creationix/nvm/v0.3.0/install.sh | sh
+(( reopen the terminal ))
+nvm install 0.10
+node app
+
+```
 ## Configuration
 
 Go to shaker/py-sc/shaker.conf and edit with a valid account, this account will be used to ssh your localhost (if it's needed)
-You can create a dedicated user for shaker, in this case you will able to control shaker permissions
+You can create a dedicated user for shaker, in this case you will be able to control shaker permissions
 
 change also the "pwd" with the curent shaker folder in your machine
 
