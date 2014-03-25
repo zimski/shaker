@@ -45,7 +45,11 @@ def run_cmd(ssh,data,cmd,sk):
   arguments =tmp1_[2]
   
   # run the commande
-  cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"],sk)'
+  if module_name =='rbox':
+      cmd_to_run = methode_name+'(ssh,data["'+arguments+'"],sk)'
+  else:
+      cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"],sk)'
+
   if mode != 1:
     sk(3,"[$$] call module : "+cmd_to_run)
     sk(3,"[$$] ...")
