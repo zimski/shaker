@@ -39,18 +39,6 @@ block CONTENT
           else
             input(name="role", type="text", class="form-control" ,id="role", placeholder="")
         div.form-group
-          label(for="Gateway") Gateway
-          if(data['gateway'] != undefined)
-            input(name="gateway",value="#{data['gateway']}", type="text", class="form-control" ,id="gateway", placeholder="")
-          else
-            input(name="gateway", type="text", class="form-control" ,id="gateway", placeholder="")
-        div.form-group
-          label(for="Dns") Dns
-          if(data['dns'] != undefined)
-            input(name="dns",value="#{data['dns']}", type="text", class="form-control" ,id="dns", placeholder="")
-          else
-            input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
-        div.form-group
           label(for="Root password") Root password
           if(data['pass'] != undefined)
             input(name="pass",value="#{data['pass']}", type="text", class="form-control" ,id="pass", placeholder="")
@@ -80,5 +68,27 @@ block CONTENT
             select(name="hv_type", type="text", class="form-control" ,id="hv_type", placeholder="")
                 option(value='Proxmox') Proxmox
                 option(value='ESXI') ESXI
+        div.form-group
+          label(for="Machine Type") Machine Type
+          if(data['type'] != undefined)
+            select(name="type", type="text", class="form-control" ,id="type", placeholder="")
+                option(value="#{data['type']}") #{data['type']}
+                option(value='VM') VM
+                option(value='Physique') Physique
+          else
+            select(name="type", type="text", class="form-control" ,id="type", placeholder="")
+                option(value='VM') VM
+                option(value='Physique') Physique
+        div.form-group
+          label(for="Kernel") Kernel
+          if(data['kernel'] != undefined)
+            select(name="kernel", type="text", class="form-control" ,id="kernel", placeholder="")
+                option(value="#{data['kernel']}") #{data['kernel']}
+                option(value='3.8') 3.8
+                option(value='3.11') 3.11
+          else
+            select(name="kernel", type="text", class="form-control" ,id="kernel", placeholder="")
+                option(value='3.8') 3.8
+                option(value='3.11') 3.11
        
         button(type="submit" ,class="btn btn-success") Save

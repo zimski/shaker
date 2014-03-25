@@ -24,11 +24,11 @@ block CONTENT
                   th mac
                   th hostname
                   th Role
-                  th Gateway
-                  th Dns
                   th VMID
                   th HyperViseur ID
                   th Type HyperViseur
+                  th Machine Type
+                  th Kernel
               tbody
               each hs in data
                 tr(id="tr-#{hs.ip}")
@@ -37,15 +37,13 @@ block CONTENT
                   td= hs.mac
                   td= hs.host
                   td= hs.role
-                  td= hs.gateway
-                  td= hs.dns
                   td= hs.vmid
                   td= hs.hv_id
                   td= hs.hv_type
+                  td= hs.type
+                  td= hs.kernel
                   td
                         button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh
-                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
                         a.btn.btn-default(href="/module/Manage_vm/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
 

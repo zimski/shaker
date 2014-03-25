@@ -166,6 +166,7 @@ def main(argv):
       console_arguments = arg.split()
   if mode ==1:
     print '\t\t[Shaker Debug]\n'
+  nsGlobal.mode = mode
   # Parsing shaker config
   #LOCAL_PATH=os.path.realpath(__folder__)
   LOCAL_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -193,8 +194,11 @@ def main(argv):
       print  str_yaml
       print '[debug][end content of env]'
     data_var_env = yaml.load(str_yaml)
-   
+  
+  # Update nsGlobal
+  nsGlobal.env = data_var_env
   # parsing shell
+
   if shell_file == '':
     print "Erreur: No shell file set"
     sys.exit(2)

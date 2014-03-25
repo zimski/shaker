@@ -41,7 +41,7 @@ block CONTENT
                   td= hs.switchport_mode
                   td= hs.active
                   td
-                        button.btn.btn-Red(onclick="run_script('Network_Device_pull','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Pull
+                        button.btn.btn-Red(onclick="run_script('Network_Device_pull','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Push
                         a.btn.btn-default(href="/module/Network_Device/edit/#{hs.id}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
 

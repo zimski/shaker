@@ -1,1 +1,1 @@
-$$ netDevice.pull CONF
+$$ netDevice.push CONF
