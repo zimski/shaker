@@ -193,7 +193,7 @@ module.exports = function(app,client_redis,__dirname){
             if(data_l.length==0)
             res.render(req.params.name+'/view',{'data':list_machine});
             else
-            data_l.forEach(function(item){
+            data_l.sort().forEach(function(item){
                 client_redis.hgetall(item,function(err,data)
                     {
                         data['key']=item;

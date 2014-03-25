@@ -51,7 +51,7 @@ module.exports = function(app,client_redis,__dirname){
 
     client_redis.LRANGE('conf_list',0,-1,function(err,data_l){
         console.log(data_l);
-        res.render('module_conf_file_show',{'data':data_l});
+        res.render('module_conf_file_show',{'data':data_l.sort()});
         console.log(data_l); 
     });
     });

@@ -6,7 +6,7 @@ module.exports = function(app,client_redis,__dirname){
 
     client_redis.LRANGE('shell_list',0,-1,function(err,data_l){
         console.log(data_l);
-        res.render('show_script',{'data':data_l});
+        res.render('show_script',{'data':data_l.sort()});
         console.log(data_l); 
     });
 
