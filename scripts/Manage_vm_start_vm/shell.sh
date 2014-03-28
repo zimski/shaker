@@ -1,5 +1,5 @@
-% if env['vm']['type'] == 'VM' :
 wget http://192.168.0.222:3002/run_shaker/Manage_vm_update_dhcp --post-data=""
+% if env['vm']['type'] == 'VM' :
 wget http://192.168.0.222:3002/run_shaker/Proxmox_create_vm --post-data="argv=${env['proxmox']['machine']}"
 sleep 20
 % endif

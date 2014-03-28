@@ -1,0 +1,6 @@
+form(role="form",action="")
+    % for item in data['list'] :    
+    div.form-group
+        label(for="${item}") ${item}
+        input(id="${item}", type="text", class="form-control", placeholder="")
+    % endfor

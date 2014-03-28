@@ -179,6 +179,11 @@ module.exports = function(app,client_redis,__dirname){
         });
 
     });
+    app.get("/module/:name/prompt/:pt",function(req,res){
+        var module = req.params.name;
+        var prom = req.params.pt;
+        res.render(module+'/prompt-'+prom);
+    });
     app.get("/module/:name/:method",function(req,res){
         if(!req.session.authentificated)
         res.redirect('/');

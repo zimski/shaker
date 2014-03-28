@@ -37,15 +37,14 @@ block CONTENT
                   td= hs.status
                   td= hs.desc
                   td
-                        button.btn.btn-Red(onclick="run_script('CRON_JOB_start','#{hs.id}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Green(onclick="run_script('CRON_JOB_stop','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
+                        button.btn.btn-Red(onclick="run_script('CRON_JOB_start','#{hs.id}',1,'Start')",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Green(onclick="run_script('CRON_JOB_stop','',0,'Stop')",style='height:30px;margin-left:5px') Stop
+                        a.btn.btn-default(href="/module/CRON_JOB/edit/#{hs.id}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
-
-
-
 
          
           script.
+                   
               var socket = io.connect();
               socket.on('console-emit',function(data){
                  $('#console-content').append(data.replace(/\n/g, "<br />"));
@@ -54,14 +53,27 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
-              function run_script(src,arg)
+              function run_script(src,arg,prompt,bt_name)
               {
-                var arguments = arg;
-                $('#console').modal('show')
-                $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                if(prompt==1)
+                {
+                    
+                    $.get('/module/CRON_JOB/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
                    
-                  $('#console-content').append("finish");       
-                });
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("finish");       
+                    });
+                }
                 
               }
               function delete_row(idd)

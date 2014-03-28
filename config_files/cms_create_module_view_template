@@ -34,7 +34,12 @@
     row['color'] = row_tmp[0]
     row['name'] = row_tmp[1]
     row['script'] = row_tmp[2]
-    row['variable'] = row_tmp[3]
+    tmp_var =  row_tmp[3].split('?')
+    row['variable'] = tmp_var[0]
+    if len(tmp_var) >1:
+        row['prompt']=1
+    else:
+        row['prompt']=0
     w_list_button.append(row)
 
   
@@ -73,19 +78,17 @@ block CONTENT
                   td
                   % for butt in w_list_button :
                       % if len(butt['variable'])!=0 and butt['variable'][0]=='#':
-                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') ${butt['name']}
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}',${butt['prompt']},'${butt['name']}')",style='height:30px;margin-left:5px') ${butt['name']}
                       % else:
-                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') ${butt['name']}
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}',${butt['prompt']},'${butt['name']}')",style='height:30px;margin-left:5px') ${butt['name']}
                       % endif                      
                   % endfor
                         a.btn.btn-default(href="/module/${data['name']}/edit/#{hs.${tr_index}}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.${tr_index}}')",style='height:30px; margin-left:5px') Remove
 
-
-
-
          
           script.
+                   
               var socket = io.connect();
               socket.on('console-emit',function(data){
                  $('#console-content').append(data.replace(/\n/g, "<br />"));
@@ -94,14 +97,27 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
-              function run_script(src,arg)
+              function run_script(src,arg,prompt,bt_name)
               {
-                var arguments = arg;
-                $('#console').modal('show')
-                $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                if(prompt==1)
+                {
+                    
+                    $.get('/module/${data['name']}/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
                    
-                  $('#console-content').append("finish");       
-                });
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("finish");       
+                    });
+                }
                 
               }
               function delete_row(idd)

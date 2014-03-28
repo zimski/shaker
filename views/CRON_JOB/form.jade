@@ -11,26 +11,45 @@ block CONTENT
                 a(href="/module/CRON_JOB/form") New record
             li
                 a(href="/module/CRON_JOB/view") List
-
-  form(role="form",action="/module/CRON_JOB/post",method='POST')
-    div.form-group
-      label(for="ID") ID
-      input(name="id", type="text", class="form-control" ,id="id", placeholder="")
-    div.form-group
-      label(for="CRON-EXPR") CRON-EXPR
-      input(name="cron", type="text", class="form-control" ,id="cron", placeholder="")
-    div.form-group
-      label(for="Script name") Script name
-      input(name="script", type="text", class="form-control" ,id="script", placeholder="")
-    div.form-group
-      label(for="Params") Params
-      input(name="argv", type="text", class="form-control" ,id="argv", placeholder="")
-    div.form-group
-      label(for="Status") Status
-      input(name="status", type="text", class="form-control" ,id="status", placeholder="")
-    div.form-group
-      label(for="Description") Description
-      input(name="desc", type="text", class="form-control" ,id="desc", placeholder="")
-
-   
-    button(type="submit" ,class="btn btn-success") Save
+  div.row
+    div.col-md-6
+      form(role="form",action="/module/CRON_JOB/post",method='POST')
+        div.form-group
+          label(for="ID") ID
+          if(data['id'] != undefined)
+            input(name="id",value="#{data['id']}", type="text", class="form-control" ,id="id", placeholder="")
+          else
+            input(name="id", type="text", class="form-control" ,id="id", placeholder="")
+        div.form-group
+          label(for="CRON-EXPR") CRON-EXPR
+          if(data['cron'] != undefined)
+            input(name="cron",value="#{data['cron']}", type="text", class="form-control" ,id="cron", placeholder="")
+          else
+            input(name="cron", type="text", class="form-control" ,id="cron", placeholder="")
+        div.form-group
+          label(for="Script name") Script name
+          if(data['script'] != undefined)
+            input(name="script",value="#{data['script']}", type="text", class="form-control" ,id="script", placeholder="")
+          else
+            input(name="script", type="text", class="form-control" ,id="script", placeholder="")
+        div.form-group
+          label(for="Params") Params
+          if(data['argv'] != undefined)
+            input(name="argv",value="#{data['argv']}", type="text", class="form-control" ,id="argv", placeholder="")
+          else
+            input(name="argv", type="text", class="form-control" ,id="argv", placeholder="")
+        div.form-group
+          label(for="Status") Status
+          if(data['status'] != undefined)
+            input(name="status",value="#{data['status']}", type="text", class="form-control" ,id="status", placeholder="")
+          else
+            input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+        div.form-group
+          label(for="Description") Description
+          if(data['desc'] != undefined)
+            input(name="desc",value="#{data['desc']}", type="text", class="form-control" ,id="desc", placeholder="")
+          else
+            input(name="desc", type="text", class="form-control" ,id="desc", placeholder="")
+    
+       
+        button(type="submit" ,class="btn btn-success") Save
