@@ -72,12 +72,12 @@ html
         block CONTENT
         div.modal.fade(id="prompt")
                     div.modal-dialog
-                      div.modal-content(style="width:800px")
+                      div.modal-content(style="width:400px")
                         div.modal-header
                           button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
                           h4(class="modal-title") Prompt
                         div.modal-body()
-                          div(id="prompt-content", style="width:100%;height:500px;overflow-y:scroll")
+                          div(id="prompt-content", style="width:100%;")
                         div.modal-footer
                           button(type="button", class="btn btn-default", data-dismiss="modal") Close
                           button(onclick="clear_console();",type="button", class="btn btn-primary") OK 
