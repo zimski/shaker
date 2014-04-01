@@ -1,7 +1,13 @@
-form(role="form",action="")
-    div.form-group
-        label(for="user") user
-        input(id="user", type="text", class="form-control", placeholder="")
-    div.form-group
-        label(for="password") password
-        input(id="password", type="text", class="form-control", placeholder="")
+div.modal-body()
+  form(role="form",action="")
+  div.modal-footer
+      button(type="button", class="btn btn-default", data-dismiss="modal") Close
+      button(onclick="run_script('Manage_vm_start_vm',get_arg_prompt(),0,'Start')",type="button", class="btn btn-primary") OK 
+
+
+script.
+    function get_arg_prompt()
+    {
+    
+    return arg_prompt
+    }

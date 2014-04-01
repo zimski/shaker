@@ -44,7 +44,7 @@ block CONTENT
 
          
           script.
-                   
+              var arg_prompt ='';     
               var socket = io.connect();
               socket.on('console-emit',function(data){
                  $('#console-content').append(data.replace(/\n/g, "<br />"));
@@ -57,7 +57,7 @@ block CONTENT
               {
                 if(prompt==1)
                 {
-                    
+                    arg_prompt = arg;
                     $.get('/module/CRON_JOB/prompt/'+bt_name,function(data){
                         $('#prompt-content').html(data);
                         $('#prompt').modal('show');

@@ -1,6 +1,21 @@
-form(role="form",action="")
+div.modal-body()
+  form(role="form",action="")
     % for item in data['list'] :    
     div.form-group
         label(for="${item}") ${item}
         input(id="${item}", type="text", class="form-control", placeholder="")
     % endfor
+  div.modal-footer
+      button(type="button", class="btn btn-default", data-dismiss="modal") Close
+      button(onclick="run_script('${data['script']}',get_arg_prompt(),0,'${data['name']}')",type="button", class="btn btn-primary") OK 
+
+
+script.
+    function get_arg_prompt()
+    {
+    % for item in data['list'] :
+    arg_prompt = arg_prompt +' '+$('#${item}').val();
+    % endfor
+    
+    return arg_prompt
+    }

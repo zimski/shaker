@@ -43,13 +43,13 @@ block CONTENT
                   td= hs.type
                   td= hs.kernel
                   td
-                        button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}',1,'Start')",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px') Start
                         a.btn.btn-default(href="/module/Manage_vm/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
 
          
           script.
-                   
+              var arg_prompt ='';     
               var socket = io.connect();
               socket.on('console-emit',function(data){
                  $('#console-content').append(data.replace(/\n/g, "<br />"));
@@ -62,7 +62,7 @@ block CONTENT
               {
                 if(prompt==1)
                 {
-                    
+                    arg_prompt = arg;
                     $.get('/module/Manage_vm/prompt/'+bt_name,function(data){
                         $('#prompt-content').html(data);
                         $('#prompt').modal('show');
@@ -73,6 +73,7 @@ block CONTENT
                 else
                 {
                     var arguments = arg;
+                    $('#prompt').modal('hide');
                     $('#console').modal('show')
                     $.post("/run_shaker/"+src,{argv: arguments },function(data){
                        

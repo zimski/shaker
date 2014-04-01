@@ -4,6 +4,7 @@ import sk_console
 import netDevice
 import send_file
 import sk_ssh
+import shaker
 @contextlib.contextmanager
 def stdoutIO(stdout=None):
     old = sys.stdout

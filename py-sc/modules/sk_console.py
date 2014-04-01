@@ -27,6 +27,12 @@ def get(ssh,var,sk):
         ssh.sendline(cmd)
         ssh.prompt()
         data=ssh.before.replace(cmd+'\r\n','')
-        nsGlobal.console[k]= data[:-2]
-        sk(3,k+' = '+data[:-2])
+        data_geted =data[:-2]
+        try:
+            val = int(data_geted)
+            nsGlobal.console[k]= val
+            sk(3,k+' = '+data[:-2]+'  ((INT))')
+        except:
+            nsGlobal.console[k] = data_getted
+            sk(3,k+' = '+data[:-2]+'  ((STR))')
     

@@ -6,12 +6,9 @@ div.modal-body()
     div.form-group
         label(for="password") password
         input(id="password", type="text", class="form-control", placeholder="")
-    div.form-group
-        label(for="interface") interface
-        input(id="interface", type="text", class="form-control", placeholder="")
   div.modal-footer
       button(type="button", class="btn btn-default", data-dismiss="modal") Close
-      button(onclick="run_script('CRON_JOB_start',get_arg_prompt(),0,'Start')",type="button", class="btn btn-primary") OK 
+      button(onclick="run_script('Network_Device_pull',get_arg_prompt(),0,'Push')",type="button", class="btn btn-primary") OK 
 
 
 script.
@@ -19,7 +16,6 @@ script.
     {
     arg_prompt = arg_prompt +' '+$('#user').val();
     arg_prompt = arg_prompt +' '+$('#password').val();
-    arg_prompt = arg_prompt +' '+$('#interface').val();
     
     return arg_prompt
     }

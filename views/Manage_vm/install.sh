@@ -8,5 +8,5 @@ redis-cli HSET M:Manage_vm:Forms 6 "no:yes:HyperViseur ID:hv_id"
 redis-cli HSET M:Manage_vm:Select 0 "yes:Type HyperViseur:hv_type:Proxmox,ESXI"
 redis-cli HSET M:Manage_vm:Select 1 "yes:Machine Type:type:VM,Physique"
 redis-cli HSET M:Manage_vm:Select 2 "yes:Kernel:kernel:3.8,3.11"
-redis-cli HSET M:Manage_vm:Button 0 "Blue:Start:Manage_vm_start_vm:#ip?user,password"
+redis-cli HSET M:Manage_vm:Button 0 "Blue:Start:Manage_vm_start_vm:#ip"
 redis-cli RPUSH Shaker:module:list Manage_vm

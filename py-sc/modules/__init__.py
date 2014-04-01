@@ -1,1 +1,1 @@
-__all__ = ["send_file","nsGlobal","sk_ssh","sk_console","rbox","netDevice"]
+__all__ = ["send_file","nsGlobal","sk_ssh","sk_console","rbox","netDevice","shaker"]
