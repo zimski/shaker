@@ -42,7 +42,7 @@ var op= http.createServer(app).listen(app.get('port'), function(){
 //*************************************************************
 //*                  socket IO                                *  
 //*************************************************************
-io = io.listen(op);
+io = io.listen(op,{log : false});
 io.sockets.on('connection', function (socket) {
     //socket.emit('faitUneAlerte');
     console.log('client connecté');

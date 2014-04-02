@@ -14,4 +14,4 @@ done
 $>
 $$ sk_console.get RC
 $$ rbox.cmd_if CONDITION
-$$ shaker.run SCR_salt
+##

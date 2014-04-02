@@ -117,6 +117,8 @@ def ssh_cmd(cmds,var):
            
    
     web_console_info("Script complete")
+    s.logout()
+
   except Exception as e:
     print("SSH error.")
     print(e)
@@ -215,7 +217,7 @@ def main(argv):
     print sc_content
     print '[debug][end content of shell]\n'
   list_cmd = sc_content.split('\r\n')
-  #print list_cmd
+  print list_cmd
   # run command SSH
   ssh_cmd(list_cmd,data_var_env)
 

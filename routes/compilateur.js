@@ -12,9 +12,12 @@ module.exports = function(app,client_redis,__dirname){
     });
 
     app.post('/run_shaker/:sc',function(req,res){
-        console.log("adddddddddddddddddddddddddddddddddddddd****************************");
+        console.log("*******************************************");
+        res.send('loading') 
         var path_sc =__dirname+"/scripts/"+req.params.sc+"/";
         var cmd = __dirname+"/py-sc/shaker.py -x -w -e "+path_sc+"env.yaml -s "+path_sc+"shell.sh";
+        console.log(cmd)
+        console.log("===========================================");
         var cmd_ = cmd.split(' ')
         cmd_.push('--argv='+req.body.argv)
         //cmd_.append('\\"'+req.body.argv+'\\"')
