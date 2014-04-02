@@ -1,16 +1,30 @@
 import yaml
 import os
 from mako.template import Template
-from socketIO_client import SocketIO
+from socketIO_client import SocketIO,BaseNamespace
 import redis,sys,getopt,pxssh,getpass,StringIO,contextlib
-
-r = redis.StrictRedis()
-socketIO = SocketIO('localhost', 3002)
-
+from threading import Thread
 # import custom module
 from modules import *
-
+r = redis.StrictRedis()
 nsGlobal.init()
+class Namespace(BaseNamespace):
+    def on_register(self,args):
+        print "registerrr"
+        nsGlobal.self_id = args['id']
+        print "My ID "+str(args['id'])
+        print "My father ID "+nsGlobal.father_id
+    def on_connect(self):
+        print '[Connected]'
+    def on_finish(self,args):
+        socketIO.emit('console-emit-cmd','<span class="console-cmd">[#]FiniSH recu '+str(args['father_id'])+' |'+str(nsGlobal.self_id)+'</span>\n')
+        if int(args['father_id']) == nsGlobal.self_id :
+               socketIO.emit('console-emit-cmd','<span class="console-cmd">[#]FiniSH recu OK '+str(args['father_id'])+'</span>\n')
+               nsGlobal.continue_cmd = False
+socketIO = SocketIO('localhost', 3002,Namespace)
+thread = Thread(target= socketIO.wait)
+thread.start()
+
 
 
 
@@ -23,9 +37,16 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
-
+## ============  Event of socket  ========
+#def on_register(*args):
+#    print "registerrrr   "+str(args.id)
+#socketIO.on('register',on_register)
+## =======================================
 WEB_CONSOLE= False
 mode =0
+def emit_son_finish():
+  socketIO.emit("finish",{"father_id":nsGlobal.father_id})
+
 def web_console_cmd(data):
   if WEB_CONSOLE:
     socketIO.emit('console-emit-cmd','<span class="console-cmd">[#]'+str(data)+'</span>\n')
@@ -51,6 +72,8 @@ def web_console(mode,data):
         web_console_rt(data)
     if mode ==3:
         web_console_info(data)
+    if mode == 10:
+        emit_son_finish()
 # cmd to run a custom command (call to python module)
 def run_cmd(ssh,data,cmd):
   global mode
@@ -140,7 +163,7 @@ def main(argv):
   mode = 0 
   global WEB_CONSOLE
   try:
-    opts,args = getopt.getopt(argv,'hdxwe:s:',['env_file=','shell_file=','argv='])
+    opts,args = getopt.getopt(argv,'hdxwe:s:',['env_file=','shell_file=','argv=','father_id='])
   except getopt.GetoptError:
     print '\t usage: shaker.py -[d|x|w] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>'
     sys.exit(2)
@@ -166,6 +189,8 @@ def main(argv):
       WEB_CONSOLE = True
     elif opt == '--argv':
       console_arguments = arg.split()
+    elif opt == '--father_id':
+      nsGlobal.father_id = arg
   if mode ==1:
     print '\t\t[Shaker Debug]\n'
   nsGlobal.mode = mode
@@ -220,6 +245,8 @@ def main(argv):
   print list_cmd
   # run command SSH
   ssh_cmd(list_cmd,data_var_env)
-
+  if nsGlobal.father_id !=0:
+    emit_son_finish() 
+  exit(0)
 if __name__ == "__main__":
    main(sys.argv[1:])

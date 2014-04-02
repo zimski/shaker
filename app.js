@@ -43,10 +43,18 @@ var op= http.createServer(app).listen(app.get('port'), function(){
 //*                  socket IO                                *  
 //*************************************************************
 io = io.listen(op,{log : false});
+var slave_id;
+slave_id =0;
 io.sockets.on('connection', function (socket) {
     //socket.emit('faitUneAlerte');
     console.log('client connecté');
-
+    slave_id = slave_id+1;
+    socket.emit('register',{'id' : slave_id});
+    console.log('regiser id '+slave_id);
+    socket.on('finish',function(data){
+        socket.broadcast.emit('finish',data);
+        console.log('finish receive to father: '+data.father_id);
+    });
     socket.on('console-emit', function (data) {
         var out = sanitizer.escape(data)
 
