@@ -20,7 +20,8 @@ module.exports = function(app,client_redis,__dirname){
         console.log("===========================================");
         var cmd_ = cmd.split(' ')
         cmd_.push('--argv='+req.body.argv)
-        cmd_.push('--father_id='+req.body.father_id)
+        if(req.body.father_id != undefined)
+            cmd_.push('--father_id='+req.body.father_id)
         //cmd_.append('\\"'+req.body.argv+'\\"')
         //console.log(cmd.split(' '));  
         var child = spawn("python",cmd_);

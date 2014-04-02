@@ -13,7 +13,7 @@ class Namespace(BaseNamespace):
         print "registerrr"
         nsGlobal.self_id = args['id']
         print "My ID "+str(args['id'])
-        print "My father ID "+nsGlobal.father_id
+        print "My father ID "+str(nsGlobal.father_id)
     def on_connect(self):
         print '[Connected]'
     def on_finish(self,args):
