@@ -26,6 +26,12 @@ block CONTENT
             input(name="mac",value="#{data['mac']}", type="text", class="form-control" ,id="mac", placeholder="")
           else
             input(name="mac", type="text", class="form-control" ,id="mac", placeholder="")
+        div.form-group
+          label(for="MAChhh") MAChhh
+          if(data['machhh'] != undefined)
+            input(name="machhh",value="#{data['machhh']}", type="text", class="form-control" ,id="machhh", placeholder="")
+          else
+            input(name="machhh", type="text", class="form-control" ,id="machhh", placeholder="")
     
         div.form-group
           label(for="Area") Area

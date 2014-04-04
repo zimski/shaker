@@ -31,17 +31,15 @@ block CONTENT
                   td= hs.mac
                   td= hs.kiki
                   td
-                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Red(onclick="run_script('refreshOO','')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') refresh
-                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}')",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Stop
+                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Red(onclick="run_script('refreshOO','',0,'refresh')",style='height:30px;margin-left:5px') refresh
+                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}',0,'Stop')",style='height:30px;margin-left:5px') Stop
                         a.btn.btn-default(href="/module/undefined/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
 
-
-
-
          
           script.
+              var arg_prompt ='';     
               var socket = io.connect();
               socket.on('console-emit',function(data){
                  $('#console-content').append(data.replace(/\n/g, "<br />"));
@@ -50,14 +48,28 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
-              function run_script(src,arg)
+              function run_script(src,arg,prompt,bt_name)
               {
-                var arguments = arg;
-                $('#console').modal('show')
-                $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                if(prompt==1)
+                {
+                    arg_prompt = arg;
+                    $.get('/module/undefined/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
                    
-                  $('#console-content').append("finish");       
-                });
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#prompt').modal('hide');
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("finish");       
+                    });
+                }
                 
               }
               function delete_row(idd)

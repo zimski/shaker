@@ -22,6 +22,7 @@ block CONTENT
                   th #
                   th IP
                   th MAC
+                  th MAChhh
                   th Area
               tbody
               each hs in data
@@ -29,32 +30,18 @@ block CONTENT
                   td #
                   td= hs.ip
                   td= hs.mac
+                  td= hs.machhh
                   td= hs.area
                   td
-                        button.btn.btn-Red(onclick="run_script('undefined','',0)",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Set
-                        button.btn.btn-Green(onclick="run_script('undefined','',0)",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Remove
-                        button.btn.btn-Green(onclick="run_script('undefined','',0)",data-toggle="modal" data-target="#console",style='height:30px;margin-left:5px') Remove
+                        button.btn.btn-Red(onclick="run_script('undefined','ip',1,'Set')",style='height:30px;margin-left:5px') Set
+                        button.btn.btn-Green(onclick="run_script('undefined','',0,'Remove')",style='height:30px;margin-left:5px') Remove
+                        button.btn.btn-Green(onclick="run_script('undefined','',0,'Remove')",style='height:30px;margin-left:5px') Remove
                         a.btn.btn-default(href="/module/Manage_DHCP/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
-          
-            
-                div.modal.fade(id="prompt")
-                    div.modal-dialog
-                      div.modal-content(style="width:800px")
-                        div.modal-header
-                          button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
-                          h4(class="modal-title") Prompt
-                        div.modal-body()
-                          div(id="prompt-content", style="width:100%;height:500px;overflow-y:scroll")
-                        div.modal-footer
-                          button(type="button", class="btn btn-default", data-dismiss="modal") Close
-                          button(onclick="clear_console();",type="button", class="btn btn-primary") OK       
-
-
 
          
           script.
-                   
+              var arg_prompt ='';     
               var socket = io.connect();
               socket.on('console-emit',function(data){
                  $('#console-content').append(data.replace(/\n/g, "<br />"));
@@ -63,19 +50,28 @@ block CONTENT
                     psconsole[0].scrollHeight - psconsole.height()
                   );
               });
-              function run_script(src,arg,prompt)
+              function run_script(src,arg,prompt,bt_name)
               {
                 if(prompt==1)
                 {
-                    $('#prompt').modal('show');
-                    return ;
-                }
-                var arguments = arg;
-                $('#console').modal('show')
-                $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                    arg_prompt = arg;
+                    $.get('/module/Manage_DHCP/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
                    
-                  $('#console-content').append("finish");       
-                });
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#prompt').modal('hide');
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("finish");       
+                    });
+                }
                 
               }
               function delete_row(idd)

@@ -23,6 +23,7 @@ class Namespace(BaseNamespace):
                nsGlobal.continue_cmd = False
 socketIO = SocketIO('localhost', 3002,Namespace)
 thread = Thread(target= socketIO.wait)
+thread.setDaemon(True)
 thread.start()
 
 

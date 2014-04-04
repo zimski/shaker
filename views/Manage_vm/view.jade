@@ -44,6 +44,7 @@ block CONTENT
                   td= hs.kernel
                   td
                         button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px') Start
+                        button.btn.btn-Blue(onclick="run_script('Manage_vm_slat_accept_key','#{hs.host}',0,'Salt it !')",style='height:30px;margin-left:5px') Salt it !
                         a.btn.btn-default(href="/module/Manage_vm/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
                         button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
 

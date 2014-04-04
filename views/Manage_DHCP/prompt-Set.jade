@@ -1,0 +1,21 @@
+div.modal-body()
+  form(role="form",action="")
+    div.form-group
+        label(for="vvvvv") vvvvv
+        input(id="vvvvv", type="text", class="form-control", placeholder="")
+    div.form-group
+        label(for="hoho") hoho
+        input(id="hoho", type="text", class="form-control", placeholder="")
+  div.modal-footer
+      button(type="button", class="btn btn-default", data-dismiss="modal") Close
+      button(onclick="run_script('undefined',get_arg_prompt(),0,'Set')",type="button", class="btn btn-primary") OK 
+
+
+script.
+    function get_arg_prompt()
+    {
+    arg_prompt = arg_prompt +' '+$('#vvvvv').val();
+    arg_prompt = arg_prompt +' '+$('#hoho').val();
+    
+    return arg_prompt
+    }

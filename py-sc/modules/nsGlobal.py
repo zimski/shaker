@@ -6,7 +6,7 @@ def init():
     global self_id
     global sons_ids
     global continue_auth
-    continue_auth = True
+    continue_auth = False
     father_id = 0
     sons_ids ={}
     console = {}
