@@ -49,6 +49,8 @@ io.sockets.on('connection', function (socket) {
     //socket.emit('faitUneAlerte');
     console.log('client connecté');
     slave_id = slave_id+1;
+    if(slave_id>800000)
+        slave_id = 1;
     socket.emit('register',{'id' : slave_id});
     console.log('regiser id '+slave_id);
     socket.on('finish',function(data){
