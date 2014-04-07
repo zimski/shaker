@@ -26,7 +26,7 @@ def get(ssh,var,sk):
     for i in [1,2,3]:
         ssh.sendline()
         ssh.prompt()
-        sk(3, "--------- PURGE --------------"+ ssh.before)
+        #sk(3, "--------- PURGE --------------"+ ssh.before)
     ssh.before =''
     for k in var:
         cmd = 'echo $'+k
