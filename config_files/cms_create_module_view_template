@@ -116,7 +116,7 @@ block CONTENT
                     $('#console').modal('show')
                     $.post("/run_shaker/"+src,{argv: arguments },function(data){
                        
-                      $('#console-content').append("finish");       
+                      $('#console-content').append("");       
                     });
                 }
                 

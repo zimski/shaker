@@ -22,11 +22,23 @@ def set_from_ns(ssh,data,sk):
 
 
 def get(ssh,var,sk):
+    # purge buffer
+    for i in [1,2,3]:
+        ssh.sendline()
+        ssh.prompt()
+        sk(3, "--------- PURGE --------------"+ ssh.before)
+    ssh.before =''
     for k in var:
         cmd = 'echo $'+k
-        ssh.sendline(cmd)
-        ssh.prompt()
+        correct_value = False
+        while not correct_value:
+            ssh.sendline(cmd)
+            ssh.prompt()
+            if len(ssh.before)>2:
+                correct_value = True
+        sk(3,'ssh prompt '+ssh.before)
         data=ssh.before.replace(cmd+'\r\n','')
+        sk(3,"data geted : "+data)
         data_geted =data[:-2]
         try:
             val = int(data_geted)
