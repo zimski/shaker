@@ -36,9 +36,9 @@ def get(ssh,var,sk):
             ssh.prompt()
             if len(ssh.before)>2:
                 correct_value = True
-        sk(3,'ssh prompt '+ssh.before)
+        #sk(3,'ssh prompt '+ssh.before)
         data=ssh.before.replace(cmd+'\r\n','')
-        sk(3,"data geted : "+data)
+        #sk(3,"data geted : "+data)
         data_geted =data[:-2]
         try:
             val = int(data_geted)

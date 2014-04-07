@@ -1,4 +1,5 @@
-$$ sk_ssh.expect CMD_accept
-sleep 4
-salt '${env['machine']}' test.ping
-salt '${env['machine']}' state.highstate
+minion_exist=`salt-key | grep -Fx '${env['machine']}' | wc -l`
+nb_try=0
+$$ sk_console.get DCM
+$$ rbox.cmd_if COND
+
