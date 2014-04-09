@@ -1,3 +1,4 @@
+ssh-keygen -f "/root/.ssh/known_hosts" -R ${env['vm']['ip']}
 $$ shaker.run SCR_DHCP
 % if env['vm']['type'] == 'VM' :
 $$ shaker.run SCR_Proxmox

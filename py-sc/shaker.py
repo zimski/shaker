@@ -2,7 +2,7 @@ import yaml
 import os
 from mako.template import Template
 from socketIO_client import SocketIO,BaseNamespace
-import redis,sys,getopt,pxssh,getpass,StringIO,contextlib
+import redis,sys,getopt,pxssh,getpass,StringIO,contextlib,pexpect
 from threading import Thread
 # import custom module
 from modules import *
@@ -110,7 +110,12 @@ def ssh_cmd(cmds,var):
     if mode !=1:
       s.login(hostname, username, password)
     inside_block = False
-
+    s.sendline()
+    i = s.expect([pexpect.EOF,s.PROMPT])
+    #while i !=1:
+    #    s.logout()
+    #    s.login(hostname,username,password)
+    #    i =s.expect(pexpect.EOF,s.PROMPT)
     for cmd in cmds:
       # looking for the cmd balise .... must be in the begining of the line
       
