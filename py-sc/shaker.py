@@ -21,9 +21,12 @@ class Namespace(BaseNamespace):
     def on_connect(self):
         print '[Connected]'
     def on_finish(self,args):
-        socketIO.emit('console-emit-cmd','<span class="console-cmd">[#]FiniSH recu '+str(args['father_id'])+' |'+str(nsGlobal.self_id)+'</span>\n')
+        socketIO.emit('console-emit-cmd','<span class="console-cmd">\
+                [#]FiniSH recu '+str(args['father_id'])+' |'+\
+                str(nsGlobal.self_id)+'</span>\n')
         if int(args['father_id']) == nsGlobal.self_id :
-               socketIO.emit('console-emit-cmd','<span class="console-cmd">[#]FiniSH recu OK '+str(args['father_id'])+'</span>\n')
+               socketIO.emit('console-emit-cmd','<span class="console-cmd">\
+                       [#]FiniSH recu OK '+str(args['father_id'])+'</span>\n')
                nsGlobal.continue_cmd = False
 socketIO = SocketIO('localhost', 3002,Namespace)
 thread = Thread(target= socketIO.wait)
@@ -54,7 +57,8 @@ def emit_son_finish():
 
 def web_console_cmd(data):
   if WEB_CONSOLE:
-    socketIO.emit('console-emit-cmd','<span class="console-cmd">[#]'+str(data)+'</span>\n')
+    socketIO.emit('console-emit-cmd',\
+            '<span class="console-cmd">[#]'+str(data)+'</span>\n')
   else:
     print '[#]'+str(data)
 
@@ -67,7 +71,8 @@ def web_console_rt(data):
 
 def web_console_info(data):
   if WEB_CONSOLE:
-    socketIO.emit('console-emit-cmd','<span class="console-cmd msg">[#]'+str(data)+'</span>\n')
+    socketIO.emit('console-emit-cmd',\
+            '<span class="console-cmd msg">[#]'+str(data)+'</span>\n')
   else:
     print '[#]'+str(data)
 def web_console(mode,data):
@@ -178,13 +183,16 @@ def main(argv):
   mode = 0 
   global WEB_CONSOLE
   try:
-    opts,args = getopt.getopt(argv,'hdxwe:s:',['env_file=','shell_file=','argv=','father_id='])
+    opts,args = getopt.getopt(argv,'hdxwe:s:',\
+            ['env_file=','shell_file=','argv=','father_id='])
   except getopt.GetoptError:
-    print '\t usage: shaker.py -[d|x|w] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>'
+    print '\t usage: shaker.py -[d|x|w] -e <file_env> \
+            -s <file_shell> --argv=<arg1 arg2 ...>'
     sys.exit(2)
   for opt,arg in opts:
     if opt =='-h':
-      print '\nusage : shaker.py -[d|x] -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>\n'
+      print '\nusage : shaker.py -[d|x] \
+              -e <file_env> -s <file_shell> --argv=<arg1 arg2 ...>\n'
       print '\t-d\t\tMode Debug, check templating result'
       print '\t-w\t\tSend notification to webGUI'
       print '\t-x\t\tRun script'
@@ -229,7 +237,8 @@ def main(argv):
     except Exception as e:
         print "Yaml Parse env error "+str(e)
         if str(e).find("list index out of range")>=0:
-            print "[shaker] please insert arguments, your yaml need arguments to be set arg[]"
+            print "[shaker] please insert arguments,\
+                    your yaml need arguments to be set arg[]"
         sys.exit(2)
     if mode ==1:
       print '[debug][content of env]:'
