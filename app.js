@@ -42,6 +42,10 @@ var op= http.createServer(app).listen(app.get('port'), function(){
 //*************************************************************
 //*                  socket IO                                *  
 //*************************************************************
+app.get('/halt',function(req,res){
+io.sockets.emit('halt',{});
+res.send('OK');
+});
 io = io.listen(op,{log : false});
 var slave_id;
 slave_id =0;

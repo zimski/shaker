@@ -68,7 +68,12 @@ def ssh_cmd(ssh,cmds,var,sk):
     inside_block = False
 
     for cmd in cmds:
-      # looking for the cmd balise .... must be in the begining of the line
+    # Check if we must halt ?!!!
+      if nsGlobal.halt:
+          sk(3,"["+str(nsGlobal.self_id)+"]  **** Halt ****")
+          sh.logout()
+          sys.exit(0)
+     # looking for the cmd balise .... must be in the begining of the line
       
       if cmd.find('$$')==0 :
         run_cmd(ssh,var,cmd,sk)

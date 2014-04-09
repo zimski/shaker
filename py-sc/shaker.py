@@ -9,6 +9,10 @@ from modules import *
 r = redis.StrictRedis()
 nsGlobal.init()
 class Namespace(BaseNamespace):
+    def on_halt(self,args):
+        nsGlobal.halt = True;
+        sys.exit(0)
+
     def on_register(self,args):
         print "registerrr"
         nsGlobal.self_id = args['id']
@@ -117,6 +121,11 @@ def ssh_cmd(cmds,var):
     #    s.login(hostname,username,password)
     #    i =s.expect(pexpect.EOF,s.PROMPT)
     for cmd in cmds:
+      # Check if we must halt ?!!!
+      if nsGlobal.halt:
+          web_console_info("["+str(nsGlobal.self_id)+"]  **** Halt ****")
+          s.logout()
+          sys.exit(0)
       # looking for the cmd balise .... must be in the begining of the line
       
       if cmd.find('$$')==0 :

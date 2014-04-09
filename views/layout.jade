@@ -88,6 +88,7 @@ html
                 div.modal-footer
                   button(type="button", class="btn btn-default", data-dismiss="modal") Close
                   button(onclick="clear_console();",type="button", class="btn btn-primary") Clear
+                  button.pull-left(onclick="shaker_halt();",type="button", class="btn btn-danger") Halt
        style.
             .console {
               font-family:Courier;
@@ -119,4 +120,9 @@ html
                 $('#update_list').text('Updating ...');
                 setTimeout(function(){window.location.reload();},4000);
                 });
+          }
+          function shaker_halt()
+          {
+             $.get('/halt',function(data){
+                 $("#console-content").append('<br>+=================== HALT ===================+<br>');});
           }
