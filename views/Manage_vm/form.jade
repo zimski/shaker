@@ -39,6 +39,12 @@ block CONTENT
           else
             input(name="role", type="text", class="form-control" ,id="role", placeholder="")
         div.form-group
+          label(for="User") User
+          if(data['user'] != undefined)
+            input(name="user",value="#{data['user']}", type="text", class="form-control" ,id="user", placeholder="")
+          else
+            input(name="user", type="text", class="form-control" ,id="user", placeholder="")
+        div.form-group
           label(for="Root password") Root password
           if(data['pass'] != undefined)
             input(name="pass",value="#{data['pass']}", type="text", class="form-control" ,id="pass", placeholder="")

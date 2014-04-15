@@ -84,6 +84,8 @@ def web_console(mode,data):
         web_console_info(data)
     if mode == 10:
         emit_son_finish()
+    if mode == 99:
+        socketIO.emit('halt',{})
 # cmd to run a custom command (call to python module)
 def run_cmd(ssh,data,cmd):
   global mode
@@ -107,7 +109,7 @@ def run_cmd(ssh,data,cmd):
   else:
     with stdoutIO() as s:
       exec cmd_to_run
-    web_console_info("[#] module finish : "+s.getvalue())
+    web_console_info("[#] module finish ["+arguments+"] : "+s.getvalue())
 
 def ssh_cmd(cmds,var):
   global mode
@@ -128,7 +130,7 @@ def ssh_cmd(cmds,var):
     for cmd in cmds:
       # Check if we must halt ?!!!
       if nsGlobal.halt:
-          web_console_info("["+str(nsGlobal.self_id)+"]  **** Halt ****")
+          web_console_info("["+str(nsGlobal.self_id)+"]  **** Halted ****")
           s.logout()
           sys.exit(0)
       # looking for the cmd balise .... must be in the begining of the line
@@ -166,6 +168,9 @@ def ssh_cmd(cmds,var):
     print("SSH error.")
     print(e)
     web_console_info('[!!!] SSH ERROR:'+str(e))
+    # Send a Halt to stop every things
+    web_console_cmd(' ERROR ::::: SEND HALT TO ALL PROCESS :::::::')
+    socketIO.emit('halt-error',{})
 
 #---------------------------------
 #                 MAIN

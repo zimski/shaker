@@ -69,7 +69,9 @@ io.sockets.on('connection', function (socket) {
     socket.on('console-emit-cmd', function (data) {
         socket.broadcast.emit('console-emit',data);
     });
-
+    socket.on('halt-error', function (data) {
+        socket.broadcast.emit('halt',{});
+    });
     socket.on('disconnect',function()
         {
             console.log("disconnect user from ");

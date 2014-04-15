@@ -59,7 +59,7 @@ def run_cmd(ssh,data,cmd,sk):
   else:
     with stdoutIO() as s:
       exec cmd_to_run
-    sk(3,"[#] module finish : "+s.getvalue())
+    sk(3,"[#] module finish ["+arguments+"] : "+s.getvalue())
 
 
 def ssh_cmd(ssh,cmds,var,sk):

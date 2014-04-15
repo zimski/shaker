@@ -21,7 +21,6 @@ block CONTENT
                 tr
                   th #
                   th ip
-                  th mac
                   th hostname
                   th Role
                   th VMID
@@ -34,7 +33,6 @@ block CONTENT
                 tr(id="tr-#{hs.ip}")
                   td #
                   td= hs.ip
-                  td= hs.mac
                   td= hs.host
                   td= hs.role
                   td= hs.vmid
@@ -43,10 +41,11 @@ block CONTENT
                   td= hs.type
                   td= hs.kernel
                   td
-                        button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Blue(onclick="run_script('Manage_vm_slat_accept_key','#{hs.host}',0,'Salt_it')",style='height:30px;margin-left:5px') Salt_it
-                        a.btn.btn-default(href="/module/Manage_vm/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px;margin-top:5px') Start
+                        button.btn.btn-Blue(onclick="run_script('Manage_vm_slat_accept_key','#{hs.host}',0,'Salt_it')",style='height:30px;margin-left:5px;margin-top:5px') Salt_it
+                        button.btn.btn-Blue(onclick="run_script('Manage_vm_update_dhcp','',0,'DHCP')",style='height:30px;margin-left:5px;margin-top:5px') DHCP
+                        a.btn.btn-default(href="/module/Manage_vm/edit/#{hs.ip}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
 
          
           script.

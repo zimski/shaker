@@ -78,13 +78,13 @@ block CONTENT
                   td
                   % for butt in w_list_button :
                       % if len(butt['variable'])!=0 and butt['variable'][0]=='#':
-                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}',${butt['prompt']},'${butt['name']}')",style='height:30px;margin-left:5px') ${butt['name']}
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','#{hs.${butt['variable'].replace('#','')}}',${butt['prompt']},'${butt['name']}')",style='height:30px;margin-left:5px;margin-top:5px') ${butt['name']}
                       % else:
-                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}',${butt['prompt']},'${butt['name']}')",style='height:30px;margin-left:5px') ${butt['name']}
+                        button.btn.btn-${butt['color']}(onclick="run_script('${butt['script']}','${butt['variable']}',${butt['prompt']},'${butt['name']}')",style='height:30px;margin-left:5px;margin-top:5px') ${butt['name']}
                       % endif                      
                   % endfor
-                        a.btn.btn-default(href="/module/${data['name']}/edit/#{hs.${tr_index}}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.${tr_index}}')",style='height:30px; margin-left:5px') Remove
+                        a.btn.btn-default(href="/module/${data['name']}/edit/#{hs.${tr_index}}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.${tr_index}}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
 
          
           script.
