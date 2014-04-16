@@ -23,6 +23,11 @@ def py_run(ssh,script,sk):
 
 def cmd_if(ssh,code,sk):
    condition = False
+   # run init if exist
+   if code.has_key('init'):
+     cmds = code['init'].split('\n')
+     ssh_cmd(ssh,cmds,nsGlobal.env,sk)
+ 
    exec "condition=("+str(code['if'])+")" in nsGlobal.console
    if nsGlobal.console['condition']:
      cmds = code['then'].split('\n')
@@ -43,7 +48,10 @@ def run_cmd(ssh,data,cmd,sk):
   module_name = tmp2_[0]
   methode_name = tmp2_[1]
   # argumet
-  arguments =tmp1_[2]
+  if len(tmp1_)>2:
+    arguments =tmp1_[2]
+  else:
+    arguments=''  
   
   # run the commande
   if module_name =='rbox':
@@ -67,6 +75,7 @@ def ssh_cmd(ssh,cmds,var,sk):
   try:
     inside_block = False
 
+    events = []
     for cmd in cmds:
     # Check if we must halt ?!!!
       if nsGlobal.halt:
@@ -80,6 +89,14 @@ def ssh_cmd(ssh,cmds,var,sk):
         continue
       if cmd.find('$<')==0:
         inside_block = True
+        continue
+      # manage error
+      if cmd.find('$!+')==0:
+        if cmd[3:] not in events:
+          events.append(cmd[3:])
+        continue
+      if cmd.find('$!-')==0:
+        events.remove(cmd[3:])
         continue
       if cmd.find('$>')==0:
         inside_block = False
@@ -95,6 +112,9 @@ def ssh_cmd(ssh,cmds,var,sk):
         sk(1,cmd)
       if inside_block == False:  
         ssh.prompt()
+        # event loop
+        for ev in events:
+            run_cmd(ssh,var,ev,sk)
         message_rt = ssh.before
         sk(2,message_rt)
      

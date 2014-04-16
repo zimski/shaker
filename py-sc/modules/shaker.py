@@ -19,3 +19,9 @@ def run(ssh,prgm,sk):
     while nsGlobal.continue_cmd and not nsGlobal.halt:
         time.sleep(0.5) 
     print "run finish !"
+def stop(ssh,prgm,sk):
+    sk(10,'Stop from command')
+    nsGlobal.halt = True
+def stop_all(ssh,prgm,sk):
+    sk(99,'Stop All from command')
+    nsGlobal.halt = True

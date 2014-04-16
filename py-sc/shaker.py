@@ -97,7 +97,10 @@ def run_cmd(ssh,data,cmd):
   module_name = tmp2_[0]
   methode_name = tmp2_[1]
   # argumet
-  arguments =tmp1_[2]
+  if len(tmp1_)>2:
+    arguments =tmp1_[2]
+  else:
+    arguments='script'
   
   # run the commande
   cmd_to_run = module_name+'.'+methode_name+'(ssh,data["'+arguments+'"],web_console)'
@@ -113,6 +116,7 @@ def run_cmd(ssh,data,cmd):
 
 def ssh_cmd(cmds,var):
   global mode
+  events =[]
   try:
     s = pxssh.pxssh()
     hostname = var['script']['host'] 
@@ -138,6 +142,14 @@ def ssh_cmd(cmds,var):
       if cmd.find('$$')==0 :
         run_cmd(s,var,cmd)
         continue
+      # manage error
+      if cmd.find('$!+')==0:
+        if cmd[3:] not in events:
+            events.append(cmd[3:])
+        continue
+      if cmd.find('$!-')==0:
+        events.remove(cmd[3:])
+        continue
       if cmd.find('$<')==0:
         inside_block = True
         continue
@@ -155,6 +167,9 @@ def ssh_cmd(cmds,var):
         web_console_cmd(cmd)
       if inside_block == False:  
         s.prompt()
+        # event loop
+        for ev in events:
+            run_cmd(s,var,ev)
         message_rt = s.before
         web_console_rt(message_rt)
      
