@@ -1,15 +1,13 @@
 ![alt tag](https://github.com/zimski/shaker/raw/master/public/images/sk1.png)
-Automation CMS to create and manage modules to do automated task from web interface
+Automation CMS to create and manage automated task whithin your browser
 
 ## how ?
-Bash with python/mako layer.
-With Shaker web interface you can edit your shell and variable environment file, you can also check syntax and run it.
+Shaker is built on top of Bash with python/mako layer.
+Shaker let you edit your shell scripts and your environment variables file. You can also perform a syntax check and run the scripts.
 
-With Shaker, you can manage your IT infrastructure, configure and create VM from any HyperViseur,
-push conf on your Networks devices.
+In addition, Shaker allows you to manage your IT infrastructure, configure and create Virtual Machines from any HyperVisor, and push the configurations  on your Network devices.
 
-The strangth point of shaker is his ability to make your own modules with your own script via the web interface
-
+Finally, Shaker strength is its extendability. You can write you own modules whithin the web interface.
 
 ## Install Shaker
 
