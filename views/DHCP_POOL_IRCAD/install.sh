@@ -1,0 +1,10 @@
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 0 "yes:yes:Subnet:subnet"
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 1 "no:yes:Netmask:netmask"
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 2 "no:yes:Domain name:domain_name"
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 3 "no:yes:Router:router"
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 4 "no:yes:Dns:dns"
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 5 "no:yes:Pool_peer:pool_peer"
+redis-cli HSET M:DHCP_POOL_IRCAD:Forms 6 "no:yes:Range:range"
+redis-cli HSET M:DHCP_POOL_IRCAD:Button 0 "Green:Update:DHCP_POOL_IRCAD_update:"
+redis-cli HSET M:DHCP_POOL_IRCAD:Info alias "DHCP_POOL_IRCAD"
+redis-cli RPUSH Shaker:module:list DHCP_POOL_IRCAD

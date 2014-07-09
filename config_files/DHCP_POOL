@@ -1,0 +1,13 @@
+% for machine in data['pools']:  
+subnet ${machine['subnet']} netmask ${machine['netmask']} {
+  option domain-name "${machine['domain_name']}";
+  option routers ${machine['router']};
+  option domain-name-servers ${machine['dns']};
+
+  pool {
+    failover peer "dhcp-failover";
+    range ${machine['range']};
+  }
+}
+
+% endfor 

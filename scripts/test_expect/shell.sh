@@ -23,5 +23,5 @@ function setup() {
     ID=$(sudo docker rm $ID)
 }
 $>
-setup ;
+
 echo "good"

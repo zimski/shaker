@@ -37,10 +37,10 @@ block CONTENT
                   td= hs.status
                   td= hs.desc
                   td
-                        button.btn.btn-Red(onclick="run_script('CRON_JOB_start','#{hs.id}',1,'Start')",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Green(onclick="run_script('CRON_JOB_stop','',0,'Stop')",style='height:30px;margin-left:5px') Stop
-                        a.btn.btn-default(href="/module/CRON_JOB/edit/#{hs.id}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Red(onclick="run_script('CRON_JOB_start','#{hs.id}',1,'Start')",style='height:30px;margin-left:5px;margin-top:5px') Start
+                        button.btn.btn-Green(onclick="run_script('CRON_JOB_stop','',0,'Stop')",style='height:30px;margin-left:5px;margin-top:5px') Stop
+                        a.btn.btn-default(href="/module/CRON_JOB/edit/#{hs.id}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
 
          
           script.
@@ -68,10 +68,11 @@ block CONTENT
                 else
                 {
                     var arguments = arg;
+                    $('#prompt').modal('hide');
                     $('#console').modal('show')
                     $.post("/run_shaker/"+src,{argv: arguments },function(data){
                        
-                      $('#console-content').append("finish");       
+                      $('#console-content').append("");       
                     });
                 }
                 

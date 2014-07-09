@@ -1,0 +1,29 @@
+max-lease-time 7200;
+default-lease-time 7200;
+
+authoritative;
+ddns-update-style none;
+
+failover peer "dhcp-failover" {
+  primary;
+  address 192.168.228.195;
+  port 647;
+  peer address 192.168.228.196;
+  peer port 647;
+  max-response-delay 30;
+  max-unacked-updates 10;
+  load balance max seconds 3;
+  mclt 1800;
+  split 128;
+}
+
+subnet 192.168.228.0 netmask 255.255.255.0 {
+
+}
+
+include "/etc/dhcpd/haras.conf";
+include "/etc/dhcpd/haras-fixed.conf";
+include "/etc/dhcpd/ihu.conf";
+include "/etc/dhcpd/ihu-fixed.conf";
+include "/etc/dhcpd/ircad.conf";
+include "/etc/dhcpd/ircad-fixed.conf";

@@ -1,0 +1,60 @@
+
+extends ../layout
+ 
+
+block CONTENT
+  h1.page-header DHCP_CORE
+            a(href="/cms/edit_module/DHCP_CORE")
+                span(class="glyphicon glyphicon-cog pull-right")
+  ul(class="nav nav-tabs nav-justified")
+            li.active
+                a(href="/module/DHCP_CORE/form") New record
+            li
+                a(href="/module/DHCP_CORE/view") List
+  div.row
+    div.col-md-6
+      form(role="form",action="/module/DHCP_CORE/post",method='POST')
+        div.form-group
+          label(for="IP") IP
+          if(data['ip'] != undefined)
+            input(name="ip",value="#{data['ip']}", type="text", class="form-control" ,id="ip", placeholder="")
+          else
+            input(name="ip", type="text", class="form-control" ,id="ip", placeholder="")
+        div.form-group
+          label(for="Etat") Etat
+          if(data['etat'] != undefined)
+            input(name="etat",value="#{data['etat']}", type="text", class="form-control" ,id="etat", placeholder="")
+          else
+            input(name="etat", type="text", class="form-control" ,id="etat", placeholder="")
+        div.form-group
+          label(for="Date last update") Date last update
+          if(data['date_update'] != undefined)
+            input(name="date_update",value="#{data['date_update']}", type="text", class="form-control" ,id="date_update", placeholder="")
+          else
+            input(name="date_update", type="text", class="form-control" ,id="date_update", placeholder="")
+        div.form-group
+          label(for="Date last push on servers") Date last push on servers
+          if(data['date_push'] != undefined)
+            input(name="date_push",value="#{data['date_push']}", type="text", class="form-control" ,id="date_push", placeholder="")
+          else
+            input(name="date_push", type="text", class="form-control" ,id="date_push", placeholder="")
+        div.form-group
+          label(for="Status") Status
+          if(data['status'] != undefined)
+            input(name="status",value="#{data['status']}", type="text", class="form-control" ,id="status", placeholder="")
+          else
+            input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+    
+        div.form-group
+          label(for="Role") Role
+          if(data['role'] != undefined)
+            select(name="role", type="text", class="form-control" ,id="role", placeholder="")
+                option(value="#{data['role']}") #{data['role']}
+                option(value='primary') primary
+                option(value='slave') slave
+          else
+            select(name="role", type="text", class="form-control" ,id="role", placeholder="")
+                option(value='primary') primary
+                option(value='slave') slave
+       
+        button(type="submit" ,class="btn btn-success") Save

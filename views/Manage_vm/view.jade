@@ -24,10 +24,7 @@ block CONTENT
                   th hostname
                   th Role
                   th VMID
-                  th HyperViseur ID
                   th Type HyperViseur
-                  th Machine Type
-                  th Kernel
               tbody
               each hs in data
                 tr(id="tr-#{hs.ip}")
@@ -36,10 +33,7 @@ block CONTENT
                   td= hs.host
                   td= hs.role
                   td= hs.vmid
-                  td= hs.hv_id
                   td= hs.hv_type
-                  td= hs.type
-                  td= hs.kernel
                   td
                         button.btn.btn-Blue(onclick="run_script('Manage_vm_start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px;margin-top:5px') Start
                         button.btn.btn-Blue(onclick="run_script('Manage_vm_slat_accept_key','#{hs.host}',0,'Salt_it')",style='height:30px;margin-left:5px;margin-top:5px') Salt_it

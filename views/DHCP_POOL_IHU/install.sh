@@ -1,0 +1,10 @@
+redis-cli HSET M:DHCP_POOL_IHU:Forms 0 "yes:yes:Subnet:subnet"
+redis-cli HSET M:DHCP_POOL_IHU:Forms 1 "no:yes:Netmask:netmask"
+redis-cli HSET M:DHCP_POOL_IHU:Forms 2 "no:yes:Domain name:domain_name"
+redis-cli HSET M:DHCP_POOL_IHU:Forms 3 "no:yes:Router:router"
+redis-cli HSET M:DHCP_POOL_IHU:Forms 4 "no:yes:Dns:dns"
+redis-cli HSET M:DHCP_POOL_IHU:Forms 5 "no:yes:Pool_peer:pool_peer"
+redis-cli HSET M:DHCP_POOL_IHU:Forms 6 "no:yes:Range:range"
+redis-cli HSET M:DHCP_POOL_IHU:Button 0 "Green:Update:DHCP_POOL_IHU_update:"
+redis-cli HSET M:DHCP_POOL_IHU:Info alias "DHCP_POOL_IHU"
+redis-cli RPUSH Shaker:module:list DHCP_POOL_IHU

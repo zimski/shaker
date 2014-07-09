@@ -1,0 +1,94 @@
+
+
+extends ../layout
+
+
+block CONTENT
+          h1.page-header DHCP_CORE
+          h2.page-header(style="color:green") Central DHCP
+            a(href="/cms/edit_module/DHCP_CORE")
+                span(class="glyphicon glyphicon-cog pull-right")
+          ul(class="nav nav-tabs nav-justified")
+            li
+                a(href="/module/DHCP_CORE/form") New record
+            li.active
+                a(href="/module/DHCP_CORE/view") List
+
+          
+          h2.sub-header List
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th IP
+                  th Etat
+                  th Date last update
+                  th Date last push on servers
+                  th Status
+                  th Role
+              tbody
+              each hs in data
+                tr(id="tr-#{hs.ip}")
+                  td #
+                  td= hs.ip
+                  td= hs.etat
+                  td= hs.date_update
+                  td= hs.date_push
+                  td= hs.status
+                  td= hs.role
+                  td
+                        button.btn.btn-Red(onclick="run_script('DHCP_CORE_check','ip',0,'Deploy')",style='height:30px;margin-left:5px;margin-top:5px') Deploy
+                        button.btn.btn-Red(onclick="run_script('DHCP_CORE_update','ip',0,'Push')",style='height:30px;margin-left:5px;margin-top:5px') Push
+                        a.btn.btn-default(href="/module/DHCP_CORE/edit/#{hs.ip}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
+
+         
+          script.
+              var arg_prompt ='';     
+              var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });
+              function run_script(src,arg,prompt,bt_name)
+              {
+                if(prompt==1)
+                {
+                    arg_prompt = arg;
+                    $.get('/module/DHCP_CORE/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
+                   
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#prompt').modal('hide');
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("");       
+                    });
+                }
+                
+              }
+              function delete_row(idd)
+              {
+                $.post("/module/DHCP_CORE/del",{key: idd},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    var sst = '#tr-'+idd.replace(/\./g,'\\.');  
+                    //alert(sst);
+                    $(sst).hide();}
+                });
+              }
+              
+              
+         

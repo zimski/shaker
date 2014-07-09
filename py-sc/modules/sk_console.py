@@ -39,12 +39,12 @@ def get(ssh,var,sk):
         #sk(3,'ssh prompt '+ssh.before)
         data=ssh.before.replace(cmd+'\r\n','')
         #sk(3,"data geted : "+data)
-        data_geted =data[:-2]
+        data_geted =''+data[:-2]
         try:
             val = int(data_geted)
             nsGlobal.console[k]= val
             sk(3,k+' = '+data[:-2]+'  ((INT))')
         except:
-            nsGlobal.console[k] = data_getted
+            nsGlobal.console[k] = data_geted
             sk(3,k+' = '+data[:-2]+'  ((STR))')
     

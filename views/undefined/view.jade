@@ -31,11 +31,11 @@ block CONTENT
                   td= hs.mac
                   td= hs.kiki
                   td
-                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}',0,'Start')",style='height:30px;margin-left:5px') Start
-                        button.btn.btn-Red(onclick="run_script('refreshOO','',0,'refresh')",style='height:30px;margin-left:5px') refresh
-                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}',0,'Stop')",style='height:30px;margin-left:5px') Stop
-                        a.btn.btn-default(href="/module/undefined/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Blue(onclick="run_script('start_vm','#{hs.ip}',1,'Start')",style='height:30px;margin-left:5px;margin-top:5px') Start
+                        button.btn.btn-Red(onclick="run_script('refreshOO','',0,'refresh')",style='height:30px;margin-left:5px;margin-top:5px') refresh
+                        button.btn.btn-Red(onclick="run_script('Down','#{hs.ip}',0,'Stop')",style='height:30px;margin-left:5px;margin-top:5px') Stop
+                        a.btn.btn-default(href="/module/undefined/edit/#{hs.ip}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
 
          
           script.

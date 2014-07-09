@@ -122,11 +122,14 @@ def ssh_cmd(cmds,var):
     hostname = var['script']['host'] 
     username = var['script']['user'] 
     password = var['script']['password']
+    prompt = True
+    if "prompt" in var['script']:
+        prompt = ['prompt']
     if mode !=1:
-      s.login(hostname, username, password)
+      s.login(hostname, username, password,auto_prompt_reset=prompt)
     inside_block = False
-    s.sendline()
-    i = s.expect([pexpect.EOF,s.PROMPT])
+    #s.sendline()
+    #i = s.expect([pexpect.EOF,s.PROMPT])
     #while i !=1:
     #    s.logout()
     #    s.login(hostname,username,password)
@@ -159,6 +162,10 @@ def ssh_cmd(cmds,var):
         message_rt = s.before
         web_console_rt(message_rt)
         continue 
+      if cmd.find('$exit')==0:
+        message_rt = s.before
+        web_console_rt(message_rt)
+        break
       if mode ==1:
         continue
       

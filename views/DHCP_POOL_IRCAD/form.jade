@@ -1,0 +1,61 @@
+
+extends ../layout
+ 
+
+block CONTENT
+  h1.page-header DHCP_POOL_IRCAD
+            a(href="/cms/edit_module/DHCP_POOL_IRCAD")
+                span(class="glyphicon glyphicon-cog pull-right")
+  ul(class="nav nav-tabs nav-justified")
+            li.active
+                a(href="/module/DHCP_POOL_IRCAD/form") New record
+            li
+                a(href="/module/DHCP_POOL_IRCAD/view") List
+  div.row
+    div.col-md-6
+      form(role="form",action="/module/DHCP_POOL_IRCAD/post",method='POST')
+        div.form-group
+          label(for="Subnet") Subnet
+          if(data['subnet'] != undefined)
+            input(name="subnet",value="#{data['subnet']}", type="text", class="form-control" ,id="subnet", placeholder="")
+          else
+            input(name="subnet", type="text", class="form-control" ,id="subnet", placeholder="")
+        div.form-group
+          label(for="Netmask") Netmask
+          if(data['netmask'] != undefined)
+            input(name="netmask",value="#{data['netmask']}", type="text", class="form-control" ,id="netmask", placeholder="")
+          else
+            input(name="netmask", type="text", class="form-control" ,id="netmask", placeholder="")
+        div.form-group
+          label(for="Domain name") Domain name
+          if(data['domain_name'] != undefined)
+            input(name="domain_name",value="#{data['domain_name']}", type="text", class="form-control" ,id="domain_name", placeholder="")
+          else
+            input(name="domain_name", type="text", class="form-control" ,id="domain_name", placeholder="")
+        div.form-group
+          label(for="Router") Router
+          if(data['router'] != undefined)
+            input(name="router",value="#{data['router']}", type="text", class="form-control" ,id="router", placeholder="")
+          else
+            input(name="router", type="text", class="form-control" ,id="router", placeholder="")
+        div.form-group
+          label(for="Dns") Dns
+          if(data['dns'] != undefined)
+            input(name="dns",value="#{data['dns']}", type="text", class="form-control" ,id="dns", placeholder="")
+          else
+            input(name="dns", type="text", class="form-control" ,id="dns", placeholder="")
+        div.form-group
+          label(for="Pool_peer") Pool_peer
+          if(data['pool_peer'] != undefined)
+            input(name="pool_peer",value="#{data['pool_peer']}", type="text", class="form-control" ,id="pool_peer", placeholder="")
+          else
+            input(name="pool_peer", type="text", class="form-control" ,id="pool_peer", placeholder="")
+        div.form-group
+          label(for="Range") Range
+          if(data['range'] != undefined)
+            input(name="range",value="#{data['range']}", type="text", class="form-control" ,id="range", placeholder="")
+          else
+            input(name="range", type="text", class="form-control" ,id="range", placeholder="")
+    
+       
+        button(type="submit" ,class="btn btn-success") Save

@@ -1,9 +1,13 @@
 <%
   import redis
   module_list =[]
+  module_alias = {}
   r = redis.StrictRedis()
   
   module_list_ = r.lrange('Shaker:module:list',0,-1)
+  for mo in module_list_:
+      module_alias[mo]= r.hget('M:'+mo+':Info','alias')
+
   module_list.extend(module_list_)
   module_list.sort()    
  
@@ -51,7 +55,7 @@ html
                 span.label.label-success Shaker module\'s list
             % for module in module_list:
             li(id="menu-${module}")
-              a(href="/module/${module}/view") ${module}
+              a(href="/module/${module}/view") ${module_alias[module]}
             % endfor
           ul.nav.nav-sidebar
             li

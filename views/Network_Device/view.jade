@@ -5,6 +5,7 @@ extends ../layout
 
 block CONTENT
           h1.page-header Network_Device
+          h2.page-header(style="color:green") Network_Device
             a(href="/cms/edit_module/Network_Device")
                 span(class="glyphicon glyphicon-cog pull-right")
           ul(class="nav nav-tabs nav-justified")
@@ -22,11 +23,10 @@ block CONTENT
                   th #
                   th id
                   th Device hostname/ip
-                  th Login
                   th Interface
                   th Vlans
-                  th Status
-                  th switchport mode
+                  th Description
+                  th VoIP
                   th Active
               tbody
               each hs in data
@@ -34,16 +34,15 @@ block CONTENT
                   td #
                   td= hs.id
                   td= hs.hostname
-                  td= hs.login
                   td= hs.interface
                   td= hs.vlans
-                  td= hs.status
-                  td= hs.switchport_mode
+                  td= hs.description
+                  td= hs.voip
                   td= hs.active
                   td
-                        button.btn.btn-Red(onclick="run_script('Network_Device_pull','#{hs.id}',1,'Push')",style='height:30px;margin-left:5px') Push
-                        a.btn.btn-default(href="/module/Network_Device/edit/#{hs.id}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Red(onclick="run_script('VLAN_CONF','#{hs.id}',1,'Push')",style='height:30px;margin-left:5px;margin-top:5px') Push
+                        a.btn.btn-default(href="/module/Network_Device/edit/#{hs.id}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.id}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
 
          
           script.

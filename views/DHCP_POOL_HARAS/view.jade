@@ -1,0 +1,95 @@
+
+
+extends ../layout
+
+
+block CONTENT
+          h1.page-header DHCP_POOL_HARAS
+          h2.page-header(style="color:green") DHCP_POOL_HARAS
+            a(href="/cms/edit_module/DHCP_POOL_HARAS")
+                span(class="glyphicon glyphicon-cog pull-right")
+          ul(class="nav nav-tabs nav-justified")
+            li
+                a(href="/module/DHCP_POOL_HARAS/form") New record
+            li.active
+                a(href="/module/DHCP_POOL_HARAS/view") List
+
+          
+          h2.sub-header List
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th Subnet
+                  th Netmask
+                  th Domain name
+                  th Router
+                  th Dns
+                  th Pool_peer
+                  th Range
+              tbody
+              each hs in data
+                tr(id="tr-#{hs.subnet}")
+                  td #
+                  td= hs.subnet
+                  td= hs.netmask
+                  td= hs.domain_name
+                  td= hs.router
+                  td= hs.dns
+                  td= hs.pool_peer
+                  td= hs.range
+                  td
+                        button.btn.btn-Green(onclick="run_script('DHCP_POOL_HARAS_update','',0,'Update')",style='height:30px;margin-left:5px;margin-top:5px') Update
+                        a.btn.btn-default(href="/module/DHCP_POOL_HARAS/edit/#{hs.subnet}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.subnet}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
+
+         
+          script.
+              var arg_prompt ='';     
+              var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });
+              function run_script(src,arg,prompt,bt_name)
+              {
+                if(prompt==1)
+                {
+                    arg_prompt = arg;
+                    $.get('/module/DHCP_POOL_HARAS/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
+                   
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#prompt').modal('hide');
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("");       
+                    });
+                }
+                
+              }
+              function delete_row(idd)
+              {
+                $.post("/module/DHCP_POOL_HARAS/del",{key: idd},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    var sst = '#tr-'+idd.replace(/\./g,'\\.');  
+                    //alert(sst);
+                    $(sst).hide();}
+                });
+              }
+              
+              
+         

@@ -1,0 +1,87 @@
+
+
+extends ../layout
+
+
+block CONTENT
+          h1.page-header DHCP_FIXED_IRCAD
+          h2.page-header(style="color:green") DHCP ircad ip fixe
+            a(href="/cms/edit_module/DHCP_FIXED_IRCAD")
+                span(class="glyphicon glyphicon-cog pull-right")
+          ul(class="nav nav-tabs nav-justified")
+            li
+                a(href="/module/DHCP_FIXED_IRCAD/form") New record
+            li.active
+                a(href="/module/DHCP_FIXED_IRCAD/view") List
+
+          
+          h2.sub-header List
+          div.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th IP
+                  th MAC
+                  th hostname
+              tbody
+              each hs in data
+                tr(id="tr-#{hs.ip}")
+                  td #
+                  td= hs.ip
+                  td= hs.mac
+                  td= hs.hostname
+                  td
+                        button.btn.btn-Red(onclick="run_script('DHCP_FIXED_IRCAD_update','',0,'Update')",style='height:30px;margin-left:5px;margin-top:5px') Update
+                        a.btn.btn-default(href="/module/DHCP_FIXED_IRCAD/edit/#{hs.ip}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
+
+         
+          script.
+              var arg_prompt ='';     
+              var socket = io.connect();
+              socket.on('console-emit',function(data){
+                 $('#console-content').append(data.replace(/\n/g, "<br />"));
+                 var psconsole = $('#console-content');
+                  psconsole.scrollTop(
+                    psconsole[0].scrollHeight - psconsole.height()
+                  );
+              });
+              function run_script(src,arg,prompt,bt_name)
+              {
+                if(prompt==1)
+                {
+                    arg_prompt = arg;
+                    $.get('/module/DHCP_FIXED_IRCAD/prompt/'+bt_name,function(data){
+                        $('#prompt-content').html(data);
+                        $('#prompt').modal('show');
+                    });
+                    
+                   
+                }
+                else
+                {
+                    var arguments = arg;
+                    $('#prompt').modal('hide');
+                    $('#console').modal('show')
+                    $.post("/run_shaker/"+src,{argv: arguments },function(data){
+                       
+                      $('#console-content').append("");       
+                    });
+                }
+                
+              }
+              function delete_row(idd)
+              {
+                $.post("/module/DHCP_FIXED_IRCAD/del",{key: idd},function(data)
+                {
+                  if(data=="ok")
+                  {
+                    var sst = '#tr-'+idd.replace(/\./g,'\\.');  
+                    //alert(sst);
+                    $(sst).hide();}
+                });
+              }
+              
+              
+         

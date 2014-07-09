@@ -1,0 +1,10 @@
+redis-cli HSET M:DHCP_CORE:Forms 0 "yes:yes:IP:ip"
+redis-cli HSET M:DHCP_CORE:Forms 1 "no:yes:Etat:etat"
+redis-cli HSET M:DHCP_CORE:Forms 2 "no:yes:Date last update:date_update"
+redis-cli HSET M:DHCP_CORE:Forms 3 "no:yes:Date last push on servers:date_push"
+redis-cli HSET M:DHCP_CORE:Forms 4 "no:yes:Status:status"
+redis-cli HSET M:DHCP_CORE:Select 0 "yes:Role:role:primary,slave"
+redis-cli HSET M:DHCP_CORE:Button 0 "Red:Deploy:DHCP_CORE_check:ip"
+redis-cli HSET M:DHCP_CORE:Button 1 "Red:Push:DHCP_CORE_update:ip"
+redis-cli HSET M:DHCP_CORE:Info alias "Central DHCP"
+redis-cli RPUSH Shaker:module:list DHCP_CORE

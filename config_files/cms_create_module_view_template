@@ -7,6 +7,10 @@
   r = redis.StrictRedis()
   #M:Nom_module:form
   # data['name'] c'est le nom du module !!
+  
+
+  
+  alias = r.hget('M:'+data['name']+':Info','alias')
  
   list_button = r.hgetall('M:'+data['name']+':Button')
   
@@ -50,6 +54,7 @@ extends ../layout
 
 block CONTENT
           h1.page-header ${data['name']}
+          h2.page-header(style="color:green") ${alias}
             a(href="/cms/edit_module/${data['name']}")
                 span(class="glyphicon glyphicon-cog pull-right")
           ul(class="nav nav-tabs nav-justified")

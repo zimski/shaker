@@ -1,0 +1,13 @@
+div.modal-body()
+  form(role="form",action="")
+  div.modal-footer
+      button(type="button", class="btn btn-default", data-dismiss="modal") Close
+      button(onclick="run_script('DHCP_CORE_update',get_arg_prompt(),0,'Push')",type="button", class="btn btn-primary") OK 
+
+
+script.
+    function get_arg_prompt()
+    {
+    
+    return arg_prompt
+    }

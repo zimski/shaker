@@ -1,0 +1,9 @@
+
+# Fixed address for Guest Network
+% for machine in data['machines']:  
+host ${machine['hostname']} {
+        hardware ethernet ${machine['mac']};
+        fixed-address ${machine['ip']};
+        option host-name "${machine['hostname']}";
+}
+% endfor 

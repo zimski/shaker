@@ -27,18 +27,6 @@ block CONTENT
           else
             input(name="hostname", type="text", class="form-control" ,id="hostname", placeholder="")
         div.form-group
-          label(for="Login") Login
-          if(data['login'] != undefined)
-            input(name="login",value="#{data['login']}", type="text", class="form-control" ,id="login", placeholder="")
-          else
-            input(name="login", type="text", class="form-control" ,id="login", placeholder="")
-        div.form-group
-          label(for="Password") Password
-          if(data['password'] != undefined)
-            input(name="password",value="#{data['password']}", type="text", class="form-control" ,id="password", placeholder="")
-          else
-            input(name="password", type="text", class="form-control" ,id="password", placeholder="")
-        div.form-group
           label(for="Interface") Interface
           if(data['interface'] != undefined)
             input(name="interface",value="#{data['interface']}", type="text", class="form-control" ,id="interface", placeholder="")
@@ -51,23 +39,23 @@ block CONTENT
           else
             input(name="vlans", type="text", class="form-control" ,id="vlans", placeholder="")
         div.form-group
-          label(for="Status") Status
-          if(data['status'] != undefined)
-            input(name="status",value="#{data['status']}", type="text", class="form-control" ,id="status", placeholder="")
+          label(for="Description") Description
+          if(data['description'] != undefined)
+            input(name="description",value="#{data['description']}", type="text", class="form-control" ,id="description", placeholder="")
           else
-            input(name="status", type="text", class="form-control" ,id="status", placeholder="")
+            input(name="description", type="text", class="form-control" ,id="description", placeholder="")
     
         div.form-group
-          label(for="switchport mode") switchport mode
-          if(data['switchport_mode'] != undefined)
-            select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
-                option(value="#{data['switchport_mode']}") #{data['switchport_mode']}
-                option(value='trunk') trunk
-                option(value='access') access
+          label(for="VoIP") VoIP
+          if(data['voip'] != undefined)
+            select(name="voip", type="text", class="form-control" ,id="voip", placeholder="")
+                option(value="#{data['voip']}") #{data['voip']}
+                option(value='oui') oui
+                option(value='non') non
           else
-            select(name="switchport_mode", type="text", class="form-control" ,id="switchport_mode", placeholder="")
-                option(value='trunk') trunk
-                option(value='access') access
+            select(name="voip", type="text", class="form-control" ,id="voip", placeholder="")
+                option(value='oui') oui
+                option(value='non') non
         div.form-group
           label(for="Active") Active
           if(data['active'] != undefined)

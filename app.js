@@ -5,6 +5,8 @@ var express = require('express')
 , sys = require('sys')
 , redis = require('redis')
 , io = require('socket.io');
+//, terminal = require('web-terminal');
+
 var sanitizer = require('sanitizer');
 var app = express();var sanitizer = require('sanitizer');
 var client_redis = redis.createClient();
@@ -47,6 +49,12 @@ io.sockets.emit('halt',{});
 res.send('OK');
 });
 io = io.listen(op,{log : false});
+
+//---------------    Terminal --------------------
+//
+//------------------------------------------------
+//terminal(op);
+//console.log('Terminal lunched !!')
 var slave_id;
 slave_id =0;
 io.sockets.on('connection', function (socket) {

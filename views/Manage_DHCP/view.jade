@@ -33,11 +33,11 @@ block CONTENT
                   td= hs.machhh
                   td= hs.area
                   td
-                        button.btn.btn-Red(onclick="run_script('undefined','ip',1,'Set')",style='height:30px;margin-left:5px') Set
-                        button.btn.btn-Green(onclick="run_script('undefined','',0,'Remove')",style='height:30px;margin-left:5px') Remove
-                        button.btn.btn-Green(onclick="run_script('undefined','',0,'Remove')",style='height:30px;margin-left:5px') Remove
-                        a.btn.btn-default(href="/module/Manage_DHCP/edit/#{hs.ip}",style='height:30px; margin-left:5px') Edit
-                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px') Remove
+                        button.btn.btn-Red(onclick="run_script('undefined','ip',1,'Set')",style='height:30px;margin-left:5px;margin-top:5px') Set
+                        button.btn.btn-Green(onclick="run_script('undefined','',0,'Remove')",style='height:30px;margin-left:5px;margin-top:5px') Remove
+                        button.btn.btn-Green(onclick="run_script('undefined','',0,'Remove')",style='height:30px;margin-left:5px;margin-top:5px') Remove
+                        a.btn.btn-default(href="/module/Manage_DHCP/edit/#{hs.ip}",style='height:30px; margin-left:5px;margin-top:5px') Edit
+                        button.btn.btn-default(onclick="delete_row('#{hs.ip}')",style='height:30px; margin-left:5px;margin-top:5px') Remove
 
          
           script.
@@ -69,7 +69,7 @@ block CONTENT
                     $('#console').modal('show')
                     $.post("/run_shaker/"+src,{argv: arguments },function(data){
                        
-                      $('#console-content').append("finish");       
+                      $('#console-content').append("");       
                     });
                 }
                 

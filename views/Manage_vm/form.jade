@@ -75,16 +75,16 @@ block CONTENT
                 option(value='Proxmox') Proxmox
                 option(value='ESXI') ESXI
         div.form-group
-          label(for="Machine Type") Machine Type
+          label(for="Machine Exist") Machine Exist
           if(data['type'] != undefined)
             select(name="type", type="text", class="form-control" ,id="type", placeholder="")
                 option(value="#{data['type']}") #{data['type']}
-                option(value='VM') VM
-                option(value='Physique') Physique
+                option(value='no(create it)') no(create it)
+                option(value='yes') yes
           else
             select(name="type", type="text", class="form-control" ,id="type", placeholder="")
-                option(value='VM') VM
-                option(value='Physique') Physique
+                option(value='no(create it)') no(create it)
+                option(value='yes') yes
         div.form-group
           label(for="Kernel") Kernel
           if(data['kernel'] != undefined)
